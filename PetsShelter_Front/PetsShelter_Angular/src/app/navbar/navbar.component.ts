@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faShieldDog } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-navbar',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-
+  faShieldDog = faShieldDog;
 }

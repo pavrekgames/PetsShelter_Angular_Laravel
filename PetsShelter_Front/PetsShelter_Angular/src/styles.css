@@ -6,6 +6,17 @@
   background-color: #6a994e;
 }
 
+.img-fluid {
+  max-width: 100%;
+  height: auto
+}
+
+.img-size{
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
 html { background-color: #0d1b2a; }
 
 .pt-6,

@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { RouterModule, provideRouter } from '@angular/router';
 import routeConfig from './routing/routes';
 import { HomeComponent } from './home/home.component';
+import { PetToAdoptComponent } from './pet-to-adopt/pet-to-adopt.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HomeComponent } from './home/home.component';
     NavbarComponent,
     RegisterComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    PetToAdoptComponent
   ],
   imports: [
     BrowserModule,

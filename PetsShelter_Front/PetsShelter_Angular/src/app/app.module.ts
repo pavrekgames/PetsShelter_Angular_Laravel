@@ -11,6 +11,8 @@ import { RouterModule, provideRouter } from '@angular/router';
 import routeConfig from './routing/routes';
 import { HomeComponent } from './home/home.component';
 import { PetToAdoptComponent } from './pet-to-adopt/pet-to-adopt.component';
+import { PetsAdoptPageComponent } from './pets-adopt-page/pets-adopt-page.component';
+import { PetsSickPageComponent } from './pets-sick-page/pets-sick-page.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { PetToAdoptComponent } from './pet-to-adopt/pet-to-adopt.component';
     RegisterComponent,
     LoginComponent,
     HomeComponent,
-    PetToAdoptComponent
+    PetToAdoptComponent,
+    PetsAdoptPageComponent,
+    PetsSickPageComponent
   ],
   imports: [
     BrowserModule,

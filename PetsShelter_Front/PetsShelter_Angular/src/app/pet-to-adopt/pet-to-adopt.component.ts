@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Pet } from '../models/pet';
 
 @Component({
   selector: 'app-pet-to-adopt',
@@ -6,5 +7,16 @@ import { Component } from '@angular/core';
   styleUrl: './pet-to-adopt.component.css'
 })
 export class PetToAdoptComponent {
+
+pet: Pet = {
+  id: 0,
+  name: 'Carlos',
+  species: 'Pies',
+  race: 'kundel',
+  size: 'średni',
+  description: 'brak',
+  photoPath: './assets/PetsBgr.jpg',
+  id_User: 0
+}
 
 }

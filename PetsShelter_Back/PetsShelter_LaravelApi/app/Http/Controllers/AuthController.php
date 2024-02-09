@@ -3,17 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
     public function register(Request $request){
-        $user = User::Create([
+
+       return $user = User::Create([
             'name' => $request->input('name'),
             'surname' => $request->input('surname'),
             'email' => $request->input('email'),
-            'password' => hash::make($request->input('password')),
+            'password' => Hash::make($request->input('password')),
             'role' => $request->input('role'),
-            'tokens_count' => $request->input('tokensCount')
+            'tokens_count' => $request->input('tokens_count')
         ]);
     }
 }

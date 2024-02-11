@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { PetToAdoptComponent } from './pet-to-adopt/pet-to-adopt.component';
 import { PetsAdoptPageComponent } from './pets-adopt-page/pets-adopt-page.component';
 import { PetsSickPageComponent } from './pets-sick-page/pets-sick-page.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,8 @@ import { PetsSickPageComponent } from './pets-sick-page/pets-sick-page.component
     AppRoutingModule,
     FontAwesomeModule,
     RouterModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideClientHydration(),

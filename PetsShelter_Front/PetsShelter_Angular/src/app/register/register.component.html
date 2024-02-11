@@ -4,27 +4,78 @@
 
   <div class="row justify-content-center px-6 pt-5">
 
-    <div class="col-lg-5 register-form-bgr rounded " >
+    <div class="col-lg-5 rounded " >
 
       <div class="p-4 text-light text-center">
         <h3>Rejestracja</h3>
       </div>
 
       <div class="text-light">
-        <label for="task-title" class="form-label m-2">Imię:</label>
-        <input type="text" class="form-control" id="task-title" placeholder="" name="task-title" >
 
-        <label for="task-title" class="form-label m-2">Nazwisko:</label>
-        <input type="text" class="form-control" id="task-title" placeholder="" name="task-title" >
+        <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <label for="task-title" class="form-label m-2">Imię:</label>
+          <input type="text" class="form-control" id="task-title" placeholder="" name="task-title" formControlName = "name">
 
-        <label for="task-title" class="form-label m-2">E-mail:</label>
-        <input type="email" class="form-control" id="task-title" placeholder="" name="task-title" >
+          <div class="text-danger p-1" *ngIf="registerForm.get('name')?.hasError('required') &&
+          (registerForm.get('name')?.dirty ||
+            registerForm.get('name')?.touched ||
+            hasSubmitted)">Imię jest wymagane</div>
 
-        <label for="task-title" class="form-label m-2">Hasło:</label>
-        <input type="password" class="form-control" id="task-title" placeholder="" name="task-title" >
+            <div class="text-danger p-1" *ngIf="registerForm.get('name')?.hasError('maxlength') &&
+          (registerForm.get('name')?.dirty ||
+            registerForm.get('name')?.touched ||
+            hasSubmitted)">Podane imię jest za długie</div>
 
-        <label for="task-title" class="form-label m-2">Powtórz hasło:</label>
-        <input type="password" class="form-control" id="task-title" placeholder="" name="task-title" >
+          <label for="task-title" class="form-label m-2">Nazwisko:</label>
+          <input type="text" class="form-control" id="task-title" placeholder="" name="task-title" formControlName = "surname" >
+
+          <div class="text-danger p-1" *ngIf="registerForm.get('surname')?.hasError('required') &&
+          (registerForm.get('surname')?.dirty ||
+            registerForm.get('surname')?.touched ||
+            hasSubmitted)">Nazwisko jest wymagane</div>
+
+            <div class="text-danger p-1" *ngIf="registerForm.get('surname')?.hasError('maxlength') &&
+          (registerForm.get('surname')?.dirty ||
+            registerForm.get('surname')?.touched ||
+            hasSubmitted)">Podane nazwisko jest za długie</div>
+
+          <label for="task-title" class="form-label m-2">E-mail:</label>
+          <input type="email" class="form-control" id="task-title" placeholder="" name="task-title" formControlName = "email">
+
+          <div class="text-danger p-1" *ngIf="registerForm.get('email')?.hasError('required') &&
+          (registerForm.get('email')?.dirty ||
+            registerForm.get('email')?.touched ||
+            hasSubmitted)">E-mail jest wymagany</div>
+
+            <div class="text-danger p-1" *ngIf="registerForm.get('email')?.hasError('email') &&
+          (registerForm.get('email')?.dirty ||
+            registerForm.get('email')?.touched ||
+            hasSubmitted)">Wpisz poprawny adres e-mail</div>
+
+          <label for="task-title" class="form-label m-2">Hasło:</label>
+          <input type="password" class="form-control" id="task-title" placeholder="" name="task-title" formControlName = "password">
+
+          <div class="text-danger p-1" *ngIf="registerForm.get('password')?.hasError('required') &&
+          (registerForm.get('password')?.dirty ||
+            registerForm.get('password')?.touched ||
+            hasSubmitted)">Hasło jest wymagane</div>
+
+            <div class="text-danger p-1" *ngIf="registerForm.get('password')?.hasError('minlength') &&
+          (registerForm.get('password')?.dirty ||
+            registerForm.get('password')?.touched ||
+            hasSubmitted)">Hasło musi mieć minimalnie 6 znaków</div>
+
+          <label for="task-title" class="form-label m-2">Powtórz hasło:</label>
+          <input type="password" class="form-control" id="task-title" placeholder="" name="task-title" formControlName = "confirmPassword">
+
+          <div class="text-danger p-1" *ngIf="registerForm.get('confirmPassword')?.hasError('required') &&
+          (registerForm.get('confirmPassword')?.dirty ||
+            registerForm.get('confirmPassword')?.touched ||
+            hasSubmitted)">Pole nie może być puste</div>
+
+        </form>
+
+
       </div>
 
 

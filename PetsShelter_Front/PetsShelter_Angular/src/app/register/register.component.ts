@@ -20,10 +20,12 @@ export class RegisterComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    //this.hasSubmitted = false;
+  }
 
   onSubmit(){
-
+    this.hasSubmitted = true;
   }
 
 }

@@ -18,8 +18,8 @@ class AuthController extends Controller
             'surname' => $request->input('surname'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
-            'role' => $request->input('role'),
-            'tokens_count' => $request->input('tokens_count')
+            'role' => 'user',
+            'tokens_count' => 0
         ]);
     }
 

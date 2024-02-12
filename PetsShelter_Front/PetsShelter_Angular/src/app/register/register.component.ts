@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+declare let alertify: any;
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -10,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   hasSubmitted: boolean = false;
-  isPasswordsSame: boolean = false;
+  isPasswordsSame: boolean = true;
 
   registerForm = this.formBuilder.group({
     name: ['', [Validators.required, Validators.maxLength(25)]],
@@ -44,6 +46,7 @@ export class RegisterComponent implements OnInit {
         )
         .subscribe(() => {
           this.router.navigate(['/login']);
+          alertify.success('Zostałeś zarejestrowany');
         });
     }else{
       console.log("Form is invalid");

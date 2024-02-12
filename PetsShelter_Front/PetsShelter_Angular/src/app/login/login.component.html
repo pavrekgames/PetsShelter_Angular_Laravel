@@ -5,7 +5,7 @@
 
   <div class="row justify-content-center px-6 pt-5">
 
-    <div class="col-lg-5 login-form-bgr rounded " >
+    <div class="col-lg-5 rounded " >
 
       <div class="p-4 text-light text-center">
         <h3>Logowanie</h3>
@@ -13,16 +13,34 @@
 
       <div class="text-light">
 
-        <label for="task-title" class="form-label m-2">E-mail:</label>
-        <input type="email" class="form-control" id="task-title" placeholder="" name="task-title" >
+        <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <label for="task-title" class="form-label m-2">E-mail:</label>
+          <input type="email" class="form-control" id="task-title" placeholder="" name="task-title" formControlName = "email">
 
-        <label for="task-title" class="form-label m-2">Hasło:</label>
-        <input type="password" class="form-control" id="task-title" placeholder="" name="task-title" >
+          <div class="text-danger p-1" *ngIf="loginForm.get('email')?.hasError('required') &&
+          (loginForm.get('email')?.dirty ||
+          loginForm.get('email')?.touched ||
+            hasSubmitted)">E-mail jest wymagany</div>
+
+            <div class="text-danger p-1" *ngIf="loginForm.get('email')?.hasError('email') &&
+          (loginForm.get('email')?.dirty ||
+          loginForm.get('email')?.touched ||
+            hasSubmitted)">Wpisz poprawny adres e-mail</div>
+
+          <label for="task-title" class="form-label m-2">Hasło:</label>
+          <input type="password" class="form-control" id="task-title" placeholder="" name="task-title" formControlName = "password">
+
+          <div class="text-danger p-1" *ngIf="loginForm.get('password')?.hasError('required') &&
+          (loginForm.get('password')?.dirty ||
+          loginForm.get('password')?.touched ||
+            hasSubmitted)">Hasło jest wymagane</div>
+
+          <div class="text-center m-4">
+            <button type="submit" class="btn btn-warning">Zaloguj</button>
+          </div>
+
+        </form>
 
       </div>
-
-        <div class="text-center m-4">
-          <button type="button" class="btn btn-warning">Zaloguj</button>
-        </div>
 
 </div>

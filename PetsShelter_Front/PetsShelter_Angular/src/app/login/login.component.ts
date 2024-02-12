@@ -32,15 +32,16 @@ export class LoginComponent implements OnInit {
     this.hasSubmitted = true;
 
     if (this.loginForm.valid) {
-   /*   this.http
+      this.http
         .post(
           'http://127.0.0.1:8000/api/login',
-          this.loginForm.getRawValue()
+          this.loginForm.getRawValue(),
+          {withCredentials: true}
         )
         .subscribe(() => {
           this.router.navigate(['/']);
           alertify.success('Zostałeś zalogowany');
-        }); */
+        });
     }else{
       console.log("Form is invalid");
     }

@@ -30,6 +30,26 @@ const routeConfig: Routes = [
     path: 'sick-pets',
     component: PetsSickPageComponent,
     title: 'Chore zwierzęta'
+  },
+  {
+    path: 'add-pet',
+    component: PetsSickPageComponent,
+    title: 'Dodaj zwierzę'
+  },
+  {
+    path: 'edit-profile',
+    component: PetsSickPageComponent,
+    title: 'Edytuj profil'
+  },
+  {
+    path: 'my-pets',
+    component: PetsSickPageComponent,
+    title: 'Moje zwierzęta'
+  },
+  {
+    path: 'saved-pets',
+    component: PetsSickPageComponent,
+    title: 'Zapisane zwierzęta'
   }
 ];
 

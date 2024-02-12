@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { faShieldDog } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { faCoins } from '@fortawesome/free-solid-svg-icons';
 import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-navbar',
@@ -15,8 +15,8 @@ export class NavbarComponent implements OnInit {
   faShieldDog = faShieldDog;
   faUser = faUser;
   faPlus = faPlus;
-  faCoins = faCoins;
   faSackDollar = faSackDollar;
+  faEnvelope = faEnvelope;
 
   isAuthorized: boolean = false;
 

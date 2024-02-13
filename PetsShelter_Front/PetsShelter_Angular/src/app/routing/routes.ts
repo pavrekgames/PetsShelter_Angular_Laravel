@@ -4,6 +4,7 @@ import { RegisterComponent } from "../register/register.component";
 import { LoginComponent } from "../login/login.component";
 import { PetsAdoptPageComponent } from "../pets-adopt-page/pets-adopt-page.component";
 import { PetsSickPageComponent } from "../pets-sick-page/pets-sick-page.component";
+import { AddPetComponent } from "../add-pet/add-pet.component";
 
 const routeConfig: Routes = [
   {
@@ -33,7 +34,7 @@ const routeConfig: Routes = [
   },
   {
     path: 'add-pet',
-    component: PetsSickPageComponent,
+    component: AddPetComponent,
     title: 'Dodaj zwierzę'
   },
   {

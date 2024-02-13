@@ -15,6 +15,7 @@ import { PetsAdoptPageComponent } from './pets-adopt-page/pets-adopt-page.compon
 import { PetsSickPageComponent } from './pets-sick-page/pets-sick-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AddPetComponent } from './add-pet/add-pet.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     PetToAdoptComponent,
     PetsAdoptPageComponent,
-    PetsSickPageComponent
+    PetsSickPageComponent,
+    AddPetComponent
   ],
   imports: [
     BrowserModule,

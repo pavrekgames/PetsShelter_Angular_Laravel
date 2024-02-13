@@ -1,0 +1,44 @@
+<app-navbar></app-navbar>
+
+<div class="app-background center ">
+
+  <div class="row justify-content-center px-6 pt-5">
+
+    <div class="col-lg-5 rounded " >
+
+      <div class="p-4 text-light text-center">
+        <h3>Dodaj zwierzę</h3>
+      </div>
+
+      <div class="text-light">
+
+        <form class="form" [formGroup]="addPetForm" (ngSubmit)="onSubmit()">
+          <label for="pet-name" class="form-label m-2">Imię:</label>
+          <input type="text" class="form-control" id="pet-name" placeholder="" name="pet-name" formControlName = "name">
+
+          <label for="species" class="form-label m-2">Gatunek:</label>
+          <input type="text" class="form-control" id="species" placeholder="" name="species" formControlName = "spiecies">
+
+          <label for="race" class="form-label m-2">Rasa:</label>
+          <input type="text" class="form-control" id="race" placeholder="" name="race" formControlName = "race">
+
+          <div class="mt-3 ms-2">
+            <label for="size" class="form-label">Rozmiar:</label>
+            <input type="radio" class="form-check-input m-2" id="small" name="size" checked>Mały
+            <input type="radio" class="form-check-input m-2" id="medium" name="size" >Średni
+            <input type="radio" class="form-check-input m-2" id="big" name="size" >Duży
+          </div>
+
+          <label for="description" class="form-label m-2">Opis:</label>
+          <textarea class="form-control" id="description" rows="3" formControlName = "description"></textarea>
+
+          <div class="text-center m-4">
+            <button type="submit" class="btn btn-warning">Dodaj</button>
+          </div>
+
+        </form>
+
+      </div>
+
+</div>
+

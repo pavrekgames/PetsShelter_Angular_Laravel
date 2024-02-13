@@ -7,11 +7,25 @@ use Cookie;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
     public function register(Request $request){
+
+        $data = $request->only('name', 'surname', 'email', 'password');
+
+        $validator = Validator::make($data, [
+            'name'=> 'required|max:25',
+            'surname' => 'required|max:25',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6',
+        ]);
+
+        if( $validator->fails() ){
+            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+        }
 
        return $user = User::Create([
             'name' => $request->input('name'),

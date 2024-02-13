@@ -50,23 +50,6 @@ class AuthController extends Controller
             return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
         }
 
-
-
-        if(!Auth::attempt($request->only('email','password'))){
-            return response([
-                'message' => 'Błędny e-mail lub hasło'
-            ], Response::HTTP_UNAUTHORIZED);
-        }
-
-        $user = Auth::user();
-
-        $token = $user->createToken('loginToken')->plainTextToken;
-
-        $cookie = cookie('loginToken', $token, 60 * 24);
-
-        return response([
-            'message'=> 'Zostałeś zalogowany'
-        ])->withCookie($cookie);
     }
 
     public function user(){
@@ -74,13 +57,7 @@ class AuthController extends Controller
     }
 
     public function logout(){
-        $cookie = Cookie::forget('loginToken');
 
-        //$request->user->remember_token.delete();
-
-        return response([
-            'message'=> 'Zostałeś wylogowany'
-        ])->withCookie($cookie);
     }
 
 }

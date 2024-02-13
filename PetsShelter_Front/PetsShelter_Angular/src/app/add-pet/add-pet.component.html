@@ -12,25 +12,58 @@
 
       <div class="text-light">
 
-        <form class="form" [formGroup]="addPetForm" (ngSubmit)="onSubmit()">
+        <form class="form" [formGroup]="addPetForm" enctype="multipart/form-data" (ngSubmit)="onSubmit()">
           <label for="pet-name" class="form-label m-2">Imię:</label>
           <input type="text" class="form-control" id="pet-name" placeholder="" name="pet-name" formControlName = "name">
 
+          <div class="text-danger p-1" *ngIf="addPetForm.get('name')?.hasError('required') &&
+          (addPetForm.get('name')?.dirty ||
+          addPetForm.get('name')?.touched ||
+            hasSubmitted)">Imię jest wymagane</div>
+
           <label for="species" class="form-label m-2">Gatunek:</label>
-          <input type="text" class="form-control" id="species" placeholder="" name="species" formControlName = "spiecies">
+          <input type="text" class="form-control" id="species" placeholder="" name="species" formControlName = "species">
+
+          <div class="text-danger p-1" *ngIf="addPetForm.get('species')?.hasError('required') &&
+          (addPetForm.get('species')?.dirty ||
+          addPetForm.get('species')?.touched ||
+            hasSubmitted)">Gatunek jest wymagany</div>
+
+            <div class="text-danger p-1" *ngIf="addPetForm.get('species')?.hasError('minlength') &&
+          (addPetForm.get('species')?.dirty ||
+          addPetForm.get('species')?.touched ||
+            hasSubmitted)">Gatunek musi mieć minimalnie 3 znaki</div>
 
           <label for="race" class="form-label m-2">Rasa:</label>
           <input type="text" class="form-control" id="race" placeholder="" name="race" formControlName = "race">
 
+          <div class="text-danger p-1" *ngIf="addPetForm.get('race')?.hasError('required') &&
+          (addPetForm.get('race')?.dirty ||
+          addPetForm.get('race')?.touched ||
+            hasSubmitted)">Rasa jest wymagana</div>
+
+            <div class="text-danger p-1" *ngIf="addPetForm.get('race')?.hasError('minlength') &&
+          (addPetForm.get('race')?.dirty ||
+          addPetForm.get('race')?.touched ||
+            hasSubmitted)">Rasa musi mieć minimalnie 3 znaki</div>
+
           <div class="mt-3 ms-2">
             <label for="size" class="form-label">Rozmiar:</label>
-            <input type="radio" class="form-check-input m-2" id="small" name="size" checked>Mały
-            <input type="radio" class="form-check-input m-2" id="medium" name="size" >Średni
-            <input type="radio" class="form-check-input m-2" id="big" name="size" >Duży
+            <input type="radio" class="form-check-input m-2" id="small" name="size" value="Mały" formControlName = "size" checked="true">Mały
+            <input type="radio" class="form-check-input m-2" id="medium" name="size" value="Średni" formControlName = "size">Średni
+            <input type="radio" class="form-check-input m-2" id="big" name="size" value="Duży" formControlName = "size">Duży
           </div>
 
           <label for="description" class="form-label m-2">Opis:</label>
           <textarea class="form-control" id="description" rows="3" formControlName = "description"></textarea>
+
+          <label for="photoPath" class="form-label m-2">Dodaj zdjęcie:</label>
+          <input type="file" class="form-control" id="photoPath" name="photoPath" formControlName = "photoPath">
+
+          <div class="text-danger p-1" *ngIf="addPetForm.get('photoPath')?.hasError('required') &&
+          (addPetForm.get('photoPath')?.dirty ||
+          addPetForm.get('photoPath')?.touched ||
+            hasSubmitted)">Zdjęcie jest wymagane</div>
 
           <div class="text-center m-4">
             <button type="submit" class="btn btn-warning">Dodaj</button>

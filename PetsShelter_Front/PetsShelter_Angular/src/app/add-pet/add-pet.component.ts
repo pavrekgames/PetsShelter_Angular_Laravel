@@ -12,10 +12,16 @@ declare let alertify: any;
 })
 export class AddPetComponent implements OnInit {
   hasSubmitted: boolean = false;
+  userId: number = 1;
 
   addPetForm = this.formBuilder.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]]
+    name: ['', [Validators.required]],
+    species: ['', [Validators.required, Validators.minLength(3)]],
+    race: ['', [Validators.required, Validators.minLength(3)]],
+    size: ['Mały', [Validators.required]],
+    description: [''],
+    photoPath: ['', [Validators.required]],
+    userId: [this.userId, [Validators.required]]
   });
 
   constructor(
@@ -31,7 +37,8 @@ export class AddPetComponent implements OnInit {
   onSubmit(){
     this.hasSubmitted = true;
 
-    if (this.addPetForm.valid) {
+    console.log(this.addPetForm);
+    /*if (this.addPetForm.valid) {
       this.http
         .post(
           'http://127.0.0.1:8000/api/add-pet',
@@ -44,7 +51,7 @@ export class AddPetComponent implements OnInit {
         });
     }else{
       console.log("Form is invalid");
-    }
+    } */
   }
 
 }

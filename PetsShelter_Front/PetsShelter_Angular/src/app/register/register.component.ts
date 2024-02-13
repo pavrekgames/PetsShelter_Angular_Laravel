@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ApiService } from '../services/api-service';
+import { error } from 'console';
 
 declare let alertify: any;
 
@@ -13,6 +15,7 @@ declare let alertify: any;
 export class RegisterComponent implements OnInit {
   hasSubmitted: boolean = false;
   isPasswordsSame: boolean = true;
+  error: any = [];
 
   registerForm = this.formBuilder.group({
     name: ['', [Validators.required, Validators.maxLength(25)]],
@@ -25,7 +28,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private apiService: ApiService
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +43,14 @@ export class RegisterComponent implements OnInit {
     this.checkPassword();
 
     if (this.registerForm.valid && this.isPasswordsSame) {
+
+      const formData = this.registerForm.getRawValue();
+
+      this.apiService.register(formData).subscribe(
+        data => console.log(data),
+        error => this.handleError(error)
+      );
+
       this.http
         .post(
           'http://127.0.0.1:8000/api/register',
@@ -62,7 +74,10 @@ export class RegisterComponent implements OnInit {
     }else{
       this.isPasswordsSame = false;
     }
+  }
 
+  handleError(error: any){
+    this.error = error.error.erros;
   }
 
 

@@ -38,6 +38,20 @@ class AuthController extends Controller
     }
 
     public function login(Request $request){
+
+        $credentials = $request->only('email', 'password');
+
+        $validator = Validator::make($credentials, [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if( $validator->fails() ){
+            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+        }
+
+
+
         if(!Auth::attempt($request->only('email','password'))){
             return response([
                 'message' => 'Błędny e-mail lub hasło'

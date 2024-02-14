@@ -50,6 +50,8 @@ export class RegisterComponent implements OnInit {
         (error) => this.handleError(error)
       );
 
+     console.log(this.error);
+
      /* this.http
         .post(
           'http://127.0.0.1:8000/api/register',

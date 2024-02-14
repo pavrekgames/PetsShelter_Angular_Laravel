@@ -52,6 +52,10 @@
             registerForm.get('email')?.touched ||
             hasSubmitted)">Wpisz poprawny adres e-mail</div>
 
+            <div class="text-danger p-1" [hidden]="true">
+                Podany e-mail już istnieje! Wprowadź inny adres e-mail
+            </div>
+
           <label for="task-title" class="form-label m-2">Hasło:</label>
           <input type="password" class="form-control" id="task-title" placeholder="" name="task-title" formControlName = "password">
 

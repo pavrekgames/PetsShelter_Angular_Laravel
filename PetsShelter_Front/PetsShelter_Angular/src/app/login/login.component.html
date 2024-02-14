@@ -35,6 +35,10 @@
           loginForm.get('password')?.touched ||
             hasSubmitted)">Hasło jest wymagane</div>
 
+          <div class="text-danger p-1" [hidden]="error">
+            Email lub hasło nieprawidłowe
+          </div>
+
           <div class="text-center m-4">
             <button type="submit" class="btn btn-warning">Zaloguj</button>
           </div>

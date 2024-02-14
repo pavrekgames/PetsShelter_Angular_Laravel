@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http
+   /* this.http
       .get('http://127.0.0.1:8000/api/user', { withCredentials: true })
       .subscribe(
         (res: any) => {
@@ -32,6 +32,6 @@ export class NavbarComponent implements OnInit {
         err => {
           console.log('Niezalogowany');
         }
-      );
+      ); */
   }
 }

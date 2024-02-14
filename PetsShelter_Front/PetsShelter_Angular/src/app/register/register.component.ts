@@ -43,15 +43,14 @@ export class RegisterComponent implements OnInit {
     this.checkPassword();
 
     if (this.registerForm.valid && this.isPasswordsSame) {
-
       const formData = this.registerForm.getRawValue();
 
       this.apiService.register(formData).subscribe(
-        data => console.log(data),
-        error => this.handleError(error)
+        (data) => console.log(data),
+        (error) => this.handleError(error)
       );
 
-      this.http
+      /*this.http
         .post(
           'http://127.0.0.1:8000/api/register',
           this.registerForm.getRawValue()
@@ -59,27 +58,27 @@ export class RegisterComponent implements OnInit {
         .subscribe(() => {
           this.router.navigate(['/login']);
           alertify.success('Zostałeś zarejestrowany');
-        });
-    }else{
-      console.log("Form is invalid");
+        }); */
+
+    } else {
+      console.log('Form is invalid');
     }
   }
 
-  checkPassword(){
+  checkPassword() {
     const firstPassword = this.registerForm.controls['password'].value;
-    const repeatedPassword = this.registerForm.controls['confirmPassword'].value;
+    const repeatedPassword =
+      this.registerForm.controls['confirmPassword'].value;
 
-    if(firstPassword == repeatedPassword){
+    if (firstPassword == repeatedPassword) {
       this.isPasswordsSame = true;
-    }else{
+    } else {
       this.isPasswordsSame = false;
     }
   }
 
-  handleError(error: any){
+  handleError(error: any) {
     this.error = error.error.erros;
   }
 
-
 }
-

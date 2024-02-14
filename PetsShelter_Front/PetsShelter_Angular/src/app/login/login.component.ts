@@ -56,9 +56,12 @@ export class LoginComponent implements OnInit {
 
   handleResponse(data: any) {
     this.tokenService.handleToken(data.access_token);
+    this.router.navigate(['/']);
+    alertify.success('Zostałeś zalogowany');
   }
 
   handleError(error: any) {
     this.error = error.error.error;
+    alertify.error('Błąd logowania');
   }
 }

@@ -47,24 +47,15 @@ export class RegisterComponent implements OnInit {
       const formData = this.registerForm.getRawValue();
 
       this.apiService.register(formData).subscribe({
-        next: (data) => {console.log(data);},
-        error:
-        (error) => {
+        next: (data) => {
+          this.handleResponse();
+          console.log(data);
+        },
+        error: (error) => {
           this.handleError(error);
           console.log(this.error);
-        }
-
-    });
-
-     /* this.http
-        .post(
-          'http://127.0.0.1:8000/api/register',
-          this.registerForm.getRawValue()
-        )
-        .subscribe(() => {
-          this.router.navigate(['/login']);
-          alertify.success('Zostałeś zarejestrowany');
-        }); */
+        },
+      });
 
     } else {
       console.log('Form is invalid');
@@ -83,10 +74,16 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  handleError(error: any) {
-    this.error = error.error.error; // before was error.error.erros
-    console.log("Mam błąd: " + JSON.stringify(error));
-    console.log("Mam do przesłania błąd: " + JSON.stringify(this.error));
+  handleResponse() {
+    this.router.navigate(['/login']);
+    alertify.success('Zostałeś zarejestrowany');
   }
 
+  handleError(error: any) {
+    this.error = error.error.error; // before was error.error.erros
+    console.log('Mam błąd: ' + JSON.stringify(error));
+    console.log('Mam do przesłania błąd: ' + JSON.stringify(this.error));
+
+    alertify.error('Błąd rejestracji');
+  }
 }

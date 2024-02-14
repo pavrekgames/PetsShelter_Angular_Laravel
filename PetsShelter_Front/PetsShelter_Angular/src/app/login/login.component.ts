@@ -4,6 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../services/api-service';
 import { TokenService } from '../services/token.service';
+import { AuthService } from '../services/auth.service';
 
 declare let alertify: any;
 
@@ -26,7 +27,8 @@ export class LoginComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private apiService: ApiService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -56,6 +58,7 @@ export class LoginComponent implements OnInit {
 
   handleResponse(data: any) {
     this.tokenService.handleToken(data.access_token);
+    this.authService.changeAuthStatus(true);
     this.router.navigate(['/']);
     alertify.success('Zostałeś zalogowany');
   }

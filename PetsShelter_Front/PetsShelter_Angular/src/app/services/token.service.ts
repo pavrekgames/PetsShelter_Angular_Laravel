@@ -43,4 +43,9 @@ export class TokenService {
   decodeToken(token: any) {
     return JSON.parse(atob(token));
   }
+
+  loggedIn(){
+    return this.isTokenValid();
+  }
+
 }

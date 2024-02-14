@@ -52,7 +52,7 @@
             registerForm.get('email')?.touched ||
             hasSubmitted)">Wpisz poprawny adres e-mail</div>
 
-            <div class="text-danger p-1" [hidden]="true">
+            <div class="text-danger p-1" *ngIf="error.email && hasSubmitted">
                 Podany e-mail już istnieje! Wprowadź inny adres e-mail
             </div>
 

@@ -35,7 +35,7 @@
           loginForm.get('password')?.touched ||
             hasSubmitted)">Hasło jest wymagane</div>
 
-          <div class="text-danger p-1" [hidden]="error">
+          <div class="text-danger p-1" *ngIf="error">
             Email lub hasło nieprawidłowe
           </div>
 

@@ -13,7 +13,7 @@ declare let alertify: any;
 })
 export class LoginComponent implements OnInit {
   hasSubmitted: boolean = false;
-  error: any = [];
+  error = null;
 
   loginForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
@@ -33,21 +33,27 @@ export class LoginComponent implements OnInit {
 
   onSubmit(){
     this.hasSubmitted = true;
+    this.error = null;
 
     if (this.loginForm.valid) {
       const formData = this.loginForm.getRawValue();
 
-      this.apiService.login(formData).subscribe(
-        (data) => console.log(data),
-        (error) => this.handleError(error)
-      );
+      this.apiService.login(formData).subscribe({
+        next: (data) => {console.log(data);},
+        error:
+        (error) => {
+          this.handleError(error);
+          console.log(this.error);
+        }
+
+    });
     }else{
       console.log("Form is invalid");
     }
   }
 
   handleError(error: any) {
-    this.error = error.error.erros;
+    this.error = error.error.error;
   }
 
   }

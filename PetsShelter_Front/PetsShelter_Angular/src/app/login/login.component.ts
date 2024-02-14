@@ -3,13 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../services/api-service';
+import { TokenService } from '../services/token.service';
 
 declare let alertify: any;
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
   hasSubmitted: boolean = false;
@@ -17,21 +18,22 @@ export class LoginComponent implements OnInit {
 
   loginForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]]
+    password: ['', [Validators.required]],
   });
 
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private tokenService: TokenService
   ) {}
 
   ngOnInit(): void {
     this.hasSubmitted = false;
   }
 
-  onSubmit(){
+  onSubmit() {
     this.hasSubmitted = true;
     this.error = null;
 
@@ -39,22 +41,24 @@ export class LoginComponent implements OnInit {
       const formData = this.loginForm.getRawValue();
 
       this.apiService.login(formData).subscribe({
-        next: (data) => {console.log(data);},
-        error:
-        (error) => {
+        next: (data) => {
+          this.handleResponse(data);
+        },
+        error: (error) => {
           this.handleError(error);
           console.log(this.error);
-        }
-
-    });
-    }else{
-      console.log("Form is invalid");
+        },
+      });
+    } else {
+      console.log('Form is invalid');
     }
+  }
+
+  handleResponse(data: any) {
+    this.tokenService.handleToken(data.access_token);
   }
 
   handleError(error: any) {
     this.error = error.error.error;
   }
-
-  }
-
+}

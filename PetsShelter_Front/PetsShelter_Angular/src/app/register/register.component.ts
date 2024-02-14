@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
         (error) => this.handleError(error)
       );
 
-      /*this.http
+     /* this.http
         .post(
           'http://127.0.0.1:8000/api/register',
           this.registerForm.getRawValue()

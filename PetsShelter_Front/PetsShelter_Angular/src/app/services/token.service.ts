@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { LocalstorageService } from '../LocalStorage';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TokenService {
-  constructor() {}
+  constructor(private localStorage: LocalstorageService) {}
 
   handleToken(token: any) {
     this.setToken(token);
@@ -12,15 +13,18 @@ export class TokenService {
   }
 
   setToken(token: any) {
-    return localStorage.setItem('token', token);
+    //return localStorage.setItem('token', token);
+    return this.localStorage.setItem('token', token);
   }
 
   getToken() {
-    return localStorage.getItem('token');
+    //return localStorage.getItem('token');
+    return this.localStorage.getItem('token');
   }
 
   removeToken() {
-    return localStorage.removeItem('token');
+    //return localStorage.removeItem('token');
+    this.localStorage.removeItem('token');
   }
 
   isTokenValid() {

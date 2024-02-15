@@ -16,6 +16,7 @@ import { PetsSickPageComponent } from './pets-sick-page/pets-sick-page.component
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AddPetComponent } from './add-pet/add-pet.component';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [

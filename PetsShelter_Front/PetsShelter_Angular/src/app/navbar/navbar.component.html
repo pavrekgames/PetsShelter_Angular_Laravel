@@ -14,7 +14,7 @@
               <div class="navbar-nav ms-auto">
 
                 <div class="fa-xl pe-3 pt-2 text-dark" *ngIf="isLoggenIn">
-                  <fa-icon class="pe-1" [icon]="faSackDollar"></fa-icon> <b>1000</b>
+                  <fa-icon class="pe-1" [icon]="faSackDollar"></fa-icon> <b>{{loggedUser.tokensCount}}</b>
                 </div>
 
                 <div class="fa-1x pe-1" *ngIf="isLoggenIn">
@@ -31,7 +31,7 @@
 
                 <div class="btn-group" *ngIf="isLoggenIn">
                   <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    Paweł  <fa-icon [icon]="faUser"></fa-icon>
+                    {{loggedUser.name}}  <fa-icon [icon]="faUser"></fa-icon>
                   </button>
                   <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="#">Edytuj profil</a></li>

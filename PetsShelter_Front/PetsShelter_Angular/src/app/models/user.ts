@@ -2,8 +2,7 @@ export interface User{
   id: number;
   name: string;
   surname: string;
-  mail: string;
-  password: string;
+  email: string;
   role: string;
   tokensCount: number;
 }

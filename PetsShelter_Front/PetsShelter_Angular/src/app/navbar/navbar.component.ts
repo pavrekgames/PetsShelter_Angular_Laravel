@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { TokenService } from '../services/token.service';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../services/api-service';
+import { User } from '../models/user';
 
 declare let alertify: any;
 
@@ -26,6 +27,15 @@ export class NavbarComponent implements OnInit {
 
   isLoggenIn: boolean = false;
 
+  loggedUser: User = {
+    id: 0,
+    name: '',
+    surname: '',
+    email: '',
+    role: '',
+    tokensCount: 0,
+  };
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -40,9 +50,11 @@ export class NavbarComponent implements OnInit {
     });
 
     if(this.isLoggenIn){
-      this.apiServie.authorizedUser().subscribe(res => {
-
-        console.log("User Data " + JSON.stringify(res));
+      this.apiServie.authorizedUser().subscribe({
+        next: (data) => {
+          this.handleUser(data);
+          console.log(data);
+        }
       });
     }
 
@@ -54,4 +66,14 @@ export class NavbarComponent implements OnInit {
     this.authService.changeAuthStatus(false);
     alertify.success('Zostałeś wylogowany');
   }
+
+  handleUser(data: any){
+    this.loggedUser.id = data.id;
+    this.loggedUser.name = data.name;
+    this.loggedUser.surname = data.surname;
+    this.loggedUser.email = data.email;
+    this.loggedUser.role = data.role;
+    this.loggedUser.tokensCount = data.tokens_count;
+  }
+
 }

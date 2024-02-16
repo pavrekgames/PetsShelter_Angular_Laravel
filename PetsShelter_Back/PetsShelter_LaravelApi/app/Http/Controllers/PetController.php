@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Pet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
 
 class PetController extends Controller
 {
@@ -22,9 +24,34 @@ class PetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $data = $request->only('name', 'species', 'race', 'size', 'photo_path', 'id_user');
+
+        $validator = Validator::make($data, [
+            'name' => 'required',
+            'species' => 'required|min:3',
+            'race' => 'required|min:3',
+            'size' => 'required|min:4',
+            'photo_path' => 'required',
+            'id_user' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+        }
+
+        $pet = Pet::Create([
+            'name' => $request->input('name'),
+            'species' => $request->input('species'),
+            'race' => $request->input('race'),
+            'size' => $request->input('size'),
+            'description' => $request->input('description'),
+            'photo_path' => $request->input('photo_path'),
+            'user_id' => auth()->user()->getAuthIdentifier(),
+        ]);
+
+        return response()->json(['message' => 'Dodałeś zwierzę do adopcji', 'userData'=> $pet], Response::HTTP_OK);
     }
 
     /**

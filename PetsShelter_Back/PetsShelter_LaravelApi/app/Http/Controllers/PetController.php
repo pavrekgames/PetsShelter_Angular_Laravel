@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pet;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Log;
 use Symfony\Component\HttpFoundation\Response;
+use Auth;
 
 class PetController extends Controller
 {
@@ -41,6 +44,8 @@ class PetController extends Controller
             return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
         }
 
+        $user = auth()->user();
+
         $pet = Pet::Create([
             'name' => $request->input('name'),
             'species' => $request->input('species'),
@@ -48,8 +53,7 @@ class PetController extends Controller
             'size' => $request->input('size'),
             'description' => $request->input('description'),
             'photo_path' => $request->input('photo_path'),
-            //'id_user' => auth()->user()->getAuthIdentifier(),
-            'id_user' => 28,
+            'id_user' => $user->id,
         ]);
 
         return response()->json(['message' => 'Dodałeś zwierzę do adopcji', 'userData'=> $pet], Response::HTTP_OK);
@@ -110,4 +114,6 @@ class PetController extends Controller
     {
         //
     }
+
+
 }

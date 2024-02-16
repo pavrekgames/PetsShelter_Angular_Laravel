@@ -7,9 +7,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class TokenService {
 
-  tokenToDekode: any;
-  decodedToken: any;
-
   constructor(private localStorage: LocalstorageService) {}
 
   handleToken(token: any) {
@@ -24,12 +21,6 @@ export class TokenService {
 
   getToken() {
     //return localStorage.getItem('token');
-    this.tokenToDekode = this.localStorage.getItem('token');
-
-    if(this.tokenToDekode){
-      //this.decodedToken = this.jwtHelper.decodeToken(this.tokenToDekode);
-      console.log(this.decodedToken);
-    }
 
     return this.localStorage.getItem('token');
   }
@@ -57,12 +48,18 @@ export class TokenService {
   }
 
   decodeToken(token: any) {
-    console.log(JSON.parse(window.atob(token)));
+    console.log(JSON.parse(atob(token)));
     return JSON.parse(window.atob(token));
   }
 
   loggedIn(){
     return this.isTokenValid();
+  }
+
+  getTokenValue(){
+    const token = this.getToken();
+
+    return token;
   }
 
 }

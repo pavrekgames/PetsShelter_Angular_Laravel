@@ -36,6 +36,6 @@ Route::group([
 
     Route::post('logout', [AuthController::class, 'logout']);
     //Route::post('refresh', 'AuthController@refresh');
-   // Route::post('me', 'AuthController@me');
+    Route::post('me', [AuthController::class,'me']);
 
 });

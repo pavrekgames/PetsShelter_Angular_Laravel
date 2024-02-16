@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('photo_path');
             $table->timestamps();
 
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('id_user')->constrained();
         });
     }
 

@@ -21,7 +21,7 @@ class Pet extends Model
         'race',
         'size',
         'description',
-        'photopath',
+        'photo_path',
         'id_user'
     ];
 

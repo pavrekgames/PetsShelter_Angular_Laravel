@@ -48,7 +48,8 @@ class PetController extends Controller
             'size' => $request->input('size'),
             'description' => $request->input('description'),
             'photo_path' => $request->input('photo_path'),
-            'user_id' => auth()->user()->getAuthIdentifier(),
+            //'id_user' => auth()->user()->getAuthIdentifier(),
+            'id_user' => 28,
         ]);
 
         return response()->json(['message' => 'Dodałeś zwierzę do adopcji', 'userData'=> $pet], Response::HTTP_OK);

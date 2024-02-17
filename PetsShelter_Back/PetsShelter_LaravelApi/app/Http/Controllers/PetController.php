@@ -118,5 +118,12 @@ class PetController extends Controller
         //
     }
 
+    public function newestPets(){
+
+        $pets = Pet::latest()->take(3)->get();
+
+        return response()->json($pets, Response::HTTP_OK);
+    }
+
 
 }

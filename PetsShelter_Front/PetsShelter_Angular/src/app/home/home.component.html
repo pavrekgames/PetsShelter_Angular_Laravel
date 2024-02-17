@@ -20,8 +20,6 @@
   <h5 class="p-5"> <b>Najnowsze:</b></h5>
 </div>
 
-<app-pet-to-adopt></app-pet-to-adopt>
-
-<app-pet-to-adopt></app-pet-to-adopt>
-
-<app-pet-to-adopt></app-pet-to-adopt>
+<div *ngFor="let pet of pets">
+<app-pet-to-adopt [pet]="pet"></app-pet-to-adopt>
+</div>

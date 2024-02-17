@@ -71,8 +71,6 @@ export class AddPetComponent implements OnInit {
 
   handleError(error: any) {
     this.error = error.error.error;
-    console.log('Mam błąd: ' + JSON.stringify(error));
-    console.log('Mam do przesłania błąd: ' + JSON.stringify(this.error));
     alertify.error('Wystąpił problem!');
   }
 

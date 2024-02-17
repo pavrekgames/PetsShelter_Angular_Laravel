@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { Pet } from '../models/pet';
 
 @Component({
@@ -8,6 +8,7 @@ import { Pet } from '../models/pet';
 })
 export class PetToAdoptComponent {
 
+  @Input()
 pet: Pet = {
   id: 0,
   name: 'Carlos',

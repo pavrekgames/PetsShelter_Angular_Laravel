@@ -11,7 +11,6 @@ export class TokenService {
 
   handleToken(token: any) {
     this.setToken(token);
-    console.log(this.isTokenValid());
   }
 
   setToken(token: any) {
@@ -48,7 +47,6 @@ export class TokenService {
   }
 
   decodeToken(token: any) {
-    console.log(JSON.parse(atob(token)));
     return JSON.parse(window.atob(token));
   }
 

@@ -40,8 +40,7 @@ export class NavbarComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private tokenService: TokenService,
-    private apiServie: ApiService,
-    private http: HttpClient
+    private apiService: ApiService
   ) {}
 
   ngOnInit(): void {
@@ -50,10 +49,9 @@ export class NavbarComponent implements OnInit {
     });
 
     if(this.isLoggenIn){
-      this.apiServie.authorizedUser().subscribe({
+      this.apiService.authorizedUser().subscribe({
         next: (data) => {
           this.handleUser(data);
-          console.log(data);
         }
       });
     }

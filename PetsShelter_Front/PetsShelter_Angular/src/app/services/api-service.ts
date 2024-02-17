@@ -34,4 +34,8 @@ export class ApiService {
     return this.http.post('http://127.0.0.1:8000/api/add-pet', data, {'headers': headers});
   }
 
+  getNewestPets(){
+    return this.http.get('http://127.0.0.1:8000/api/newest-pets');
+  }
+
 }

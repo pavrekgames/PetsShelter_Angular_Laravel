@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Log;
 use Symfony\Component\HttpFoundation\Response;
-use Auth;
+use Illuminate\Support\File;
 
 class PetController extends Controller
 {
@@ -29,15 +29,14 @@ class PetController extends Controller
      */
     public function create(Request $request)
     {
-        $data = $request->only('name', 'species', 'race', 'size', 'photo_path', 'id_user');
+        $data = $request->only('name', 'species', 'race', 'size', 'photoPath');
 
         $validator = Validator::make($data, [
             'name' => 'required',
             'species' => 'required|min:3',
             'race' => 'required|min:3',
             'size' => 'required|min:4',
-            'photo_path' => 'required',
-            'id_user' => 'required',
+            'photoPath' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -45,6 +44,10 @@ class PetController extends Controller
         }
 
         $user = auth()->user();
+        //dd($request->all());
+        //$photoPath = $request->file('photoPath')->store('pets');
+        $photoPath = $request->file('photoPath');
+        dd($photoPath);
 
         $pet = Pet::Create([
             'name' => $request->input('name'),
@@ -52,7 +55,7 @@ class PetController extends Controller
             'race' => $request->input('race'),
             'size' => $request->input('size'),
             'description' => $request->input('description'),
-            'photo_path' => $request->input('photo_path'),
+            'photo_path' => $photoPath,
             'id_user' => $user->id,
         ]);
 

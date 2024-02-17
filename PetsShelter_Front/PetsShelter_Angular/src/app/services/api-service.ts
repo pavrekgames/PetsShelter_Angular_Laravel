@@ -7,6 +7,7 @@ import { TokenService } from './token.service';
 })
 export class ApiService {
 
+
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   register(data: any) {
@@ -24,4 +25,13 @@ export class ApiService {
 
     return this.http.post('http://127.0.0.1:8000/api/me', null, {'headers': headers});
   }
+
+  addPet(data: any){
+
+    const token = this.tokenService.getTokenValue();
+    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
+
+    return this.http.post('http://127.0.0.1:8000/api/add-pet', data, {'headers': headers});
+  }
+
 }

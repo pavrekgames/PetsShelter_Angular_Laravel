@@ -57,8 +57,8 @@
           <label for="description" class="form-label m-2">Opis:</label>
           <textarea class="form-control" id="description" rows="3" formControlName = "description"></textarea>
 
-          <label for="photoPath" class="form-label m-2">Dodaj zdjęcie:</label>
-          <input type="file" class="form-control" id="photoPath" name="photoPath" formControlName = "photoPath">
+          <label for="photo" class="form-label m-2">Dodaj zdjęcie:</label>
+          <input type="file" class="form-control" id="photo" name="photo" (change)="onFileChange($event)"> <!---formControlName = "photo"-->
 
           <div class="text-danger p-1" *ngIf="addPetForm.get('photoPath')?.hasError('required') &&
           (addPetForm.get('photoPath')?.dirty ||

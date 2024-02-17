@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('species');
             $table->string('race');
             $table->string('size')->default('Mały');
-            $table->string('description');
+            $table->string('description')->nullable(true)->change();
             $table->string('photo_path');
             $table->timestamps();
 

@@ -29,14 +29,14 @@ class PetController extends Controller
      */
     public function create(Request $request)
     {
-        $data = $request->only('name', 'species', 'race', 'size', 'photoPath');
+        $data = $request->only('name', 'species', 'race', 'size', 'photo');
 
         $validator = Validator::make($data, [
             'name' => 'required',
             'species' => 'required|min:3',
             'race' => 'required|min:3',
             'size' => 'required|min:4',
-            'photoPath' => 'required',
+            'photo' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -45,9 +45,9 @@ class PetController extends Controller
 
         $user = auth()->user();
         //dd($request->all());
-        //$photoPath = $request->file('photoPath')->store('pets');
-        $photoPath = $request->file('photoPath');
-        dd($photoPath);
+
+        //$photoPath = $request->file('photoPath');
+        //dd($photoPath);
 
         $pet = Pet::Create([
             'name' => $request->input('name'),
@@ -55,7 +55,7 @@ class PetController extends Controller
             'race' => $request->input('race'),
             'size' => $request->input('size'),
             'description' => $request->input('description'),
-            'photo_path' => $photoPath,
+            'photo_path' => $request->file('photo')->store('pets'),
             'id_user' => $user->id,
         ]);
 

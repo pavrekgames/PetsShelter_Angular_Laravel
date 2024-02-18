@@ -17,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AddPetComponent } from './add-pet/add-pet.component';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { MyPetsComponent } from './my-pets/my-pets.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
     PetToAdoptComponent,
     PetsAdoptPageComponent,
     PetsSickPageComponent,
-    AddPetComponent
+    AddPetComponent,
+    MyPetsComponent
   ],
   imports: [
     BrowserModule,

@@ -135,5 +135,13 @@ class PetController extends Controller
         return response()->json($pets, Response::HTTP_OK);
     }
 
+    public function myPets(){
+
+        $user = auth()->user();
+        $pets = Pet::all()->where('id_user', $user->id);
+
+        return response()->json($pets, Response::HTTP_OK);
+    }
+
 
 }

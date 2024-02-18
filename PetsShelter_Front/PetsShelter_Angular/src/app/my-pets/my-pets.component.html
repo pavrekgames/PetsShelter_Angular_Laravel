@@ -1,0 +1,12 @@
+<app-navbar></app-navbar>
+
+<div class="app-background text-center text-light p-5">
+  <h2> Twoje zwierzęta</h2>
+</div>
+
+
+<div *ngIf="pets != null">
+  <div *ngFor="let pet of pets">
+    <app-pet-to-adopt [pet]="pet"></app-pet-to-adopt>
+    </div>
+</div>

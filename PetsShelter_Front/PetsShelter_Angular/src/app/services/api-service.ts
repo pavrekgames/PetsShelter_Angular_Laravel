@@ -42,4 +42,13 @@ export class ApiService {
     return this.http.get('http://127.0.0.1:8000/api/pets-to-adopt');
   }
 
+  getMyPets(){
+
+    const token = this.tokenService.getTokenValue();
+    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
+
+    return this.http.get('http://127.0.0.1:8000/api/my-pets', {'headers': headers});
+
+  }
+
 }

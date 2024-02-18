@@ -7,6 +7,7 @@ import { PetsSickPageComponent } from "../pets-sick-page/pets-sick-page.componen
 import { AddPetComponent } from "../add-pet/add-pet.component";
 import { loggedGuard } from '../guards/logged.guard';
 import { notLoggedGuard } from '../guards/not-logged.guard';
+import { MyPetsComponent } from "../my-pets/my-pets.component";
 
 const routeConfig: Routes = [
   {
@@ -50,7 +51,7 @@ const routeConfig: Routes = [
   },
   {
     path: 'my-pets',
-    component: PetsSickPageComponent,
+    component: MyPetsComponent,
     canActivate: [loggedGuard],
     title: 'Moje zwierzęta'
   },

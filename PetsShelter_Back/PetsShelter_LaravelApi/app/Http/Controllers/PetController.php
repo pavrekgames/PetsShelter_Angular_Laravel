@@ -138,7 +138,7 @@ class PetController extends Controller
     public function myPets(){
 
         $user = auth()->user();
-        $pets = Pet::all()->where('id_user', $user->id);
+        $pets = Pet::where('id_user', $user->id)->get();
 
         return response()->json($pets, Response::HTTP_OK);
     }

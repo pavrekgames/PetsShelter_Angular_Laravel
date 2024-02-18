@@ -24,7 +24,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
 Route::get('newest-pets', [PetController::class, 'newestPets']);
-//Route::get('user', [AuthController::class, 'user']);
+Route::get('pets-to-adopt', [PetController::class, 'petsToAdopt']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);

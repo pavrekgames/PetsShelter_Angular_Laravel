@@ -38,4 +38,8 @@ export class ApiService {
     return this.http.get('http://127.0.0.1:8000/api/newest-pets');
   }
 
+  getPetsToAdopt(){
+    return this.http.get('http://127.0.0.1:8000/api/pets-to-adopt');
+  }
+
 }

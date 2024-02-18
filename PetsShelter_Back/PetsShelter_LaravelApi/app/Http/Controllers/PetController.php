@@ -46,6 +46,7 @@ class PetController extends Controller
         $user = auth()->user();
         $photo = $request->file('photo')->store('pets');
 
+        //dd(json_encode($file));
         //dd($request->all());
 
         //$photoPath = $request->file('photoPath');
@@ -57,7 +58,7 @@ class PetController extends Controller
             'race' => $request->input('race'),
             'size' => $request->input('size'),
             'description' => $request->input('description'),
-            'photo_path' => $request->file('photo')->store('pets'),
+            'photo_path' => $photo,
             'id_user' => $user->id,
         ]);
 
@@ -123,6 +124,13 @@ class PetController extends Controller
     public function newestPets(){
 
         $pets = Pet::latest()->take(3)->get();
+
+        return response()->json($pets, Response::HTTP_OK);
+    }
+
+    public function petsToAdopt(){
+
+        $pets = Pet::all();
 
         return response()->json($pets, Response::HTTP_OK);
     }

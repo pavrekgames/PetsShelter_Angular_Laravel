@@ -16,7 +16,7 @@ pet: Pet = {
   race: 'kundel',
   size: 'średni',
   description: 'brak',
-  photoPath: './assets/PetsBgr.jpg',
+  photo_path: './assets/PetsBgr.jpg',
   id_User: 0
 }
 

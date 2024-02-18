@@ -5,6 +5,6 @@ export interface Pet{
   race: string;
   size: string;
   description: string;
-  photoPath: string;
+  photo_path: string;
   id_User: number;
 }

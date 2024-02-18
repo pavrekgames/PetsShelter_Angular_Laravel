@@ -44,6 +44,8 @@ class PetController extends Controller
         }
 
         $user = auth()->user();
+        $photo = $request->file('photo')->store('pets');
+
         //dd($request->all());
 
         //$photoPath = $request->file('photoPath');

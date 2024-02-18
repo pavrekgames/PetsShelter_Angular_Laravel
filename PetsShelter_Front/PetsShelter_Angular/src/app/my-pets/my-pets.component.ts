@@ -14,7 +14,7 @@ export class MyPetsComponent {
 
   ngOnInit(): void {
     this.apiService.getMyPets().subscribe({
-      next: (data) => {
+      next: (data: any) => {
         this.handleNewestPets(data);
         console.log(data);
       },

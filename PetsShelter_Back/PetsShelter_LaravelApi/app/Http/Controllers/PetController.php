@@ -58,7 +58,7 @@ class PetController extends Controller
             'race' => $request->input('race'),
             'size' => $request->input('size'),
             'description' => $request->input('description'),
-            'photo_path' => $photo,
+            'photo_path' => "http://127.0.0.1:8000/storage/".$photo,
             'id_user' => $user->id,
         ]);
 

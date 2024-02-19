@@ -8,6 +8,7 @@ import { AddPetComponent } from "../add-pet/add-pet.component";
 import { loggedGuard } from '../guards/logged.guard';
 import { notLoggedGuard } from '../guards/not-logged.guard';
 import { MyPetsComponent } from "../my-pets/my-pets.component";
+import { PetAdoptPageComponent } from "../pet-adopt-page/pet-adopt-page.component";
 
 const routeConfig: Routes = [
   {
@@ -31,6 +32,12 @@ const routeConfig: Routes = [
     path: 'pets-to-adopt',
     component: PetsAdoptPageComponent,
     title: 'Zwierzęta do adopcji'
+  },
+  {
+    path: 'pets-to-adopt/:id',
+    component: PetAdoptPageComponent,
+    canActivate: [loggedGuard],
+    title: 'Zwierzę do adopcji'
   },
   {
     path: 'sick-pets',

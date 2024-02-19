@@ -6,7 +6,41 @@
 
 
 <div *ngIf="pets != null">
-  <div *ngFor="let pet of pets">
-    <app-pet-to-adopt [pet]="pet"></app-pet-to-adopt>
+  <div class="px-6 app-background">
+    <table class="table table-striped table-dark table-sm table-bordered text-center">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Zdjęcie</th>
+          <th scope="col">Imię</th>
+          <th scope="col">Gatunek</th>
+          <th scope="col">Rasa</th>
+          <th scope="col">Rozmiar</th>
+          <th scope="col">Akcja</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pet of pets; let i = index">
+          <th scope="row">{{i+1}}</th>
+          <td ><img [src]="pet.photo_path" class="img-size"></td>
+          <td >{{pet.name}}</td>
+          <td >{{pet.species}}</td>
+          <td >{{pet.race}}</td>
+          <td >{{pet.size}}</td>
+          <td >
+            <div class="text-center m-2">
+              <button type="button" class="btn btn-warning">Zobacz</button>
+            </div>
+            <div class="text-center m-2">
+              <button type="button" class="btn btn-info">Edytuj</button>
+            </div>
+            <div class="text-center">
+              <button type="button" class="btn btn-danger">Usuń</button>
+            </div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
     </div>
 </div>

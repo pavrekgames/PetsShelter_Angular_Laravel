@@ -26,6 +26,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::get('newest-pets', [PetController::class, 'newestPets']);
 Route::get('pets-to-adopt', [PetController::class, 'petsToAdopt']);
 
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 });
@@ -43,5 +44,6 @@ Route::group([
 
     Route::post('add-pet', [PetController::class,'create']);
     Route::get('my-pets', [PetController::class, 'myPets']);
+    Route::get('pets-to-adopt/{id}', [PetController::class, 'show']);
 
 });

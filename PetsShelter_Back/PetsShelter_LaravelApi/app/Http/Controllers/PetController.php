@@ -82,9 +82,12 @@ class PetController extends Controller
      * @param  \App\Models\Pet  $pet
      * @return \Illuminate\Http\Response
      */
-    public function show(Pet $pet)
+    public function show(Request $request)
     {
-        //
+        $id = $request->id;
+        $pet = Pet::findOrFail($id);
+
+        return response()->json($pet, Response::HTTP_OK);
     }
 
     /**
@@ -93,9 +96,12 @@ class PetController extends Controller
      * @param  \App\Models\Pet  $pet
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pet $pet)
+    public function edit(Request $request)
     {
-        //
+        $id = $request->id;
+        $pet = Pet::findOrFail($id);
+
+        return response()->json($pet, Response::HTTP_OK);
     }
 
     /**

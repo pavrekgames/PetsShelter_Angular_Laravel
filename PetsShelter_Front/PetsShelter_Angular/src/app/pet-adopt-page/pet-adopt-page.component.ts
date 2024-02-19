@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../services/api-service';
 import { ActivatedRoute } from '@angular/router';
+import { faEnvelope, faHeart } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-pet-adopt-page',
@@ -11,6 +12,9 @@ export class PetAdoptPageComponent {
 
   pet: any;
   petId: any;
+
+  faHeart = faHeart;
+  faEnvelope = faEnvelope;
 
   constructor(private apiService: ApiService, private route: ActivatedRoute) {}
 

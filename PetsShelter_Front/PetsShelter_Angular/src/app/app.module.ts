@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddPetComponent } from './add-pet/add-pet.component';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { MyPetsComponent } from './my-pets/my-pets.component';
+import { PetAdoptPageComponent } from './pet-adopt-page/pet-adopt-page.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { MyPetsComponent } from './my-pets/my-pets.component';
     PetsAdoptPageComponent,
     PetsSickPageComponent,
     AddPetComponent,
-    MyPetsComponent
+    MyPetsComponent,
+    PetAdoptPageComponent
   ],
   imports: [
     BrowserModule,

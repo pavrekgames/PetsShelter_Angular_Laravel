@@ -45,5 +45,6 @@ Route::group([
     Route::post('add-pet', [PetController::class,'create']);
     Route::get('my-pets', [PetController::class, 'myPets']);
     Route::get('pets-to-adopt/{id}', [PetController::class, 'show']);
+    Route::get('my-pets/edit/{id}', [PetController::class, 'edit']);
 
 });

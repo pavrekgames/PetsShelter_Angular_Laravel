@@ -19,6 +19,7 @@ import { AddPetComponent } from './add-pet/add-pet.component';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { MyPetsComponent } from './my-pets/my-pets.component';
 import { PetAdoptPageComponent } from './pet-adopt-page/pet-adopt-page.component';
+import { EditPetComponent } from './edit-pet/edit-pet.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { PetAdoptPageComponent } from './pet-adopt-page/pet-adopt-page.component
     PetsSickPageComponent,
     AddPetComponent,
     MyPetsComponent,
-    PetAdoptPageComponent
+    PetAdoptPageComponent,
+    EditPetComponent
   ],
   imports: [
     BrowserModule,

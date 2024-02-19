@@ -9,6 +9,7 @@ import { loggedGuard } from '../guards/logged.guard';
 import { notLoggedGuard } from '../guards/not-logged.guard';
 import { MyPetsComponent } from "../my-pets/my-pets.component";
 import { PetAdoptPageComponent } from "../pet-adopt-page/pet-adopt-page.component";
+import { EditPetComponent } from "../edit-pet/edit-pet.component";
 
 const routeConfig: Routes = [
   {
@@ -61,6 +62,12 @@ const routeConfig: Routes = [
     component: MyPetsComponent,
     canActivate: [loggedGuard],
     title: 'Moje zwierzęta'
+  },
+  {
+    path: 'my-pets/edit/:id',
+    component: EditPetComponent,
+    canActivate: [loggedGuard],
+    title: 'Edytuj zwierzę'
   },
   {
     path: 'saved-pets',

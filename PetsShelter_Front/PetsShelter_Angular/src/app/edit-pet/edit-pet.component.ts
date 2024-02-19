@@ -1,25 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../services/api-service';
 
 declare let alertify: any;
 
 @Component({
-  selector: 'app-add-pet',
-  templateUrl: './add-pet.component.html',
-  styleUrl: './add-pet.component.css'
+  selector: 'app-edit-pet',
+  templateUrl: './edit-pet.component.html',
+  styleUrl: './edit-pet.component.css'
 })
-export class AddPetComponent implements OnInit {
+export class EditPetComponent {
+
   hasSubmitted: boolean = false;
 
   userId: number = 1;
-  //fileToUpload: File | null = null;
+  petId: any;
+  pet: any;
 
   error: any = [];
 
   addPetForm = this.formBuilder.group({
-    name: ['', [Validators.required]],
+    name: [, [Validators.required]],
     species: ['', [Validators.required, Validators.minLength(3)]],
     race: ['', [Validators.required, Validators.minLength(3)]],
     size: ['Mały', [Validators.required]],
@@ -31,10 +33,21 @@ export class AddPetComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.petId = this.route.snapshot.params.id;
+
+    this.apiService.getPetToEdit(this.petId).subscribe({
+      next: (data: any) => {
+        this.handlePetToAdopt(data);
+        console.log(data);
+      },
+    });
+
+
 
   }
 
@@ -63,9 +76,23 @@ export class AddPetComponent implements OnInit {
     }
   }
 
+  handlePetToAdopt(data: any) {
+    this.pet = data;
+
+    this.addPetForm = this.formBuilder.group({
+      name: [this.pet.name, [Validators.required]],
+      species: [this.pet.species, [Validators.required, Validators.minLength(3)]],
+      race: [this.pet.race, [Validators.required, Validators.minLength(3)]],
+      size: [this.pet.size, [Validators.required]],
+      description: [this.pet.description],
+      photo: [null, [Validators.required]],
+      userId: [this.userId, [Validators.required]]
+    });
+  }
+
   handleResponse() {
     this.router.navigate(['/']);
-    alertify.success('Dodano zwierzę');
+    alertify.success('Edytowano zwierzę');
   }
 
   handleError(error: any) {

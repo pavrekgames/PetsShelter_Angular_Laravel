@@ -153,9 +153,7 @@ class PetController extends Controller
         $newPhoto = $request->file('photo')->store('pets');
         $newPhotoPath = "http://127.0.0.1:8000/storage/".$newPhoto;
         $pet->photo_path = $newPhotoPath;
-        //$request->photo = $newPhotoPath;
 
-        //$petPhoto = Pet::where('id', $id)->update($request->only('photo_path'));
         $pet->save();
 
         return response()->json($pet, Response::HTTP_OK);

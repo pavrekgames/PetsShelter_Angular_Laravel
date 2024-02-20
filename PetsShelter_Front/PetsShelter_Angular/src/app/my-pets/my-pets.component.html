@@ -35,7 +35,7 @@
               <button type="button" class="btn btn-info" routerLink="/my-pets/edit/{{pet.id}}">Edytuj dane</button>
             </div>
             <div class="text-center d-inline">
-              <button type="button" class="btn btn-danger">Usuń</button>
+              <button type="button" class="btn btn-danger" (click)="deletePetWindow(pet.id)">Usuń</button>
             </div>
           </td>
         </tr>

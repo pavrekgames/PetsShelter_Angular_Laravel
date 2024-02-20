@@ -14,7 +14,6 @@ export class AddPetComponent implements OnInit {
   hasSubmitted: boolean = false;
 
   userId: number = 1;
-  //fileToUpload: File | null = null;
 
   error: any = [];
 

@@ -10,6 +10,7 @@ import { notLoggedGuard } from '../guards/not-logged.guard';
 import { MyPetsComponent } from "../my-pets/my-pets.component";
 import { PetAdoptPageComponent } from "../pet-adopt-page/pet-adopt-page.component";
 import { EditPetComponent } from "../edit-pet/edit-pet.component";
+import { EditPetPhotoComponent } from "../edit-pet-photo/edit-pet-photo.component";
 
 const routeConfig: Routes = [
   {
@@ -68,6 +69,12 @@ const routeConfig: Routes = [
     component: EditPetComponent,
     canActivate: [loggedGuard],
     title: 'Edytuj zwierzę'
+  },
+  {
+    path: 'my-pets/edit-photo/:id',
+    component: EditPetPhotoComponent,
+    canActivate: [loggedGuard],
+    title: 'Edytuj zdjęcie'
   },
   {
     path: 'saved-pets',

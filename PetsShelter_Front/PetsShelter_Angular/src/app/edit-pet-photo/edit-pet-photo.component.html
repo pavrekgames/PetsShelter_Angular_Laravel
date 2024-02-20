@@ -1,0 +1,38 @@
+<app-navbar></app-navbar>
+
+
+<div class="app-background center ">
+
+  <div class="row justify-content-center px-6 pt-5">
+
+    <div class="col-lg-5 rounded " >
+
+      <div class="p-4 text-light text-center">
+        <h3>Zmień zdjęcie</h3>
+      </div>
+
+      <div class="p-4 text-center">
+        <img [src]="pet.photo_path" class="img-size-pet">
+      </div>
+
+      <div class="text-light">
+
+        <form class="form" [formGroup]="editPetPhotoForm" enctype="multipart/form-data" (ngSubmit)="onSubmit()">
+
+          <label for="photo" class="form-label m-2">Wybierz nowe zdjęcie:</label>
+          <input type="file" class="form-control" id="photo" name="photo" (change)="onFileChange($event)"> <!---formControlName = "photo"-->
+
+          <div class="text-danger p-1" *ngIf="editPetPhotoForm.get('photoPath')?.hasError('required') &&
+          (editPetPhotoForm.get('photoPath')?.dirty ||
+          editPetPhotoForm.get('photoPath')?.touched ||
+            hasSubmitted)">Zdjęcie jest wymagane</div>
+
+          <div class="text-center m-4">
+            <button type="submit" class="btn btn-warning">Zmień zdjęcie</button>
+          </div>
+
+        </form>
+
+      </div>
+
+</div>

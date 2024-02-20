@@ -34,11 +34,11 @@ export class MyPetsComponent {
     this.pets = data;
   }
 
-  deletePetWindow(petId: any) {
+  deletePetWindow(petId: any, petName: any) {
     const newConfirmBox = new ConfirmBoxInitializer();
 
     newConfirmBox.setTitle('Usuwanie zwierzęcia');
-    newConfirmBox.setMessage('Czyn a pewno chcesz usunąć to zwierzę?');
+    newConfirmBox.setMessage('Czyn a pewno chcesz usunąć zwierzę o imieniu ' + petName + ' ?');
 
     // Choose layout color type
     newConfirmBox.setConfig({
@@ -52,14 +52,14 @@ export class MyPetsComponent {
 
     // Simply open the popup and observe button click
     newConfirmBox.openConfirmBox$().subscribe((resp) => {
-      if (resp.clickedButtonID) {
-        console.log('Button clicked: ', resp.clickedButtonID);
+      if (resp.success) {
+        this.deletePet(petId);
       }
     });
   }
 
   deletePet(petId: any) {
-    /* this.apiService.deletePet(0).subscribe({
+     this.apiService.deletePet(petId).subscribe({
       next: (data) => {
         this.handleResponse();
         console.log(data);
@@ -68,9 +68,9 @@ export class MyPetsComponent {
         this.handleError();
         console.log(error);
       },
-    }); */
+    });
 
-    alertify.success(petId);
+
   }
 
   handleResponse() {

@@ -165,9 +165,12 @@ class PetController extends Controller
      * @param  \App\Models\Pet  $pet
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pet $pet)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->id;
+        $pet = Pet::where('id', $id)->delete();
+
+        return response()->json($pet, Response::HTTP_OK);
     }
 
     public function newestPets(){

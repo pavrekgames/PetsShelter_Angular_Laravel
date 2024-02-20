@@ -26,6 +26,12 @@
   object-fit: cover;
 }
 
+.img-size-my-pet{
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
 html { background-color: #0d1b2a; }
 
 /*----px-6 */

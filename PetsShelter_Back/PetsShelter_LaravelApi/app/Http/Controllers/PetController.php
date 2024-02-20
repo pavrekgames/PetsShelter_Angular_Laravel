@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pet;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Log;
 use Symfony\Component\HttpFoundation\Response;
@@ -124,6 +125,38 @@ class PetController extends Controller
 
         $id = $request->id;
         $pet = Pet::where('id', $id)->update($request->only('name', 'species', 'race', 'size', 'description'));
+
+        return response()->json($pet, Response::HTTP_OK);
+    }
+
+    public function updatePhoto(Request $request)
+    {
+
+        $data = $request->only('photo');
+
+        $validator = Validator::make($data, [
+            'photo' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+        }
+
+        $id = $request->id;
+        $pet = Pet::findOrFail($id);
+        $oldPhotoPath = $pet->photo_path;
+
+        if(Storage::exists($oldPhotoPath)){
+            Storage::delete($oldPhotoPath);
+        }
+
+        $newPhoto = $request->file('photo')->store('pets');
+        $newPhotoPath = "http://127.0.0.1:8000/storage/".$newPhoto;
+        $pet->photo_path = $newPhotoPath;
+        //$request->photo = $newPhotoPath;
+
+        //$petPhoto = Pet::where('id', $id)->update($request->only('photo_path'));
+        $pet->save();
 
         return response()->json($pet, Response::HTTP_OK);
     }

@@ -17,7 +17,7 @@ declare let alertify: any;
   styleUrl: './my-pets.component.css',
 })
 export class MyPetsComponent {
-  pets: any;
+  pets: Array<any> = [];
 
   constructor(private apiService: ApiService, private router: Router) {}
 
@@ -74,7 +74,8 @@ export class MyPetsComponent {
   }
 
   handleResponse() {
-    this.router.navigate(['/my-pets']);
+    //this.router.navigate(['/my-pets']);
+    window.location.reload();
     alertify.success('Usunąłeś zwierzę');
   }
 

@@ -46,12 +46,6 @@ class PetController extends Controller
         $user = auth()->user();
         $photo = $request->file('photo')->store('pets');
 
-        //dd(json_encode($file));
-        //dd($request->all());
-
-        //$photoPath = $request->file('photoPath');
-        //dd($photoPath);
-
         $pet = Pet::Create([
             'name' => $request->input('name'),
             'species' => $request->input('species'),
@@ -98,6 +92,7 @@ class PetController extends Controller
      */
     public function edit(Request $request)
     {
+
         $id = $request->id;
         $pet = Pet::findOrFail($id);
 
@@ -111,9 +106,26 @@ class PetController extends Controller
      * @param  \App\Models\Pet  $pet
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pet $pet)
+    public function update(Request $request)
     {
-        //
+
+        $data = $request->only('name', 'species', 'race', 'size');
+
+        $validator = Validator::make($data, [
+            'name' => 'required',
+            'species' => 'required|min:3',
+            'race' => 'required|min:3',
+            'size' => 'required|min:4'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+        }
+
+        $id = $request->id;
+        $pet = Pet::where('id', $id)->update($request->only('name', 'species', 'race', 'size', 'description'));
+
+        return response()->json($pet, Response::HTTP_OK);
     }
 
     /**

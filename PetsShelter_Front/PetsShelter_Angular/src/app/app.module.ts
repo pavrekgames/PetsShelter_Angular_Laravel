@@ -21,6 +21,7 @@ import { MyPetsComponent } from './my-pets/my-pets.component';
 import { PetAdoptPageComponent } from './pet-adopt-page/pet-adopt-page.component';
 import { EditPetComponent } from './edit-pet/edit-pet.component';
 import { EditPetPhotoComponent } from './edit-pet-photo/edit-pet-photo.component';
+import { ConfirmBoxConfigModule, DialogConfigModule, NgxAwesomePopupModule, ToastNotificationConfigModule } from '@costlydeveloper/ngx-awesome-popup';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,11 @@ import { EditPetPhotoComponent } from './edit-pet-photo/edit-pet-photo.component
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxAwesomePopupModule.forRoot(),
+    DialogConfigModule.forRoot(),
+    ConfirmBoxConfigModule.forRoot(),
+    ToastNotificationConfigModule.forRoot()
   ],
   providers: [
     provideClientHydration(),

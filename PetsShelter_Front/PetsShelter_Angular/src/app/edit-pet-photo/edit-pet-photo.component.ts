@@ -95,5 +95,10 @@ export class EditPetPhotoComponent {
     return formData;
   }
 
+  cancelEditing(){
+    this.router.navigate(['/my-pets']);
+    alertify.warning('Anulowano zmianę zdjęcia');
+  }
+
 
 }

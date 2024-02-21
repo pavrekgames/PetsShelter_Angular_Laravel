@@ -99,4 +99,10 @@ export class EditPetComponent {
 
     return formData;
   }
+
+  cancelEditing(){
+    this.router.navigate(['/my-pets']);
+    alertify.warning('Anulowano edycję');
+  }
+
 }

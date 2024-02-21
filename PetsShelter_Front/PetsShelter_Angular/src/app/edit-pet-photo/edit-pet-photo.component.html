@@ -27,8 +27,16 @@
           editPetPhotoForm.get('photoPath')?.touched ||
             hasSubmitted)">Zdjęcie jest wymagane</div>
 
-          <div class="text-center m-4">
-            <button type="submit" class="btn btn-warning">Zmień zdjęcie</button>
+           <div class="d-flex flex-row justify-content-center p-4">
+
+            <div class="text-center me-2 mt-4 d-inline">
+              <button type="button" class="btn btn-danger" (click)="cancelEditing()">Anuluj</button>
+            </div>
+
+            <div class="text-center m-2 mt-4 d-inline">
+              <button type="submit" class="btn btn-info">Zmień zdjęcie</button>
+            </div>
+
           </div>
 
         </form>

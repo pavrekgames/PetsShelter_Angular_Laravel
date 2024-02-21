@@ -58,9 +58,19 @@
           <label for="description" class="form-label m-2">Opis:</label>
           <textarea class="form-control" id="description" rows="3" formControlName = "description"></textarea>
 
-          <div class="text-center m-4">
-            <button type="submit" class="btn btn-info">Edytuj</button>
+          <div class="d-flex flex-row justify-content-center p-4">
+
+            <div class="text-center me-2 mt-4 d-inline">
+              <button type="button" class="btn btn-danger" (click)="cancelEditing()">Anuluj</button>
+            </div>
+
+            <div class="text-center m-2 mt-4 d-inline">
+              <button type="submit" class="btn btn-info">Edytuj</button>
+            </div>
+
           </div>
+
+
 
         </form>
 

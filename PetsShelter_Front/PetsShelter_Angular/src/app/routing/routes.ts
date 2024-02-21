@@ -11,6 +11,7 @@ import { MyPetsComponent } from "../my-pets/my-pets.component";
 import { PetAdoptPageComponent } from "../pet-adopt-page/pet-adopt-page.component";
 import { EditPetComponent } from "../edit-pet/edit-pet.component";
 import { EditPetPhotoComponent } from "../edit-pet-photo/edit-pet-photo.component";
+import { EditProfileComponent } from "../edit-profile/edit-profile.component";
 
 const routeConfig: Routes = [
   {
@@ -53,12 +54,6 @@ const routeConfig: Routes = [
     title: 'Dodaj zwierzę'
   },
   {
-    path: 'edit-profile',
-    component: PetsSickPageComponent,
-    canActivate: [loggedGuard],
-    title: 'Edytuj profil'
-  },
-  {
     path: 'my-pets',
     component: MyPetsComponent,
     canActivate: [loggedGuard],
@@ -81,7 +76,14 @@ const routeConfig: Routes = [
     component: PetsSickPageComponent,
     canActivate: [loggedGuard],
     title: 'Zapisane zwierzęta'
+  },
+  {
+    path: 'edit-profile',
+    component: EditProfileComponent,
+    canActivate: [loggedGuard],
+    title: 'Edytuj profil'
   }
+
 ];
 
 export default routeConfig;

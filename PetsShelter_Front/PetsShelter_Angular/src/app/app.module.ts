@@ -22,6 +22,7 @@ import { PetAdoptPageComponent } from './pet-adopt-page/pet-adopt-page.component
 import { EditPetComponent } from './edit-pet/edit-pet.component';
 import { EditPetPhotoComponent } from './edit-pet-photo/edit-pet-photo.component';
 import { ConfirmBoxConfigModule, DialogConfigModule, NgxAwesomePopupModule, ToastNotificationConfigModule } from '@costlydeveloper/ngx-awesome-popup';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ConfirmBoxConfigModule, DialogConfigModule, NgxAwesomePopupModule, Toas
     MyPetsComponent,
     PetAdoptPageComponent,
     EditPetComponent,
-    EditPetPhotoComponent
+    EditPetPhotoComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,

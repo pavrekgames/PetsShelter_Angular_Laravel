@@ -27,7 +27,7 @@ export class EditProfileComponent {
   });
 
   changePasswordForm = this.formBuilder.group({
-    oldPassword: ['', [Validators.required]],
+    password: ['', [Validators.required]],
     newPassword: ['', [Validators.required, Validators.minLength(6)]],
     confirmNewPassword: ['', Validators.required],
   });

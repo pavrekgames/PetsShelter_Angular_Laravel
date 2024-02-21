@@ -65,16 +65,16 @@
               <h4>Zmień hasło</h4>
             </div>
 
-            <div class="text-danger p-1" *ngIf="passwordError.email && hasSubmitted">
+            <div class="text-danger p-1" *ngIf="passwordError && hasSubmitted">
               Stare hasło jest nieprawidłowe!
             </div>
 
             <label for="task-title" class="form-label m-2">Stare Hasło:</label>
-            <input type="password" class="form-control" id="task-title" placeholder="" name="task-title" formControlName = "oldPassword">
+            <input type="password" class="form-control" id="task-title" placeholder="" name="task-title" formControlName = "password">
 
-            <div class="text-danger p-1" *ngIf="changePasswordForm.get('oldPassword')?.hasError('required') &&
-          (changePasswordForm.get('oldPassword')?.dirty ||
-          changePasswordForm.get('oldPassword')?.touched ||
+            <div class="text-danger p-1" *ngIf="changePasswordForm.get('password')?.hasError('required') &&
+          (changePasswordForm.get('password')?.dirty ||
+          changePasswordForm.get('password')?.touched ||
             hasSubmitted)">Stare hasło jest wymagane</div>
 
             <label for="task-title" class="form-label m-2">Nowe Hasło:</label>

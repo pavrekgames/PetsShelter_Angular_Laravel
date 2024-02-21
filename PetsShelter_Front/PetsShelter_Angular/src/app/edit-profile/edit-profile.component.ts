@@ -8,20 +8,28 @@ declare let alertify: any;
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
-  styleUrl: './edit-profile.component.css'
+  styleUrl: './edit-profile.component.css',
 })
 export class EditProfileComponent {
-
   hasSubmitted: boolean = false;
-  isPasswordsSame: boolean = true;
   error: any = [];
 
   user: any;
 
+  isChangingPassword: boolean = false;
+  isPasswordsSame: boolean = true;
+  passwordError: any = [];
+
   editProfileForm = this.formBuilder.group({
     name: ['', [Validators.required, Validators.maxLength(25)]],
     surname: ['', [Validators.required, Validators.maxLength(25)]],
-    email: ['', [Validators.required, Validators.email]]
+    email: ['', [Validators.required, Validators.email]],
+  });
+
+  changePasswordForm = this.formBuilder.group({
+    oldPassword: ['', [Validators.required]],
+    newPassword: ['', [Validators.required, Validators.minLength(6)]],
+    confirmNewPassword: ['', Validators.required],
   });
 
   constructor(
@@ -31,12 +39,11 @@ export class EditProfileComponent {
   ) {}
 
   ngOnInit(): void {
-      this.apiService.authorizedUser().subscribe({
-        next: (data) => {
-          this.handleUser(data);
-        }
-      });
-
+    this.apiService.authorizedUser().subscribe({
+      next: (data) => {
+        this.handleUser(data);
+      },
+    });
   }
 
   onSubmit() {
@@ -58,31 +65,58 @@ export class EditProfileComponent {
           console.log(this.error);
         },
       });
-
     } else {
       console.log('Form is invalid');
     }
   }
 
- /* checkPassword() {
-    const firstPassword = this.editProfileForm.controls['password'].value;
+  showChangingPassword() {
+    this.isChangingPassword = true;
+  }
+
+  onPasswordChange() {
+    this.hasSubmitted = true;
+    this.passwordError = [];
+
+    this.checkPassword();
+
+    if (this.changePasswordForm.valid && this.isPasswordsSame) {
+      const formData = this.changePasswordForm.getRawValue();
+
+      this.apiService.changePassword(formData).subscribe({
+        next: (data) => {
+          this.handlePasswordResponse();
+          console.log(data);
+        },
+        error: (error) => {
+          this.handlePasswordError(error);
+          console.log('Password Error ' + this.error);
+        },
+      });
+    } else {
+      console.log('Form is invalid');
+    }
+  }
+
+  checkPassword() {
+    const firstPassword = this.changePasswordForm.controls['newPassword'].value;
     const repeatedPassword =
-      this.editProfileForm.controls['confirmPassword'].value;
+      this.changePasswordForm.controls['confirmNewPassword'].value;
 
     if (firstPassword == repeatedPassword) {
       this.isPasswordsSame = true;
     } else {
       this.isPasswordsSame = false;
     }
-  } */
+  }
 
-  handleUser(data: any){
+  handleUser(data: any) {
     this.user = data;
 
     this.editProfileForm.patchValue({
       name: this.user.name,
       surname: this.user.surname,
-      email: this.user.email
+      email: this.user.email,
     });
   }
 
@@ -99,4 +133,16 @@ export class EditProfileComponent {
     alertify.error('Błąd edycji');
   }
 
+  handlePasswordResponse() {
+    this.router.navigate(['/']);
+    alertify.success('Zmieniono hasło');
+  }
+
+  handlePasswordError(error: any) {
+    this.error = error.error.error; // before was error.error.erros
+    console.log('Mam błąd: ' + JSON.stringify(error));
+    console.log('Mam do przesłania błąd: ' + JSON.stringify(this.error));
+
+    alertify.error('Wystąpił problem');
+  }
 }

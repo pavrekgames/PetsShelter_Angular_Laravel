@@ -44,51 +44,68 @@
           <label for="task-title" class="form-label m-2">E-mail:</label>
           <input type="email" class="form-control bg-secondary text-light" id="task-title" placeholder="" name="task-title" formControlName = "email" readonly>
 
-
-
-          <div *ngIf="false">
-
-            <label for="task-title" class="form-label m-2">Hasło:</label>
-            <input type="password" class="form-control" id="task-title" placeholder="" name="task-title" formControlName = "password">
-
-            <div class="text-danger p-1" *ngIf="editProfileForm.get('password')?.hasError('required') &&
-          (editProfileForm.get('password')?.dirty ||
-          editProfileForm.get('password')?.touched ||
-            hasSubmitted)">Hasło jest wymagane</div>
-
-            <div class="text-danger p-1" *ngIf="editProfileForm.get('password')?.hasError('minlength') &&
-          (editProfileForm.get('password')?.dirty ||
-          editProfileForm.get('password')?.touched ||
-            hasSubmitted)">Hasło musi mieć minimalnie 6 znaków</div>
-
-          <label for="task-title" class="form-label m-2">Powtórz hasło:</label>
-          <input type="password" class="form-control" id="task-title" placeholder="" name="task-title" formControlName = "confirmPassword">
-
-          <div class="text-danger p-1" *ngIf="editProfileForm.get('confirmPassword')?.hasError('required') &&
-          (editProfileForm.get('confirmPassword')?.dirty ||
-          editProfileForm.get('confirmPassword')?.touched ||
-            hasSubmitted)">Pole nie może być puste</div>
-
-          <div class="text-danger p-1" *ngIf="!isPasswordsSame &&
-          (editProfileForm.get('confirmPassword')?.dirty ||
-          editProfileForm.get('confirmPassword')?.touched ||
-            hasSubmitted)">Hasła nie są takie same</div>
-
-          </div>
-
-
-
           <div class="text-center m-4">
             <button type="submit" class="btn btn-warning">Edytuj profil</button>
           </div>
 
         </form>
 
+        <div class="border-top">
+          <div class="p-3 text-center" *ngIf="!isChangingPassword">
+            <button type="button" class="btn btn-info" (click)="showChangingPassword()">Zmień hasło</button>
+          </div>
+        </div>
+
+        <form class="form" [formGroup]="changePasswordForm" (ngSubmit)="onPasswordChange()">
+          <div class="pb-5" *ngIf="isChangingPassword">
+
+            <div class="p-4 text-light text-center">
+              <h4>Zmień hasło</h4>
+            </div>
+
+            <div class="text-danger p-1" *ngIf="passwordError.email && hasSubmitted">
+              Stare hasło jest nieprawidłowe!
+            </div>
+
+            <label for="task-title" class="form-label m-2">Stare Hasło:</label>
+            <input type="password" class="form-control" id="task-title" placeholder="" name="task-title" formControlName = "oldPassword">
+
+            <div class="text-danger p-1" *ngIf="changePasswordForm.get('oldPassword')?.hasError('required') &&
+          (changePasswordForm.get('oldPassword')?.dirty ||
+          changePasswordForm.get('oldPassword')?.touched ||
+            hasSubmitted)">Stare hasło jest wymagane</div>
+
+            <label for="task-title" class="form-label m-2">Nowe Hasło:</label>
+            <input type="password" class="form-control" id="task-title" placeholder="" name="task-title" formControlName = "newPassword">
+
+            <div class="text-danger p-1" *ngIf="changePasswordForm.get('newPassword')?.hasError('required') &&
+          (changePasswordForm.get('newPassword')?.dirty ||
+          changePasswordForm.get('newPassword')?.touched ||
+            hasSubmitted)">Nowe hasło jest wymagane</div>
+
+            <div class="text-danger p-1" *ngIf="changePasswordForm.get('newPassword')?.hasError('minlength') &&
+          (changePasswordForm.get('newPassword')?.dirty ||
+          changePasswordForm.get('newPassword')?.touched ||
+            hasSubmitted)">Nowe hasło musi mieć minimalnie 6 znaków</div>
+
+          <label for="task-title" class="form-label m-2">Powtórz nowe hasło:</label>
+          <input type="password" class="form-control" id="task-title" placeholder="" name="task-title" formControlName = "confirmNewPassword">
+
+          <div class="text-danger p-1" *ngIf="changePasswordForm.get('confirmNewPassword')?.hasError('required') &&
+          (changePasswordForm.get('confirmNewPassword')?.dirty ||
+          changePasswordForm.get('confirmNewPassword')?.touched ||
+            hasSubmitted)">Pole nie może być puste</div>
+
+          <div class="text-danger p-1" *ngIf="!isPasswordsSame &&
+          (changePasswordForm.get('confirmNewPassword')?.dirty ||
+          changePasswordForm.get('confirmNewPassword')?.touched ||
+            hasSubmitted)">Hasła nie są takie same</div>
+
+
+          </div>
+        </form>
+
 
       </div>
-
-
-
-
 
 </div>

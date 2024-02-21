@@ -91,6 +91,43 @@ class AuthController extends Controller
         return response()->json(auth()->user());
     }
 
+      /**
+     * Edit profile of the authenticated User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function editProfile(Request $request)
+    {
+
+        $data = $request->only('name', 'surname');
+
+        $validator = Validator::make($data, [
+            'name' => 'required|max:25',
+            'surname' => 'required|max:25',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+        }
+
+        $user = auth()->user();
+        $id = $user->id;
+        $editedUser = User::where('id', $id)->update($request->only('name', 'surname'));
+
+        return response()->json($editedUser, Response::HTTP_OK);
+
+    }
+
+     /**
+     * Change password of the authenticated User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function changePassword()
+    {
+        return response()->json(auth()->user());
+    }
+
     /**
      * Log the user out (Invalidate the token).
      *

@@ -21,9 +21,7 @@ export class EditProfileComponent {
   editProfileForm = this.formBuilder.group({
     name: ['', [Validators.required, Validators.maxLength(25)]],
     surname: ['', [Validators.required, Validators.maxLength(25)]],
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
-    confirmPassword: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]]
   });
 
   constructor(
@@ -50,7 +48,7 @@ export class EditProfileComponent {
     if (this.editProfileForm.valid) {
       const formData = this.editProfileForm.getRawValue();
 
-      this.apiService.register(formData).subscribe({
+      this.apiService.editProfile(formData).subscribe({
         next: (data) => {
           this.handleResponse();
           console.log(data);
@@ -66,7 +64,7 @@ export class EditProfileComponent {
     }
   }
 
-  checkPassword() {
+ /* checkPassword() {
     const firstPassword = this.editProfileForm.controls['password'].value;
     const repeatedPassword =
       this.editProfileForm.controls['confirmPassword'].value;
@@ -76,7 +74,7 @@ export class EditProfileComponent {
     } else {
       this.isPasswordsSame = false;
     }
-  }
+  } */
 
   handleUser(data: any){
     this.user = data;

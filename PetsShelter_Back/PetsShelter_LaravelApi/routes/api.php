@@ -42,6 +42,7 @@ Route::group([
     //Route::post('refresh', 'AuthController@refresh');
     Route::post('me', [AuthController::class,'me']);
     Route::put('edit-profile', [AuthController::class, 'editProfile']);
+    Route::put('change-password', [AuthController::class, 'changePassword']);
 
     Route::post('add-pet', [PetController::class,'create']);
     Route::get('my-pets', [PetController::class, 'myPets']);

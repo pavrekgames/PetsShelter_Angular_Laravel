@@ -123,9 +123,39 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function changePassword()
+    public function changePassword(Request $request)
     {
-        return response()->json(auth()->user());
+
+        $data = $request->only('password', 'newPassword');
+
+        $validator = Validator::make($data, [
+            'password' => 'required',
+            'newPassword' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+        }
+
+        $user = auth()->user();
+
+        $credentials = array();
+
+        $credentials["email"] = $user->email;
+        $credentials["password"] = $request->password;
+
+
+        if (!$token = JWTAuth::attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        $request['password'] = Hash::make($request['newPassword']);
+
+        $id = $user->id;
+        $editedUser = User::where('id', $id)->update($request->only('password'));
+
+        return response()->json($editedUser, Response::HTTP_OK);
+
     }
 
     /**

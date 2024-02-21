@@ -56,6 +56,8 @@
           </div>
         </div>
 
+<!---Changing password form-->
+
         <form class="form" [formGroup]="changePasswordForm" (ngSubmit)="onPasswordChange()">
           <div class="pb-5" *ngIf="isChangingPassword">
 
@@ -101,6 +103,10 @@
           changePasswordForm.get('confirmNewPassword')?.touched ||
             hasSubmitted)">Hasła nie są takie same</div>
 
+
+          <div class="text-center m-4">
+            <button type="submit" class="btn btn-primary">Potwierdź</button>
+          </div>
 
           </div>
         </form>

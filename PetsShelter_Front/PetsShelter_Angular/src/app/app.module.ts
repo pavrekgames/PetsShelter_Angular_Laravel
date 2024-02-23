@@ -23,6 +23,7 @@ import { EditPetComponent } from './edit-pet/edit-pet.component';
 import { EditPetPhotoComponent } from './edit-pet-photo/edit-pet-photo.component';
 import { ConfirmBoxConfigModule, DialogConfigModule, NgxAwesomePopupModule, ToastNotificationConfigModule } from '@costlydeveloper/ngx-awesome-popup';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     PetAdoptPageComponent,
     EditPetComponent,
     EditPetPhotoComponent,
-    EditProfileComponent
+    EditProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +53,8 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     NgxAwesomePopupModule.forRoot(),
     DialogConfigModule.forRoot(),
     ConfirmBoxConfigModule.forRoot(),
-    ToastNotificationConfigModule.forRoot()
+    ToastNotificationConfigModule.forRoot(),
+    NgxPaginationModule
   ],
   providers: [
     provideClientHydration(),

@@ -10,6 +10,9 @@ export class PetsAdoptPageComponent {
 
   pets: any;
 
+  page: number = 1;
+  petsPerPage: number = 4;
+
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {

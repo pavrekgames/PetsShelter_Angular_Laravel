@@ -190,9 +190,20 @@ class PetController extends Controller
     public function myPets(){
 
         $user = auth()->user();
-        $pets = Pet::where('id_user', $user->id)->get();
+        //$pets = Pet::where('id_user', $user->id)->get();
+        $pets = $user->pets;
 
         return response()->json($pets, Response::HTTP_OK);
+
+    }
+
+    public function savedPets(){
+
+        $user = auth()->user();
+
+        $savedPets = $user->savedPets;
+
+        return response()->json($savedPets, Response::HTTP_OK);
     }
 
 

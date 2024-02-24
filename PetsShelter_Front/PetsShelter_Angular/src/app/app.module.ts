@@ -24,6 +24,7 @@ import { EditPetPhotoComponent } from './edit-pet-photo/edit-pet-photo.component
 import { ConfirmBoxConfigModule, DialogConfigModule, NgxAwesomePopupModule, ToastNotificationConfigModule } from '@costlydeveloper/ngx-awesome-popup';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { SavedPetsComponent } from './saved-pets/saved-pets.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     EditPetComponent,
     EditPetPhotoComponent,
     EditProfileComponent,
+    SavedPetsComponent,
   ],
   imports: [
     BrowserModule,

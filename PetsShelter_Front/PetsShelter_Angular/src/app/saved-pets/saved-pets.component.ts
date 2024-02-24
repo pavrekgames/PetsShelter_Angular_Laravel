@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../services/api-service';
-import { Pet } from '../models/pet';
 import { Router } from '@angular/router';
 import {
   ConfirmBoxInitializer,
@@ -12,17 +11,18 @@ import {
 declare let alertify: any;
 
 @Component({
-  selector: 'app-my-pets',
-  templateUrl: './my-pets.component.html',
-  styleUrl: './my-pets.component.css',
+  selector: 'app-saved-pets',
+  templateUrl: './saved-pets.component.html',
+  styleUrl: './saved-pets.component.css'
 })
-export class MyPetsComponent {
+export class SavedPetsComponent {
+
   pets: Array<any> = [];
 
   constructor(private apiService: ApiService, private router: Router) {}
 
   ngOnInit(): void {
-    this.apiService.getMyPets().subscribe({
+    this.apiService.getSavedPets().subscribe({
       next: (data: any) => {
         this.handleNewestPets(data);
         console.log(data);
@@ -37,8 +37,8 @@ export class MyPetsComponent {
   deletePetWindow(petId: any, petName: any) {
     const newConfirmBox = new ConfirmBoxInitializer();
 
-    newConfirmBox.setTitle('Usuwanie zwierzęcia');
-    newConfirmBox.setMessage('Czyn a pewno chcesz usunąć zwierzę o imieniu ' + petName + ' ?');
+    newConfirmBox.setTitle('Usuwanie zapisanego zwierzęcia');
+    newConfirmBox.setMessage('Czyn a pewno chcesz usunąć zapisane zwierzę o imieniu ' + petName + ' ?');
 
     // Choose layout color type
     newConfirmBox.setConfig({
@@ -53,31 +53,31 @@ export class MyPetsComponent {
     // Simply open the popup and observe button click
     newConfirmBox.openConfirmBox$().subscribe((resp) => {
       if (resp.success) {
-        this.deletePet(petId);
+        this.deleteSavedPet(petId);
       }
     });
   }
 
-  deletePet(petId: any) {
-     this.apiService.deletePet(petId).subscribe({
-      next: (data) => {
-        this.handleResponse();
-        console.log(data);
-      },
-      error: (error) => {
-        this.handleError();
-        console.log(error);
-      },
-    });
-  }
+  deleteSavedPet(petId: any) {
+    /*this.apiService.deletePet(petId).subscribe({
+     next: (data) => {
+       this.handleResponse();
+       console.log(data);
+     },
+     error: (error) => {
+       this.handleError();
+       console.log(error);
+     },
+   }); */
+ }
 
-  handleResponse() {
-    //this.router.navigate(['/my-pets']);
-    window.location.reload();
-    alertify.success('Usunąłeś zwierzę');
-  }
+ handleResponse() {
+  window.location.reload();
+  alertify.success('Usunąłeś zapisane zwierzę');
+}
 
-  handleError() {
-    alertify.error('Wystąpił problem!');
-  }
+handleError() {
+  alertify.error('Wystąpił problem!');
+}
+
 }

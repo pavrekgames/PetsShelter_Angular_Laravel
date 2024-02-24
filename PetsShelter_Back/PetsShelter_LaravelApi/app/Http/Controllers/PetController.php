@@ -197,7 +197,7 @@ class PetController extends Controller
 
     }
 
-    public function savedPets(){
+    public function showSavedPets(){
 
         $user = auth()->user();
 

@@ -12,6 +12,7 @@ import { PetAdoptPageComponent } from "../pet-adopt-page/pet-adopt-page.componen
 import { EditPetComponent } from "../edit-pet/edit-pet.component";
 import { EditPetPhotoComponent } from "../edit-pet-photo/edit-pet-photo.component";
 import { EditProfileComponent } from "../edit-profile/edit-profile.component";
+import { SavedPetsComponent } from "../saved-pets/saved-pets.component";
 
 const routeConfig: Routes = [
   {
@@ -73,7 +74,7 @@ const routeConfig: Routes = [
   },
   {
     path: 'saved-pets',
-    component: PetsSickPageComponent,
+    component: SavedPetsComponent,
     canActivate: [loggedGuard],
     title: 'Zapisane zwierzęta'
   },

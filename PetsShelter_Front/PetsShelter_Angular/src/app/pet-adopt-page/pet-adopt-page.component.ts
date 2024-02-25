@@ -3,6 +3,8 @@ import { ApiService } from '../services/api-service';
 import { ActivatedRoute } from '@angular/router';
 import { faEnvelope, faHeart } from '@fortawesome/free-solid-svg-icons';
 
+declare let alertify: any;
+
 @Component({
   selector: 'app-pet-adopt-page',
   templateUrl: './pet-adopt-page.component.html',
@@ -55,6 +57,28 @@ export class PetAdoptPageComponent {
       this.isPetSaved = false;
       this.currentButtonText = this.saveButtonText;
     }
+  }
+
+  savePet(){
+    this.apiService.savePet(this.petId).subscribe({
+      next: (data: any) => {
+        this.handleSavePetSuccess(data);
+        console.log(data);
+      },
+      error: (error) => {
+        this.handleSavePetError();
+      },
+    });
+  }
+
+  handleSavePetSuccess(data: any){
+    this.isPetSaved = true;
+    this.currentButtonText = this.savedButtonText;
+    alertify.success('Zapisano zwierzę');
+  }
+
+  handleSavePetError(){
+    alertify.error('Wystąpił problem!');
   }
 
 }

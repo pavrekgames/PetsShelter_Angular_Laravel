@@ -59,7 +59,7 @@ export class SavedPetsComponent {
   }
 
   deleteSavedPet(petId: any) {
-    /*this.apiService.deletePet(petId).subscribe({
+    this.apiService.deleteSavedPet(petId).subscribe({
      next: (data) => {
        this.handleResponse();
        console.log(data);
@@ -68,7 +68,7 @@ export class SavedPetsComponent {
        this.handleError();
        console.log(error);
      },
-   }); */
+   });
  }
 
  handleResponse() {

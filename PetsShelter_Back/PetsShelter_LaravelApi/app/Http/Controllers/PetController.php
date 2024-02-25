@@ -232,6 +232,20 @@ class PetController extends Controller
         return response()->json($pet, Response::HTTP_OK);
     }
 
+    public function deleteSavedPet(Request $request){
+
+        $user = auth()->user();
+        $idUser = $user->id;
+        $idPet = $request->id;
+
+        $pet = DB::table('saved-pets')
+        ->where('id_user', $idUser)
+        ->where('id_pet', $idPet)
+        ->delete();
+
+        return response()->json($pet, Response::HTTP_OK);
+    }
+
 
 
 }

@@ -13,6 +13,7 @@ import { EditPetComponent } from "../edit-pet/edit-pet.component";
 import { EditPetPhotoComponent } from "../edit-pet-photo/edit-pet-photo.component";
 import { EditProfileComponent } from "../edit-profile/edit-profile.component";
 import { SavedPetsComponent } from "../saved-pets/saved-pets.component";
+import { TokensComponent } from "../tokens/tokens.component";
 
 const routeConfig: Routes = [
   {
@@ -83,6 +84,12 @@ const routeConfig: Routes = [
     component: EditProfileComponent,
     canActivate: [loggedGuard],
     title: 'Edytuj profil'
+  },
+  {
+    path: 'tokens',
+    component: TokensComponent,
+    canActivate: [loggedGuard],
+    title: 'Doładuj tokeny'
   }
 
 ];

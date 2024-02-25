@@ -25,6 +25,7 @@ import { ConfirmBoxConfigModule, DialogConfigModule, NgxAwesomePopupModule, Toas
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { SavedPetsComponent } from './saved-pets/saved-pets.component';
+import { TokensComponent } from './tokens/tokens.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { SavedPetsComponent } from './saved-pets/saved-pets.component';
     EditPetPhotoComponent,
     EditProfileComponent,
     SavedPetsComponent,
+    TokensComponent,
   ],
   imports: [
     BrowserModule,

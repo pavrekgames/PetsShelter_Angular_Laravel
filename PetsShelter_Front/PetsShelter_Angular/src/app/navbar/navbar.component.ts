@@ -7,7 +7,6 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { TokenService } from '../services/token.service';
-import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../services/api-service';
 import { User } from '../models/user';
 

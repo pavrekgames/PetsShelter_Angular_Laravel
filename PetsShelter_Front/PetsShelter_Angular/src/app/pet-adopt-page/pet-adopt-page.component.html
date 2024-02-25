@@ -34,7 +34,7 @@
   <div class="d-flex flex-grow-1 justify-content-center">
 
     <div class="col-3 ps-5 text-center">
-      <button type="button" class="btn btn-success btn-rounded"> Zapisz <fa-icon [icon]="faHeart"></fa-icon></button>
+      <button type="button" class="btn btn-success btn-rounded" [disabled]="isPetSaved"> {{currentButtonText}} <fa-icon [icon]="faHeart"></fa-icon></button>
     </div>
 
     <div class="col-3 ps-2 text-center">
@@ -52,4 +52,3 @@
   </div>
 
 </div>
-

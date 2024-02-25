@@ -13,6 +13,11 @@ export class PetAdoptPageComponent {
   pet: any;
   petId: any;
 
+  isPetSaved: boolean = false;
+  saveButtonText: string = 'Zapisz';
+  savedButtonText: string = 'Zapisano';
+  currentButtonText: string = 'Zapisz';
+
   faHeart = faHeart;
   faEnvelope = faEnvelope;
 

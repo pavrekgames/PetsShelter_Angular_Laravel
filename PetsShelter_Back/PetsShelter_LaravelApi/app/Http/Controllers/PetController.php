@@ -221,6 +221,17 @@ class PetController extends Controller
         return response()->json($pet, Response::HTTP_OK);
     }
 
+    public function addSavedPet(Request $request){
+
+        $user = auth()->user();
+        $idUser = $user->id;
+        $idPet = $request->id;
+
+        $pet = DB::table('saved-pets')->insert(array('id_user' => $idUser, 'id_pet' => $idPet));
+
+        return response()->json($pet, Response::HTTP_OK);
+    }
+
 
 
 }

@@ -146,5 +146,13 @@ export class ApiService {
 
   }
 
+  topUpTokens(data: any){
+    const token = this.tokenService.getTokenValue();
+    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
+
+    return this.http.put<any>('http://127.0.0.1:8000/api/top-up-tokens', data, {'headers': headers});
+
+  }
+
 
 }

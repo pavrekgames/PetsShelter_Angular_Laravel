@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pet;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Log;
@@ -204,6 +205,20 @@ class PetController extends Controller
         $savedPets = $user->savedPets;
 
         return response()->json($savedPets, Response::HTTP_OK);
+    }
+
+    public function checkSavedPet(Request $request){
+
+        $user = auth()->user();
+        $idUser = $user->id;
+        $idPet = $request->id_pet;
+
+        $pet = DB::table('saved-pets')->select('id_pet')
+        ->where('id_pet', $idPet,)
+        ->where('id_user', $idUser,)
+        ->first();
+
+        return response()->json($pet, Response::HTTP_OK);
     }
 
 

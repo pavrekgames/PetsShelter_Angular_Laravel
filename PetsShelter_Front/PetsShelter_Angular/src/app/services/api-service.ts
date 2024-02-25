@@ -102,6 +102,15 @@ export class ApiService {
 
   }
 
+  checkSavedPet(id: any){
+
+    const token = this.tokenService.getTokenValue();
+    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
+
+    return this.http.get('http://127.0.0.1:8000/api/check-saved-pet/' + id, {'headers': headers});
+
+  }
+
 
   editProfile(data: any){
     const token = this.tokenService.getTokenValue();

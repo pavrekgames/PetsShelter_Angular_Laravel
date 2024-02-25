@@ -211,7 +211,7 @@ class PetController extends Controller
 
         $user = auth()->user();
         $idUser = $user->id;
-        $idPet = $request->id_pet;
+        $idPet = $request->id;
 
         $pet = DB::table('saved-pets')->select('id_pet')
         ->where('id_pet', $idPet,)

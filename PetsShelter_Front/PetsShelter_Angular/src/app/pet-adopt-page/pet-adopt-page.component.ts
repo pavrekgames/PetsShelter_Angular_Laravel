@@ -33,10 +33,28 @@ export class PetAdoptPageComponent {
         console.log(data);
       },
     });
+
+    this.apiService.checkSavedPet(this.petId).subscribe({
+      next: (data: any) => {
+        this.handleSavedPet(data);
+        console.log(data);
+      },
+    });
+
   }
 
   handlePetToAdopt(data: any) {
     this.pet = data;
+  }
+
+  handleSavedPet(data: any) {
+    if(this.petId == data.id_pet){
+      this.isPetSaved = true;
+      this.currentButtonText = this.savedButtonText;
+    }else{
+      this.isPetSaved = false;
+      this.currentButtonText = this.saveButtonText;
+    }
   }
 
 }

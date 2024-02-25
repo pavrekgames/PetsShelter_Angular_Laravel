@@ -52,6 +52,6 @@ Route::group([
     Route::post('my-pets/edit-photo/{id}', [PetController::class, 'updatePhoto']);
     Route::delete('my-pets/delete/{id}', [PetController::class, 'destroy']);
     Route::get('saved-pets', [PetController::class, 'showSavedPets']);
-    Route::get('check-saved-pet', [PetController::class, 'checkSavedPet']);
+    Route::get('check-saved-pet/{id}', [PetController::class, 'checkSavedPet']);
 
 });

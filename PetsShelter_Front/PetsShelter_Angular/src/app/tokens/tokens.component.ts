@@ -2,6 +2,13 @@ import { ApiService } from './../services/api-service';
 import { Component } from '@angular/core';
 import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
 import { User } from '../models/user';
+import {
+  ConfirmBoxInitializer,
+  DialogLayoutDisplay,
+  DisappearanceAnimation,
+  AppearanceAnimation
+} from '@costlydeveloper/ngx-awesome-popup';
+
 
 declare let alertify: any;
 
@@ -20,7 +27,7 @@ export class TokensComponent {
     surname: '',
     email: '',
     role: '',
-    tokensCount: 0,
+    tokens_count: 0,
   };
 
   smallBundleTokens: number = 100;
@@ -45,28 +52,52 @@ export class TokensComponent {
   }
 
   handleTokens(data: any){
-    this.loggedUser.tokensCount = data.tokens_count;
+    this.loggedUser.tokens_count = data.tokens_count;
   }
 
-  topUpTokens(tokens: number){
-    this.loggedUser.tokensCount += tokens;
+  topUpTokensWindow(tokensCount: number) {
+    const newConfirmBox = new ConfirmBoxInitializer();
 
-    this.apiService.topUpTokens(this.loggedUser).subscribe({
-      next: (data) => {
-        this.handleResponse();
-        console.log(data);
-      },
-      error: (error) => {
-        this.handleError();
-        console.log(error);
-      },
+    newConfirmBox.setTitle('Doładowanie żetonów');
+    newConfirmBox.setMessage('Czy na pewno chcesz doładować ' + tokensCount + ' żetonów?');
+
+    newConfirmBox.setConfig({
+    layoutType: DialogLayoutDisplay.SUCCESS,
+    animationIn: AppearanceAnimation.BOUNCE_IN,
+    animationOut: DisappearanceAnimation.BOUNCE_OUT,
+    buttonPosition: 'center',
     });
-  }
+
+    newConfirmBox.setButtonLabels('Tak', 'Nie');
+
+     // Simply open the popup and observe button click
+     newConfirmBox.openConfirmBox$().subscribe((resp) => {
+      if (resp.success) {
+        this.topUpTokens(tokensCount);
+      }
+    });
+}
+
+topUpTokens(tokens: number){
+  this.loggedUser.tokens_count += tokens;
+
+  this.apiService.topUpTokens(this.loggedUser).subscribe({
+    next: (data) => {
+      this.handleResponse();
+      console.log(data);
+    },
+    error: (error) => {
+      this.handleError();
+      console.log(error);
+    },
+  });
+}
+
 
   handleResponse() {
     //this.router.navigate(['/my-pets']);
-    //window.location.reload();
     alertify.success('Doładowano żetony');
+    window.location.reload();
   }
 
   handleError() {

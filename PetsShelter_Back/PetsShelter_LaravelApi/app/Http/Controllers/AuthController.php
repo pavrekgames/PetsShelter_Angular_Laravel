@@ -158,6 +158,23 @@ class AuthController extends Controller
 
     }
 
+  /**
+     * Top up tokens of the authenticated User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function topUpTokens(Request $request)
+    {
+
+        $user = auth()->user();
+        $id = $user->id;
+        $updatedUser = User::where('id', $id)->update($request->only('tokens_count'));
+
+        return response()->json($updatedUser, Response::HTTP_OK);
+
+    }
+
+
     /**
      * Log the user out (Invalidate the token).
      *

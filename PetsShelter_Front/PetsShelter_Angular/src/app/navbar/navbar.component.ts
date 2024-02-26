@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { faShieldDog } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -32,7 +32,7 @@ export class NavbarComponent implements OnInit {
     surname: '',
     email: '',
     role: '',
-    tokensCount: 0,
+    tokens_count: 0,
   };
 
   constructor(
@@ -54,7 +54,6 @@ export class NavbarComponent implements OnInit {
         }
       });
     }
-
   }
 
   logout() {
@@ -70,7 +69,7 @@ export class NavbarComponent implements OnInit {
     this.loggedUser.surname = data.surname;
     this.loggedUser.email = data.email;
     this.loggedUser.role = data.role;
-    this.loggedUser.tokensCount = data.tokens_count;
+    this.loggedUser.tokens_count = data.tokens_count;
   }
 
 }

@@ -1,3 +1,4 @@
+import { PetsAdoptPageComponent } from './pets-adopt-page/pets-adopt-page.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
@@ -11,8 +12,6 @@ import { RouterModule, provideRouter } from '@angular/router';
 import routeConfig from './routing/routes';
 import { HomeComponent } from './home/home.component';
 import { PetToAdoptComponent } from './pet-to-adopt/pet-to-adopt.component';
-import { PetsAdoptPageComponent } from './pets-adopt-page/pets-adopt-page.component';
-import { PetsSickPageComponent } from './pets-sick-page/pets-sick-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AddPetComponent } from './add-pet/add-pet.component';
@@ -26,6 +25,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { SavedPetsComponent } from './saved-pets/saved-pets.component';
 import { TokensComponent } from './tokens/tokens.component';
+import { SickPetsPageComponent } from './sick-pets-page/sick-pets-page.component';
 
 @NgModule({
   declarations: [
@@ -34,9 +34,9 @@ import { TokensComponent } from './tokens/tokens.component';
     RegisterComponent,
     LoginComponent,
     HomeComponent,
-    PetToAdoptComponent,
     PetsAdoptPageComponent,
-    PetsSickPageComponent,
+    PetToAdoptComponent,
+    SickPetsPageComponent,
     AddPetComponent,
     MyPetsComponent,
     PetAdoptPageComponent,

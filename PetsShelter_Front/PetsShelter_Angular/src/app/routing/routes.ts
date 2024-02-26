@@ -14,6 +14,7 @@ import { EditPetPhotoComponent } from "../edit-pet-photo/edit-pet-photo.componen
 import { EditProfileComponent } from "../edit-profile/edit-profile.component";
 import { SavedPetsComponent } from "../saved-pets/saved-pets.component";
 import { TokensComponent } from "../tokens/tokens.component";
+import { SickPetsPageComponent } from "../sick-pets-page/sick-pets-page.component";
 
 const routeConfig: Routes = [
   {
@@ -46,7 +47,7 @@ const routeConfig: Routes = [
   },
   {
     path: 'sick-pets',
-    component: PetsSickPageComponent,
+    component: SickPetsPageComponent,
     title: 'Chore zwierzęta'
   },
   {

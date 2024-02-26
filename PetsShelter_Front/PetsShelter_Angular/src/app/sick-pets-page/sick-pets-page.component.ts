@@ -11,7 +11,7 @@ export class SickPetsPageComponent {
   pets: any;
 
   page: number = 1;
-  petsPerPage: number = 4;
+  petsPerPage: number = 5;
 
   constructor(private apiService: ApiService) {}
 

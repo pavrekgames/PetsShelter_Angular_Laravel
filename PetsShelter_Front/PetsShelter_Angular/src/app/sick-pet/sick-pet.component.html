@@ -4,15 +4,33 @@
 
   <div class="col-6 theme-bgr p-2 border border-warning border-3">
     <div class="d-flex flex-row">
-      <div class="d-inline p-2 pe-4"><b>{{pet.name}}</b></div>
-      <div class="d-inline p-1"><span class="p-3 badge bg-primary rounded-pill">{{pet.species}}</span></div>
+      <div class="d-inline p-2 pe-4"><b>{{pet.name | titlecase}}</b></div>
+      <div class="d-inline p-1"><span class="p-3 badge bg-primary rounded-pill">{{pet.species | titlecase}}</span></div>
       <div class="d-inline p-1"><span class=" p-3 badge bg-primary rounded-pill">{{pet.disease | titlecase}}</span></div>
-      <div class="d-inline p-1"><span class=" p-3 badge bg-primary rounded-pill"></span></div>
+      <div class="d-inline p-1"><span class=" p-3 badge bg-danger rounded-pill">{{pet.status | titlecase}}</span></div>
     </div>
 
-    <div class="p-4 row justify-content-center">
-      <button type="button" class="btn btn-warning btn-rounded" routerLink="/pets-to-adopt/{{pet.id}}"> Zobacz więcej </button>
+    <div class="p-4 d-flex flex-row justify-content-center">
+
+      <div class="d-inline">
+        <h4 class="text-light">{{pet.current_tokens}} / {{pet.required_tokens}} <fa-icon [icon]="faSackDollar"></fa-icon></h4>
+      </div>
+
     </div>
+
+    <div class="d-flex flex-row">
+      <div class="d-inline">
+        <label for="tokens_count" class="form-label m-2"> <b>Wspomóż:</b></label>
+      </div>
+      <div class="d-inline">
+        <input type="number" class="form-control" id="tokens_count" name="tokens_count" min="1" max="1000" maxlength="4" placeholder="1" width="1px">
+      </div>
+      <div class="d-inline ps-1">
+        <button type="button" class="btn btn-warning btn-rounded"> Wyślij żetony </button>
+      </div>
+    </div>
+
+
 
   </div>
 

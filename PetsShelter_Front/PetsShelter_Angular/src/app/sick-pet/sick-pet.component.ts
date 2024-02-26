@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { SickPet } from '../models/sick-pet';
+import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sick-pet',
@@ -7,6 +8,8 @@ import { SickPet } from '../models/sick-pet';
   styleUrl: './sick-pet.component.css'
 })
 export class SickPetComponent {
+
+  faSackDollar = faSackDollar;
 
   @Input()
   pet: SickPet = {

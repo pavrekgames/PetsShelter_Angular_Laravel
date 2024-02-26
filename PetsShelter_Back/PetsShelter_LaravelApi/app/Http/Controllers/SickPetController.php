@@ -13,9 +13,11 @@ class SickPetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function showSickPets()
     {
-        //
+        $pets = SickPet::all();
+
+        return response()->json($pets, Response::HTTP_OK);
     }
 
     /**
@@ -39,7 +41,6 @@ class SickPetController extends Controller
             return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
         }
 
-        $user = auth()->user();
         $photo = $request->file('photo')->store('pets');
 
         $pet = SickPet::Create([

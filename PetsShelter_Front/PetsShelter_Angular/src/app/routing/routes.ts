@@ -15,6 +15,7 @@ import { EditProfileComponent } from "../edit-profile/edit-profile.component";
 import { SavedPetsComponent } from "../saved-pets/saved-pets.component";
 import { TokensComponent } from "../tokens/tokens.component";
 import { SickPetsPageComponent } from "../sick-pets-page/sick-pets-page.component";
+import { SickPetsManagerComponent } from "../sick-pets-manager/sick-pets-manager.component";
 
 const routeConfig: Routes = [
   {
@@ -49,6 +50,13 @@ const routeConfig: Routes = [
     path: 'sick-pets',
     component: SickPetsPageComponent,
     title: 'Chore zwierzęta'
+  },
+  {
+    path: 'sick-pets-manager',
+    component: SickPetsManagerComponent,
+    canActivate: [loggedGuard],
+    title: 'Chore zwierzęta - Menadżer'
+
   },
   {
     path: 'add-pet',

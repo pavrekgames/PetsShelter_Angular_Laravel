@@ -27,6 +27,7 @@ import { SavedPetsComponent } from './saved-pets/saved-pets.component';
 import { TokensComponent } from './tokens/tokens.component';
 import { SickPetsPageComponent } from './sick-pets-page/sick-pets-page.component';
 import { SickPetComponent } from './sick-pet/sick-pet.component';
+import { SickPetsManagerComponent } from './sick-pets-manager/sick-pets-manager.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { SickPetComponent } from './sick-pet/sick-pet.component';
     SavedPetsComponent,
     TokensComponent,
     SickPetComponent,
+    SickPetsManagerComponent,
   ],
   imports: [
     BrowserModule,

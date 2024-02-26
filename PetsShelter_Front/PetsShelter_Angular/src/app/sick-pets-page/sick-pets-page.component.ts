@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class SickPetsPageComponent {
 
+  pets: any;
+
+  page: number = 1;
+  petsPerPage: number = 4;
+
 }

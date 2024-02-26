@@ -7,5 +7,4 @@ export interface SickPet{
   required_tokens: number;
   status: string;
   photo_path: string;
-  id_User: number;
 }

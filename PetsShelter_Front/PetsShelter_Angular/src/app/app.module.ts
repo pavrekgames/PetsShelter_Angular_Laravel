@@ -26,6 +26,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { SavedPetsComponent } from './saved-pets/saved-pets.component';
 import { TokensComponent } from './tokens/tokens.component';
 import { SickPetsPageComponent } from './sick-pets-page/sick-pets-page.component';
+import { SickPetComponent } from './sick-pet/sick-pet.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { SickPetsPageComponent } from './sick-pets-page/sick-pets-page.component
     EditProfileComponent,
     SavedPetsComponent,
     TokensComponent,
+    SickPetComponent,
   ],
   imports: [
     BrowserModule,

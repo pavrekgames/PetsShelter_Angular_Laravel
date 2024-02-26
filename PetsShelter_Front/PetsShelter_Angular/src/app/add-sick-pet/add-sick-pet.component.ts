@@ -44,7 +44,7 @@ export class AddSickPetComponent {
       const formData = this.addSickPetForm.getRawValue();
       console.log("Raw Values: " + JSON.stringify(formData));
 
-      this.apiService.addPet(this.getFormData()).subscribe({
+      this.apiService.addSickPet(this.getFormData()).subscribe({
         next: (data) => {
           this.handleResponse();
           console.log(data);

@@ -8,9 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Log;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\File;
 
 class PetController extends Controller
 {
@@ -213,7 +211,7 @@ class PetController extends Controller
         $idUser = $user->id;
         $idPet = $request->id;
 
-        $pet = DB::table('saved-pets')->select('id_pet')
+        $pet = DB::table('saved_pets')->select('id_pet')
         ->where('id_pet', $idPet,)
         ->where('id_user', $idUser,)
         ->first();
@@ -227,7 +225,7 @@ class PetController extends Controller
         $idUser = $user->id;
         $idPet = $request->id;
 
-        $pet = DB::table('saved-pets')->insert(array('id_user' => $idUser, 'id_pet' => $idPet));
+        $pet = DB::table('saved_pets')->insert(array('id_user' => $idUser, 'id_pet' => $idPet));
 
         return response()->json($pet, Response::HTTP_OK);
     }
@@ -238,7 +236,7 @@ class PetController extends Controller
         $idUser = $user->id;
         $idPet = $request->id;
 
-        $pet = DB::table('saved-pets')
+        $pet = DB::table('saved_pets')
         ->where('id_user', $idUser)
         ->where('id_pet', $idPet)
         ->delete();

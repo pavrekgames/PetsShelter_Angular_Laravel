@@ -63,6 +63,6 @@ Route::group([
     Route::get('sick-pets/edit/{id}', [SickPetController::class, 'edit']);
     Route::put('sick-pets/edit/{id}', [SickPetController::class, 'update']);
     Route::post('sick-pets/edit-photo/{id}', [SickPetController::class, 'updatePhoto']);
-    Route::delete('my-pets/delete/{id}', [SickPetController::class, 'destroy']);
+    Route::delete('sick-pets/delete/{id}', [SickPetController::class, 'destroy']);
 
 });

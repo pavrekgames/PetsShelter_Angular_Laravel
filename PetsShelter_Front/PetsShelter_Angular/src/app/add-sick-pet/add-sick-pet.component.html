@@ -1,0 +1,79 @@
+<app-navbar></app-navbar>
+
+<div class="app-background center ">
+
+  <div class="row justify-content-center px-6 pt-5">
+
+    <div class="col-lg-5 rounded " >
+
+      <div class="p-4 text-light text-center">
+        <h3>Dodaj chore zwierzę</h3>
+      </div>
+
+      <div class="text-light">
+
+        <form class="form" [formGroup]="addSickPetForm" enctype="multipart/form-data" (ngSubmit)="onSubmit()">
+          <label for="pet-name" class="form-label m-2">Imię:</label>
+          <input type="text" class="form-control" id="pet-name" placeholder="" name="pet-name" formControlName = "name">
+
+          <div class="text-danger p-1" *ngIf="addSickPetForm.get('name')?.hasError('required') &&
+          (addSickPetForm.get('name')?.dirty ||
+          addSickPetForm.get('name')?.touched ||
+            hasSubmitted)">Imię jest wymagane</div>
+
+          <label for="species" class="form-label m-2">Gatunek:</label>
+          <input type="text" class="form-control" id="species" placeholder="" name="species" formControlName = "species">
+
+          <div class="text-danger p-1" *ngIf="addSickPetForm.get('species')?.hasError('required') &&
+          (addSickPetForm.get('species')?.dirty ||
+          addSickPetForm.get('species')?.touched ||
+            hasSubmitted)">Gatunek jest wymagany</div>
+
+            <div class="text-danger p-1" *ngIf="addSickPetForm.get('species')?.hasError('minlength') &&
+          (addSickPetForm.get('species')?.dirty ||
+          addSickPetForm.get('species')?.touched ||
+            hasSubmitted)">Gatunek musi mieć minimalnie 3 znaki</div>
+
+          <label for="disease" class="form-label m-2">Choroba:</label>
+          <input type="text" class="form-control" id="disease" placeholder="" name="disease" formControlName = "disease">
+
+          <div class="text-danger p-1" *ngIf="addSickPetForm.get('disease')?.hasError('required') &&
+          (addSickPetForm.get('disease')?.dirty ||
+          addSickPetForm.get('disease')?.touched ||
+            hasSubmitted)">Wpisanie choroby jest obowiązkowe</div>
+
+            <div class="text-danger p-1" *ngIf="addSickPetForm.get('disease')?.hasError('minlength') &&
+          (addSickPetForm.get('disease')?.dirty ||
+          addSickPetForm.get('disease')?.touched ||
+            hasSubmitted)">Nazwa choroby musi mieć minimalnie 3 znaki</div>
+
+          <label for="required_tokens" class="form-label m-2">Wymagana liczba żetonów:</label>
+          <input type="number" class="form-control" id="required_tokens" placeholder="" name="required_tokens" formControlName = "required_tokens">
+
+          <div class="text-danger p-1" *ngIf="addSickPetForm.get('required_tokens')?.hasError('required') &&
+          (addSickPetForm.get('required_tokens')?.dirty ||
+          addSickPetForm.get('required_tokens')?.touched ||
+            hasSubmitted)">Liczba żetonów nie może być pusta</div>
+
+            <div class="text-danger p-1" *ngIf="addSickPetForm.get('required_tokens')?.hasError('min') &&
+          (addSickPetForm.get('required_tokens')?.dirty ||
+          addSickPetForm.get('required_tokens')?.touched ||
+            hasSubmitted)">Minimalna liczba wymaganych żeonów to 1</div>
+
+          <label for="photo" class="form-label m-2">Dodaj zdjęcie:</label>
+          <input type="file" class="form-control" id="photo" name="photo" (change)="onFileChange($event)"> <!---formControlName = "photo"-->
+
+          <div class="text-danger p-1" *ngIf="addSickPetForm.get('photo')?.hasError('required') &&
+          (addSickPetForm.get('photo')?.dirty ||
+          addSickPetForm.get('photo')?.touched ||
+            hasSubmitted)">Zdjęcie jest wymagane</div>
+
+          <div class="text-center m-4">
+            <button type="submit" class="btn btn-warning">Dodaj</button>
+          </div>
+
+        </form>
+
+      </div>
+
+</div>

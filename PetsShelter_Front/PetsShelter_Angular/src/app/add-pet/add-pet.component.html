@@ -60,9 +60,9 @@
           <label for="photo" class="form-label m-2">Dodaj zdjęcie:</label>
           <input type="file" class="form-control" id="photo" name="photo" (change)="onFileChange($event)"> <!---formControlName = "photo"-->
 
-          <div class="text-danger p-1" *ngIf="addPetForm.get('photoPath')?.hasError('required') &&
-          (addPetForm.get('photoPath')?.dirty ||
-          addPetForm.get('photoPath')?.touched ||
+          <div class="text-danger p-1" *ngIf="addPetForm.get('photo')?.hasError('required') &&
+          (addPetForm.get('photo')?.dirty ||
+          addPetForm.get('photo')?.touched ||
             hasSubmitted)">Zdjęcie jest wymagane</div>
 
           <div class="text-center m-4">

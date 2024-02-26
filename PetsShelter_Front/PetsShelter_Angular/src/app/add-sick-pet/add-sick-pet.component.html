@@ -58,7 +58,7 @@
             <div class="text-danger p-1" *ngIf="addSickPetForm.get('required_tokens')?.hasError('min') &&
           (addSickPetForm.get('required_tokens')?.dirty ||
           addSickPetForm.get('required_tokens')?.touched ||
-            hasSubmitted)">Minimalna liczba wymaganych żeonów to 1</div>
+            hasSubmitted)">Minimalna liczba wymaganych żetonów to 1</div>
 
           <label for="photo" class="form-label m-2">Dodaj zdjęcie:</label>
           <input type="file" class="form-control" id="photo" name="photo" (change)="onFileChange($event)"> <!---formControlName = "photo"-->

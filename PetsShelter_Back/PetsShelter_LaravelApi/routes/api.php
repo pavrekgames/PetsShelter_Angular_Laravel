@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PetController;
+use App\Http\Controllers\SickPetController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -56,5 +57,12 @@ Route::group([
     Route::get('check-saved-pet/{id}', [PetController::class, 'checkSavedPet']);
     Route::post('add-saved-pet/{id}', [PetController::class, 'addSavedPet']);
     Route::delete('saved-pets/delete/{id}', [PetController::class, 'deleteSavedPet']);
+
+    Route::post('add-sick-pet', [SickPetController::class,'create']);
+    Route::get('sick-pets', [SickPetController::class, 'showSickPets']);
+    Route::get('sick-pets/edit/{id}', [SickPetController::class, 'edit']);
+    Route::put('sick-pets/edit/{id}', [SickPetController::class, 'update']);
+    Route::post('sick-pets/edit-photo/{id}', [SickPetController::class, 'updatePhoto']);
+    Route::delete('my-pets/delete/{id}', [SickPetController::class, 'destroy']);
 
 });

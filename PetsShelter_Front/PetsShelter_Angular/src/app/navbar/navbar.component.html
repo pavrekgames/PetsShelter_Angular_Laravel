@@ -38,6 +38,13 @@
                     <li><a class="dropdown-item" href="#" routerLink="/my-pets">Moje zwierzęta</a></li>
                     <li><a class="dropdown-item" href="#" routerLink="/saved-pets">Zapisane</a></li>
                     <li><a class="dropdown-item" href="#" routerLink="/tokens">Doładuj żetony</a></li>
+
+                    <div *ngIf="loggedUser.role == 'admin'">
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="#" routerLink="/users">Użytkownicy</a></li>
+                      <li><a class="dropdown-item" href="#" routerLink="/sick-pets-manager">Chore zwierzęta</a></li>
+                    </div>
+
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="#" (click)="logout()">Wyloguj</a></li>
                   </ul>

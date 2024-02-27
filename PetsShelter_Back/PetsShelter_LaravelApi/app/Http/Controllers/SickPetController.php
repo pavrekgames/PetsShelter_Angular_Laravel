@@ -159,8 +159,11 @@ class SickPetController extends Controller
      * @param  \App\Models\SickPet  $sickPet
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SickPet $sickPet)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->id;
+        $pet = SickPet::where('id', $id)->delete();
+
+        return response()->json($pet, Response::HTTP_OK);
     }
 }

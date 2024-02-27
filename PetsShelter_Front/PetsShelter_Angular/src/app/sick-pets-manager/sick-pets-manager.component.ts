@@ -43,7 +43,7 @@ export class SickPetsManagerComponent {
     const newConfirmBox = new ConfirmBoxInitializer();
 
     newConfirmBox.setTitle('Usuwanie chorego zwierzęcia');
-    newConfirmBox.setMessage('Czyn a pewno chcesz usunąć chore zwierzę o imieniu ' + petName + ' ?');
+    newConfirmBox.setMessage('Czy na pewno chcesz usunąć chore zwierzę o imieniu ' + petName + ' ?');
 
     // Choose layout color type
     newConfirmBox.setConfig({
@@ -64,7 +64,7 @@ export class SickPetsManagerComponent {
   }
 
   deleteSickPet(petId: any) {
-    this.apiService.deleteSavedPet(petId).subscribe({
+    this.apiService.deleteSickPet(petId).subscribe({
      next: (data) => {
        this.handleResponse();
        console.log(data);

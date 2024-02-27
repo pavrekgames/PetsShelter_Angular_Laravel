@@ -32,7 +32,7 @@
       <tbody>
         <tr *ngFor="let pet of pets | paginate: { itemsPerPage: petsPerPage, currentPage: page }; let i = index">
           <th scope="row">{{i+1}}</th>
-          <td><img [src]="pet.photo_path" class="img-size-my-pet"> <div class="ps-2 d-inline"> </div> </td>
+          <td><img [src]="pet.photo_path" class="img-size-my-pet"> <div class="ps-2 d-inline"> <button type="button" class="btn btn-info p-2" routerLink="/sick-pets-manager/edit-photo/{{pet.id}}">Zmień zdjęcie</button> </div> </td>
           <td >{{pet.name}}</td>
           <td >{{pet.species}}</td>
           <td >{{pet.disease}}</td>

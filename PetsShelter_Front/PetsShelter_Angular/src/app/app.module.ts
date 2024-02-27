@@ -30,6 +30,7 @@ import { SickPetComponent } from './sick-pet/sick-pet.component';
 import { SickPetsManagerComponent } from './sick-pets-manager/sick-pets-manager.component';
 import { AddSickPetComponent } from './add-sick-pet/add-sick-pet.component';
 import { EditSickPetComponent } from './edit-sick-pet/edit-sick-pet.component';
+import { EditSickPetPhotoComponent } from './edit-sick-pet-photo/edit-sick-pet-photo.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { EditSickPetComponent } from './edit-sick-pet/edit-sick-pet.component';
     SickPetsManagerComponent,
     AddSickPetComponent,
     EditSickPetComponent,
+    EditSickPetPhotoComponent,
   ],
   imports: [
     BrowserModule,

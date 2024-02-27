@@ -18,6 +18,7 @@ import { SickPetsPageComponent } from "../sick-pets-page/sick-pets-page.componen
 import { SickPetsManagerComponent } from "../sick-pets-manager/sick-pets-manager.component";
 import { AddSickPetComponent } from "../add-sick-pet/add-sick-pet.component";
 import { EditSickPetComponent } from "../edit-sick-pet/edit-sick-pet.component";
+import { EditSickPetPhotoComponent } from "../edit-sick-pet-photo/edit-sick-pet-photo.component";
 
 const routeConfig: Routes = [
   {
@@ -49,29 +50,6 @@ const routeConfig: Routes = [
     title: 'Zwierzę do adopcji'
   },
   {
-    path: 'sick-pets',
-    component: SickPetsPageComponent,
-    title: 'Chore zwierzęta'
-  },
-  {
-    path: 'sick-pets-manager',
-    component: SickPetsManagerComponent,
-    canActivate: [loggedGuard],
-    title: 'Chore zwierzęta - Menadżer'
-  },
-  {
-    path: 'sick-pets-manager/add',
-    component: AddSickPetComponent,
-    canActivate: [loggedGuard],
-    title: 'Dodaj chore zwierzę'
-  },
-  {
-    path: 'sick-pets-manager/edit/:id',
-    component: EditSickPetComponent,
-    canActivate: [loggedGuard],
-    title: 'Edytuj chore zwierzę'
-  },
-  {
     path: 'add-pet',
     component: AddPetComponent,
     canActivate: [loggedGuard],
@@ -100,6 +78,35 @@ const routeConfig: Routes = [
     component: SavedPetsComponent,
     canActivate: [loggedGuard],
     title: 'Zapisane zwierzęta'
+  },
+  {
+    path: 'sick-pets',
+    component: SickPetsPageComponent,
+    title: 'Chore zwierzęta'
+  },
+  {
+    path: 'sick-pets-manager',
+    component: SickPetsManagerComponent,
+    canActivate: [loggedGuard],
+    title: 'Chore zwierzęta - Menadżer'
+  },
+  {
+    path: 'sick-pets-manager/add',
+    component: AddSickPetComponent,
+    canActivate: [loggedGuard],
+    title: 'Dodaj chore zwierzę'
+  },
+  {
+    path: 'sick-pets-manager/edit/:id',
+    component: EditSickPetComponent,
+    canActivate: [loggedGuard],
+    title: 'Edytuj chore zwierzę'
+  },
+  {
+    path: 'sick-pets-manager/edit-photo/:id',
+    component: EditSickPetPhotoComponent,
+    canActivate: [loggedGuard],
+    title: 'Edytuj zdjęcie'
   },
   {
     path: 'edit-profile',

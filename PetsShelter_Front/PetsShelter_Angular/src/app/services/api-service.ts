@@ -188,5 +188,13 @@ export class ApiService {
 
   }
 
+  editSickPetPhoto(id: any, data: FormData){
+    const token = this.tokenService.getTokenValue();
+    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
+
+    return this.http.post('http://127.0.0.1:8000/api/sick-pets/edit-photo/' + id, data, {'headers': headers});
+
+  }
+
 
 }

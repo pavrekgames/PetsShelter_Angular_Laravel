@@ -166,6 +166,15 @@ class AuthController extends Controller
 
     }
 
+    public function deleteUser(Request $request)
+    {
+        $id = $request->id;
+        $user = User::where('id', $id)->delete();
+
+        return response()->json($user, Response::HTTP_OK);
+    }
+
+
   /**
      * Top up tokens of the authenticated User.
      *

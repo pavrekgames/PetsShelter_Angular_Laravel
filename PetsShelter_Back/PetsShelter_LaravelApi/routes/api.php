@@ -66,4 +66,5 @@ Route::group([
     Route::delete('sick-pets/delete/{id}', [SickPetController::class, 'destroy']);
 
     Route::get('users', [AuthController::class, 'showUsers']);
+    Route::delete('users/delete/{id}', [AuthController::class, 'deleteUser']);
 });

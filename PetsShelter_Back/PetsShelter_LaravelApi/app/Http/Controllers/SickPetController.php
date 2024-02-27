@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Storage;
 use App\Models\SickPet;
 use Illuminate\Http\Request;
 
@@ -120,6 +121,37 @@ class SickPetController extends Controller
         return response()->json($pet, Response::HTTP_OK);
 
     }
+
+    public function updatePhoto(Request $request)
+    {
+
+        $data = $request->only('photo');
+
+        $validator = Validator::make($data, [
+            'photo' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+        }
+
+        $id = $request->id;
+        $pet = SickPet::findOrFail($id);
+        $oldPhotoPath = $pet->photo_path;
+
+        if(Storage::exists($oldPhotoPath)){
+            Storage::delete($oldPhotoPath);
+        }
+
+        $newPhoto = $request->file('photo')->store('pets');
+        $newPhotoPath = "http://127.0.0.1:8000/storage/".$newPhoto;
+        $pet->photo_path = $newPhotoPath;
+
+        $pet->save();
+
+        return response()->json($pet, Response::HTTP_OK);
+    }
+
 
     /**
      * Remove the specified resource from storage.

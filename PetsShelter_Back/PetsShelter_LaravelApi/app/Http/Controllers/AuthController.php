@@ -81,6 +81,14 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
+    public function showUsers(){
+
+        $users = User::where('role', 'user')->get();
+
+        return response()->json($users, Response::HTTP_OK);
+    }
+
+
     /**
      * Get the authenticated User.
      *

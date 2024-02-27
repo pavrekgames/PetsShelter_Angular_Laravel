@@ -65,4 +65,5 @@ Route::group([
     Route::post('sick-pets/edit-photo/{id}', [SickPetController::class, 'updatePhoto']);
     Route::delete('sick-pets/delete/{id}', [SickPetController::class, 'destroy']);
 
+    Route::get('users', [AuthController::class, 'showUsers']);
 });

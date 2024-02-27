@@ -19,6 +19,7 @@ import { SickPetsManagerComponent } from "../sick-pets-manager/sick-pets-manager
 import { AddSickPetComponent } from "../add-sick-pet/add-sick-pet.component";
 import { EditSickPetComponent } from "../edit-sick-pet/edit-sick-pet.component";
 import { EditSickPetPhotoComponent } from "../edit-sick-pet-photo/edit-sick-pet-photo.component";
+import { UsersComponent } from "../users/users.component";
 
 const routeConfig: Routes = [
   {
@@ -119,6 +120,12 @@ const routeConfig: Routes = [
     component: TokensComponent,
     canActivate: [loggedGuard],
     title: 'Doładuj tokeny'
+  },
+  {
+    path: 'users',
+    component: UsersComponent,
+    canActivate: [loggedGuard],
+    title: 'Użytkownicy'
   }
 
 ];

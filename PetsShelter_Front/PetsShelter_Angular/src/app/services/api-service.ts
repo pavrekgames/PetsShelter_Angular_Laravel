@@ -171,5 +171,22 @@ export class ApiService {
 
   }
 
+  getSickPetToEdit(id: any){
+
+    const token = this.tokenService.getTokenValue();
+    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
+
+    return this.http.get('http://127.0.0.1:8000/api/sick-pets/edit/' + id, {'headers': headers});
+
+  }
+
+  editSickPet(id: any, data: any){
+    const token = this.tokenService.getTokenValue();
+    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
+
+    return this.http.put<any>('http://127.0.0.1:8000/api/sick-pets/edit/' + id, data, {'headers': headers});
+
+  }
+
 
 }

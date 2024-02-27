@@ -39,7 +39,7 @@ export class EditSickPetComponent {
   ngOnInit(): void {
     this.petId = this.route.snapshot.params.id;
 
-    this.apiService.getPetToEdit(this.petId).subscribe({
+    this.apiService.getSickPetToEdit(this.petId).subscribe({
       next: (data: any) => {
         this.handleSickPet(data);
         console.log(data);
@@ -55,7 +55,7 @@ export class EditSickPetComponent {
       const formData = this.editSickPetForm.getRawValue();
       console.log('Raw Values: ' + JSON.stringify(formData));
 
-      this.apiService.editPet(this.petId, this.getFormData()).subscribe({
+      this.apiService.editSickPet(this.petId, this.getFormData()).subscribe({
         next: (data) => {
           this.handleResponse();
           console.log(data);

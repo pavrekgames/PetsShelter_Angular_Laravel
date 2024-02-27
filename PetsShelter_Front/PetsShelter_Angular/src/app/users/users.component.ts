@@ -40,7 +40,7 @@ export class UsersComponent {
     const newConfirmBox = new ConfirmBoxInitializer();
 
     newConfirmBox.setTitle('Usuwanie użytkownika');
-    newConfirmBox.setMessage('Czy na pewno chcesz usunąć użytkownika o imieniu ' + userName + ' ' + userSurname + ' ?');
+    newConfirmBox.setMessage('Czy na pewno chcesz usunąć użytkownika ' + userName + ' ' + userSurname + ' ?');
 
     // Choose layout color type
     newConfirmBox.setConfig({
@@ -61,7 +61,7 @@ export class UsersComponent {
   }
 
   deleteUser(petId: any) {
-    this.apiService.deleteSickPet(petId).subscribe({
+    this.apiService.deleteUser(petId).subscribe({
      next: (data) => {
        this.handleResponse();
        console.log(data);

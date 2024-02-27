@@ -74,7 +74,7 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function savedPets(): BelongsToMany{
-        return $this->belongsToMany(Pet::class, 'saved-pets', 'id_user', 'id_pet');
+        return $this->belongsToMany(Pet::class, 'saved_pets', 'id_user', 'id_pet');
     }
 
 }

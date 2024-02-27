@@ -19,11 +19,11 @@ return new class extends Migration
             $table->string('species');
             $table->string('race');
             $table->string('size')->default('Mały');
-            $table->string('description')->nullable(true)->change();
+            $table->string('description')->nullable(true);
             $table->string('photo_path');
             $table->timestamps();
 
-            $table->foreignId('id_user')->constrained('users');
+            $table->foreignId('id_user')->constrained('users')->cascadeOnDelete();
         });
     }
 

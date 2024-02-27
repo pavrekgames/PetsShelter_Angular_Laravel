@@ -32,7 +32,7 @@ class Pet extends Model
     }
 
     public function users(): BelongsToMany{
-        return $this->belongsToMany(User::class, 'saved-pets', 'id_user', 'id_pet');
+        return $this->belongsToMany(User::class, 'saved_pets', 'id_user', 'id_pet');
     }
 
 }

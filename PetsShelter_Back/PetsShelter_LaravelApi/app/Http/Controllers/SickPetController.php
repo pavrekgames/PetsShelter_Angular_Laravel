@@ -84,9 +84,12 @@ class SickPetController extends Controller
      * @param  \App\Models\SickPet  $sickPet
      * @return \Illuminate\Http\Response
      */
-    public function edit(SickPet $sickPet)
+    public function edit(Request $request)
     {
-        //
+        $id = $request->id;
+        $pet = SickPet::findOrFail($id);
+
+        return response()->json($pet, Response::HTTP_OK);
     }
 
     /**
@@ -96,9 +99,26 @@ class SickPetController extends Controller
      * @param  \App\Models\SickPet  $sickPet
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SickPet $sickPet)
+    public function update(Request $request)
     {
-        //
+        $data = $request->only('name', 'species', 'disease', 'required_tokens');
+
+        $validator = Validator::make($data, [
+            'name' => 'required',
+            'species' => 'required|min:3',
+            'disease' => 'required|min:3',
+            'required_tokens' => 'required|integer|min:1',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+        }
+
+        $id = $request->id;
+        $pet = SickPet::where('id', $id)->update($request->only('name', 'species', 'disease', 'required_tokens'));
+
+        return response()->json($pet, Response::HTTP_OK);
+
     }
 
     /**

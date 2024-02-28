@@ -7,7 +7,7 @@
       <div class="d-inline p-2 pe-4"><b>{{pet.name | titlecase}}</b></div>
       <div class="d-inline p-1"><span class="p-3 badge bg-primary rounded-pill">{{pet.species | titlecase}}</span></div>
       <div class="d-inline p-1"><span class=" p-3 badge bg-primary rounded-pill">{{pet.disease | titlecase}}</span></div>
-      <div class="d-inline p-1"><span class=" p-3 badge bg-danger rounded-pill">{{pet.status | titlecase}}</span></div>
+      <div class="d-inline p-1"><span [ngClass]="pet.status == 'Aktywne' ? 'p-3 badge bg-danger rounded-pill' : 'p-3 badge bg-success rounded-pill'">{{pet.status | titlecase}}</span></div>
     </div>
 
     <div class="p-4 d-flex flex-row justify-content-center">
@@ -18,7 +18,7 @@
 
     </div>
 
-    <div class="d-flex flex-row pb-2">
+    <div class="d-flex flex-row pb-2" *ngIf="pet.status == 'Aktywne'">
       <div class="d-inline">
         <label for="tokens_count" class="form-label m-2"> <b>Wspomóż:</b></label>
       </div>

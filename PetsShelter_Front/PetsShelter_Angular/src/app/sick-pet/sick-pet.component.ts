@@ -20,11 +20,11 @@ declare let alertify: any;
 export class SickPetComponent {
   faSackDollar = faSackDollar;
 
-  userTokensCount: number = 200;
+  userTokensCount: number = 0;
   isValid: boolean = false;
 
   tokensCount: TokensCount = {
-    tokens_count: 1
+    tokens_count: 1,
   };
 
   @Input()
@@ -41,16 +41,25 @@ export class SickPetComponent {
 
   constructor(private apiService: ApiService) {}
 
-  transferTokensWindow() {
+  ngOnInit(): void {
+    this.apiService.authorizedUser().subscribe({
+      next: (data) => {
+        this.handleUserTokens(data);
+      },
+    });
+  }
 
+  transferTokensWindow() {
     this.validate();
 
-    if(this.isValid){
+    if (this.isValid) {
       const newConfirmBox = new ConfirmBoxInitializer();
 
       newConfirmBox.setTitle('Przelanie żetonów');
       newConfirmBox.setMessage(
-        'Czy na pewno chcesz przelać ' + this.tokensCount.tokens_count + ' żetonów?'
+        'Czy na pewno chcesz przelać ' +
+          this.tokensCount.tokens_count +
+          ' żetonów?'
       );
 
       newConfirmBox.setConfig({
@@ -69,11 +78,9 @@ export class SickPetComponent {
         }
       });
     }
-
   }
 
   transferTokens(tokens: any, petId: any) {
-
     this.apiService.transferTokens(petId, tokens).subscribe({
       next: (data) => {
         this.handleResponse();
@@ -96,9 +103,14 @@ export class SickPetComponent {
     alertify.error('Wystąpił problem!');
   }
 
-  validate(){
-    this.isValid = this.tokensCount.tokens_count >= 1
-    && this.tokensCount.tokens_count <= this.userTokensCount;
+  validate() {
+    this.isValid =
+      this.tokensCount.tokens_count >= 1 &&
+      this.tokensCount.tokens_count <= this.userTokensCount;
+  }
+
+  handleUserTokens(data: any){
+    this.userTokensCount = data.tokens_count;
   }
 
 }

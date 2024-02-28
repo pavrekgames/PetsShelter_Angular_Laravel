@@ -23,7 +23,7 @@
         <label for="tokens_count" class="form-label m-2"> <b>Wspomóż:</b></label>
       </div>
       <div class="d-inline">
-        <input type="number" class="form-control" id="tokens_count" name="tokens_count" min="1" max="1000" maxlength="4" placeholder="1" [(ngModel)]="tokensCount.tokens_count">
+        <input type="number" class="form-control" id="tokens_count" name="tokens_count" min="1" max="1000" maxlength="4" [(ngModel)]="tokensCount.tokens_count">
       </div>
       <div class="d-inline ps-1">
         <button type="button" class="btn btn-warning btn-rounded" (click)="transferTokensWindow()"> Wyślij </button>

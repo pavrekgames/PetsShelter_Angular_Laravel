@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { SickPet } from '../models/sick-pet';
+import { TokensCount } from '../models/tokens-count';
 import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
 import {
   ConfirmBoxInitializer,
@@ -19,7 +20,9 @@ declare let alertify: any;
 export class SickPetComponent {
   faSackDollar = faSackDollar;
 
-  tokensCount: number = 0;
+  tokensCount: TokensCount = {
+    tokens_count: 0
+  };
 
   @Input()
   pet: SickPet = {
@@ -35,12 +38,12 @@ export class SickPetComponent {
 
   constructor(private apiService: ApiService) {}
 
-  transferTokensWindow(tokensCount: number) {
+  transferTokensWindow() {
     const newConfirmBox = new ConfirmBoxInitializer();
 
     newConfirmBox.setTitle('Przelanie żetonów');
     newConfirmBox.setMessage(
-      'Czy na pewno chcesz przelać ' + tokensCount + ' żetonów?'
+      'Czy na pewno chcesz przelać ' + this.tokensCount.tokens_count + ' żetonów?'
     );
 
     newConfirmBox.setConfig({
@@ -55,14 +58,14 @@ export class SickPetComponent {
     // Simply open the popup and observe button click
     newConfirmBox.openConfirmBox$().subscribe((resp) => {
       if (resp.success) {
-        this.transferTokens(tokensCount, this.pet.id);
+        this.transferTokens(this.tokensCount, this.pet.id);
       }
     });
   }
 
-  transferTokens(tokens: number, petId: any) {
+  transferTokens(tokens: any, petId: any) {
 
-    this.apiService.topUpTokens(0).subscribe({
+    this.apiService.transferTokens(petId, tokens).subscribe({
       next: (data) => {
         this.handleResponse();
         console.log(data);
@@ -76,7 +79,7 @@ export class SickPetComponent {
 
   handleResponse() {
     //this.router.navigate(['/my-pets']);
-    alertify.success('Doładowano żetony');
+    alertify.success('Przelano żetony');
     window.location.reload();
   }
 

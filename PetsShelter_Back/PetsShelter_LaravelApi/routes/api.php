@@ -45,6 +45,7 @@ Route::group([
     Route::put('edit-profile', [AuthController::class, 'editProfile']);
     Route::put('change-password', [AuthController::class, 'changePassword']);
     Route::put('top-up-tokens', [AuthController::class, 'topUpTokens']);
+    Route::post('transfer-tokens/{petId}', [AuthController::class, 'transferTokens']);
 
     Route::post('add-pet', [PetController::class,'create']);
     Route::get('my-pets', [PetController::class, 'myPets']);

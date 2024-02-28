@@ -6,6 +6,8 @@ use Auth;
 use Cookie;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\SickPet;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
@@ -188,6 +190,34 @@ class AuthController extends Controller
         $updatedUser = User::where('id', $id)->update($request->only('tokens_count'));
 
         return response()->json($updatedUser, Response::HTTP_OK);
+
+    }
+
+    /**
+     * Transfer tokens of the authenticated User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function transferTokens(Request $request)
+    {
+
+        $tokens = (int)$request->tokens_count;
+        $pet = SickPet::findOrFail($request->petId);
+        $user = auth()->user();
+
+        //dd($request);
+
+        if($pet->status == 'Zakończone') {
+            return response()->json(['error' => 'Status akcji zakończony'], Response::HTTP_BAD_REQUEST);
+        }
+
+        DB::transaction(function() use ($tokens, $user, $pet){
+                $user->decrement('tokens_count', $tokens);
+                $pet->increment('current_tokens', $tokens);
+
+        }); // <= Starting the transaction
+
+        return response()->json(['message' => 'Transakcja wykonana'], Response::HTTP_OK);
 
     }
 

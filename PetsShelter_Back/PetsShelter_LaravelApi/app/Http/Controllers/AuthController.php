@@ -215,7 +215,11 @@ class AuthController extends Controller
                 $user->decrement('tokens_count', $tokens);
                 $pet->increment('current_tokens', $tokens);
 
-        }); // <= Starting the transaction
+                if($pet->current_tokens >= $pet->required_tokens){
+                    $pet->update(['status' => 'Zakończone']);
+                }
+
+        });
 
         return response()->json(['message' => 'Transakcja wykonana'], Response::HTTP_OK);
 

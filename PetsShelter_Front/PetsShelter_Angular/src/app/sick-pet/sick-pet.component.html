@@ -18,7 +18,7 @@
 
     </div>
 
-    <div class="d-flex flex-row">
+    <div class="d-flex flex-row pb-2">
       <div class="d-inline">
         <label for="tokens_count" class="form-label m-2"> <b>Wspomóż:</b></label>
       </div>
@@ -28,9 +28,16 @@
       <div class="d-inline ps-1">
         <button type="button" class="btn btn-warning btn-rounded" (click)="transferTokensWindow()"> Wyślij </button>
       </div>
+
     </div>
 
+    <span class="text-dark bg-danger" *ngIf="tokensCount.tokens_count < 1">
+      <b>Minimalna ilość żetonów musi wynosić 1</b>
+    </span>
 
+    <span class="text-dark bg-danger" *ngIf="tokensCount.tokens_count > userTokensCount">
+      <b>Nie masz tyle żetonów</b>
+    </span>
 
   </div>
 

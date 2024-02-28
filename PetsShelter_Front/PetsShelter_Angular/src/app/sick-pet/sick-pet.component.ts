@@ -20,8 +20,11 @@ declare let alertify: any;
 export class SickPetComponent {
   faSackDollar = faSackDollar;
 
+  userTokensCount: number = 200;
+  isValid: boolean = false;
+
   tokensCount: TokensCount = {
-    tokens_count: 0
+    tokens_count: 1
   };
 
   @Input()
@@ -39,28 +42,34 @@ export class SickPetComponent {
   constructor(private apiService: ApiService) {}
 
   transferTokensWindow() {
-    const newConfirmBox = new ConfirmBoxInitializer();
 
-    newConfirmBox.setTitle('Przelanie żetonów');
-    newConfirmBox.setMessage(
-      'Czy na pewno chcesz przelać ' + this.tokensCount.tokens_count + ' żetonów?'
-    );
+    this.validate();
 
-    newConfirmBox.setConfig({
-      layoutType: DialogLayoutDisplay.SUCCESS,
-      animationIn: AppearanceAnimation.BOUNCE_IN,
-      animationOut: DisappearanceAnimation.BOUNCE_OUT,
-      buttonPosition: 'center',
-    });
+    if(this.isValid){
+      const newConfirmBox = new ConfirmBoxInitializer();
 
-    newConfirmBox.setButtonLabels('Tak', 'Nie');
+      newConfirmBox.setTitle('Przelanie żetonów');
+      newConfirmBox.setMessage(
+        'Czy na pewno chcesz przelać ' + this.tokensCount.tokens_count + ' żetonów?'
+      );
 
-    // Simply open the popup and observe button click
-    newConfirmBox.openConfirmBox$().subscribe((resp) => {
-      if (resp.success) {
-        this.transferTokens(this.tokensCount, this.pet.id);
-      }
-    });
+      newConfirmBox.setConfig({
+        layoutType: DialogLayoutDisplay.SUCCESS,
+        animationIn: AppearanceAnimation.BOUNCE_IN,
+        animationOut: DisappearanceAnimation.BOUNCE_OUT,
+        buttonPosition: 'center',
+      });
+
+      newConfirmBox.setButtonLabels('Tak', 'Nie');
+
+      // Simply open the popup and observe button click
+      newConfirmBox.openConfirmBox$().subscribe((resp) => {
+        if (resp.success) {
+          this.transferTokens(this.tokensCount, this.pet.id);
+        }
+      });
+    }
+
   }
 
   transferTokens(tokens: any, petId: any) {
@@ -86,4 +95,10 @@ export class SickPetComponent {
   handleError() {
     alertify.error('Wystąpił problem!');
   }
+
+  validate(){
+    this.isValid = this.tokensCount.tokens_count >= 1
+    && this.tokensCount.tokens_count <= this.userTokensCount;
+  }
+
 }

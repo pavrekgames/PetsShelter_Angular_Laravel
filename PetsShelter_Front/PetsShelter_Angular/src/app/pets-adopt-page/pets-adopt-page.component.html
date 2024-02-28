@@ -1,3 +1,5 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+
 <app-navbar></app-navbar>
 
 <div class="app-background text-center text-light p-5">
@@ -16,9 +18,16 @@
 
 </div>
 
+<div class="app-background row justify-content-center px-6 p-5">
+  <div class="col-lg-4">
+    <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#xF002; Szukaj po gatunku, rasie czy rozmiarze" style="font-family:Arial, FontAwesome">
+  </div>
+
+</div>
+
 
 <div *ngIf="pets != null">
-  <div *ngFor="let pet of pets | paginate: { itemsPerPage: petsPerPage, currentPage: page }">
+  <div *ngFor="let pet of pets | search:searchText | paginate: { itemsPerPage: petsPerPage, currentPage: page }">
     <app-pet-to-adopt [pet]="pet"></app-pet-to-adopt>
     </div>
 

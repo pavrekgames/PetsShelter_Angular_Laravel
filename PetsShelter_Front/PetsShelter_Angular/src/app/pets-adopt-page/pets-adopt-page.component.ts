@@ -8,6 +8,8 @@ import { ApiService } from '../services/api-service';
 })
 export class PetsAdoptPageComponent {
 
+  searchText: any;
+
   pets: any;
 
   page: number = 1;

@@ -83,6 +83,7 @@ const routeConfig: Routes = [
   {
     path: 'sick-pets',
     component: SickPetsPageComponent,
+    canActivate: [loggedGuard],
     title: 'Chore zwierzęta'
   },
   {

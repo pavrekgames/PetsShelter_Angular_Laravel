@@ -32,6 +32,7 @@ import { AddSickPetComponent } from './add-sick-pet/add-sick-pet.component';
 import { EditSickPetComponent } from './edit-sick-pet/edit-sick-pet.component';
 import { EditSickPetPhotoComponent } from './edit-sick-pet-photo/edit-sick-pet-photo.component';
 import { UsersComponent } from './users/users.component';
+import { SearchPipe } from './pipes/search.pipe';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { UsersComponent } from './users/users.component';
     EditSickPetComponent,
     EditSickPetPhotoComponent,
     UsersComponent,
+    SearchPipe,
   ],
   imports: [
     BrowserModule,
@@ -70,7 +72,7 @@ import { UsersComponent } from './users/users.component';
     DialogConfigModule.forRoot(),
     ConfirmBoxConfigModule.forRoot(),
     ToastNotificationConfigModule.forRoot(),
-    NgxPaginationModule
+    NgxPaginationModule,
   ],
   providers: [
     provideClientHydration(),

@@ -17,7 +17,7 @@ pet: Pet = {
   size: 'średni',
   description: 'brak',
   photo_path: './assets/PetsBgr.jpg',
-  id_User: 0
+  user_id: 0
 }
 
 }

@@ -70,6 +70,8 @@ export class NavbarComponent implements OnInit {
     this.loggedUser.email = data.email;
     this.loggedUser.role = data.role;
     this.loggedUser.tokens_count = data.tokens_count;
+
+    this.authService.setAuthUser();
   }
 
 }

@@ -59,13 +59,18 @@ Route::group([
     Route::post('add-saved-pet/{id}', [PetController::class, 'addSavedPet']);
     Route::delete('saved-pets/delete/{id}', [PetController::class, 'deleteSavedPet']);
 
-    Route::post('add-sick-pet', [SickPetController::class,'create']);
     Route::get('sick-pets', [SickPetController::class, 'showSickPets']);
-    Route::get('sick-pets/edit/{id}', [SickPetController::class, 'edit']);
-    Route::put('sick-pets/edit/{id}', [SickPetController::class, 'update']);
-    Route::post('sick-pets/edit-photo/{id}', [SickPetController::class, 'updatePhoto']);
-    Route::delete('sick-pets/delete/{id}', [SickPetController::class, 'destroy']);
 
-    Route::get('users', [AuthController::class, 'showUsers']);
-    Route::delete('users/delete/{id}', [AuthController::class, 'deleteUser']);
+    Route::middleware(['can:isAdmin'])->group(function () {
+        Route::post('add-sick-pet', [SickPetController::class,'create']);
+        Route::get('sick-pets/edit/{id}', [SickPetController::class, 'edit']);
+        Route::put('sick-pets/edit/{id}', [SickPetController::class, 'update']);
+        Route::post('sick-pets/edit-photo/{id}', [SickPetController::class, 'updatePhoto']);
+        Route::delete('sick-pets/delete/{id}', [SickPetController::class, 'destroy']);
+
+        Route::get('users', [AuthController::class, 'showUsers']);
+        Route::delete('users/delete/{id}', [AuthController::class, 'deleteUser']);
+    });
+
+
 });

@@ -94,7 +94,6 @@ export class SickPetComponent {
   }
 
   handleResponse() {
-    //this.router.navigate(['/my-pets']);
     alertify.success('Przelano żetony');
     window.location.reload();
   }
@@ -107,7 +106,36 @@ export class SickPetComponent {
     this.isValid =
       this.tokensCount.tokens_count >= 1 &&
       this.tokensCount.tokens_count <= this.userTokensCount;
+
+    if(this.tokensCount.tokens_count > this.userTokensCount){
+      this.tokensCountWarningWindow();
+    }
   }
+
+  tokensCountWarningWindow() {
+    const newConfirmBox = new ConfirmBoxInitializer();
+
+    newConfirmBox.setTitle('Transfer żetonów');
+    newConfirmBox.setMessage('Nie masz tyle żetonów!');
+
+    // Choose layout color type
+    newConfirmBox.setConfig({
+    layoutType: DialogLayoutDisplay.WARNING,
+    animationIn: AppearanceAnimation.BOUNCE_IN,
+    animationOut: DisappearanceAnimation.BOUNCE_OUT,
+    buttonPosition: 'center', // optional
+    });
+
+    newConfirmBox.setButtonLabels('Zamknij', '');
+
+    // Simply open the popup and observe button click
+    newConfirmBox.openConfirmBox$().subscribe(resp => {
+      if(resp.clickedButtonID){
+        console.log('Button clicked: ', resp.clickedButtonID);
+      }
+    });
+}
+
 
   handleUserTokens(data: any){
     this.userTokensCount = data.tokens_count;

@@ -16,9 +16,9 @@ class Message extends Model
      */
     protected $fillable = [
         'content',
-        'date',
-        'user_id',
-        'pet_id'
+        'user_sender_id',
+        'pet_id',
+        'user_receiver_id'
     ];
 
 }

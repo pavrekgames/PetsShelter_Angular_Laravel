@@ -70,11 +70,11 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function pets(): HasMany{
-        return $this->hasMany(Pet::class, 'id_user');
+        return $this->hasMany(Pet::class, 'user_id');
     }
 
     public function savedPets(): BelongsToMany{
-        return $this->belongsToMany(Pet::class, 'saved_pets', 'id_user', 'id_pet');
+        return $this->belongsToMany(Pet::class, 'saved_pets', 'user_id', 'pet_id');
     }
 
 }

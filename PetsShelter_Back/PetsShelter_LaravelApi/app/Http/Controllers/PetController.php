@@ -53,7 +53,7 @@ class PetController extends Controller
             'size' => $request->input('size'),
             'description' => $request->input('description'),
             'photo_path' => "http://127.0.0.1:8000/storage/".$photo,
-            'id_user' => $user->id,
+            'user_id' => $user->id,
         ]);
 
         return response()->json(['message' => 'Dodałeś zwierzę do adopcji', 'userData'=> $pet], Response::HTTP_OK);
@@ -208,12 +208,12 @@ class PetController extends Controller
     public function checkSavedPet(Request $request){
 
         $user = auth()->user();
-        $idUser = $user->id;
-        $idPet = $request->id;
+        $userId = $user->id;
+        $petId = $request->id;
 
-        $pet = DB::table('saved_pets')->select('id_pet')
-        ->where('id_pet', $idPet,)
-        ->where('id_user', $idUser,)
+        $pet = DB::table('saved_pets')->select('pet_id')
+        ->where('pet_id', $petId,)
+        ->where('user_id', $userId,)
         ->first();
 
         return response()->json($pet, Response::HTTP_OK);
@@ -222,10 +222,10 @@ class PetController extends Controller
     public function addSavedPet(Request $request){
 
         $user = auth()->user();
-        $idUser = $user->id;
-        $idPet = $request->id;
+        $userId = $user->id;
+        $petId = $request->id;
 
-        $pet = DB::table('saved_pets')->insert(array('id_user' => $idUser, 'id_pet' => $idPet));
+        $pet = DB::table('saved_pets')->insert(array('user_id' => $userId, 'pet_id' => $petId));
 
         return response()->json($pet, Response::HTTP_OK);
     }
@@ -233,12 +233,12 @@ class PetController extends Controller
     public function deleteSavedPet(Request $request){
 
         $user = auth()->user();
-        $idUser = $user->id;
-        $idPet = $request->id;
+        $userId = $user->id;
+        $petId = $request->id;
 
         $pet = DB::table('saved_pets')
-        ->where('id_user', $idUser)
-        ->where('id_pet', $idPet)
+        ->where('user_id', $userId)
+        ->where('pet_id', $petId)
         ->delete();
 
         return response()->json($pet, Response::HTTP_OK);

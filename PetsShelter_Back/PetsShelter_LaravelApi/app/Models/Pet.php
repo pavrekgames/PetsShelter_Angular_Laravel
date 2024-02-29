@@ -23,7 +23,7 @@ class Pet extends Model
         'size',
         'description',
         'photo_path',
-        'id_user'
+        'user_id'
     ];
 
     public function user(): BelongsTo
@@ -32,7 +32,7 @@ class Pet extends Model
     }
 
     public function users(): BelongsToMany{
-        return $this->belongsToMany(User::class, 'saved_pets', 'id_user', 'id_pet');
+        return $this->belongsToMany(User::class, 'saved_pets', 'user_id', 'pet_id');
     }
 
 }

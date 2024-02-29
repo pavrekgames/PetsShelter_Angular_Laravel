@@ -20,6 +20,7 @@ import { AddSickPetComponent } from "../add-sick-pet/add-sick-pet.component";
 import { EditSickPetComponent } from "../edit-sick-pet/edit-sick-pet.component";
 import { EditSickPetPhotoComponent } from "../edit-sick-pet-photo/edit-sick-pet-photo.component";
 import { UsersComponent } from "../users/users.component";
+import { adminGuard } from "../guards/admin.guard";
 
 const routeConfig: Routes = [
   {
@@ -89,25 +90,25 @@ const routeConfig: Routes = [
   {
     path: 'sick-pets-manager',
     component: SickPetsManagerComponent,
-    canActivate: [loggedGuard],
+    canActivate: [adminGuard],
     title: 'Chore zwierzęta - Menadżer'
   },
   {
     path: 'sick-pets-manager/add',
     component: AddSickPetComponent,
-    canActivate: [loggedGuard],
+    canActivate: [adminGuard],
     title: 'Dodaj chore zwierzę'
   },
   {
     path: 'sick-pets-manager/edit/:id',
     component: EditSickPetComponent,
-    canActivate: [loggedGuard],
+    canActivate: [adminGuard],
     title: 'Edytuj chore zwierzę'
   },
   {
     path: 'sick-pets-manager/edit-photo/:id',
     component: EditSickPetPhotoComponent,
-    canActivate: [loggedGuard],
+    canActivate: [adminGuard],
     title: 'Edytuj zdjęcie'
   },
   {
@@ -125,7 +126,7 @@ const routeConfig: Routes = [
   {
     path: 'users',
     component: UsersComponent,
-    canActivate: [loggedGuard],
+    canActivate: [adminGuard],
     title: 'Użytkownicy'
   }
 

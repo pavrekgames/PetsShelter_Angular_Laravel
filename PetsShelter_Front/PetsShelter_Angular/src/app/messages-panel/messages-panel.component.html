@@ -21,16 +21,10 @@
 
   <div class="fixed mh-100 flex border lg:shadow-sm overflow-hidden inset-0 lg:top-16 lg:inset-x-2 m-auto lg:h-[90%] rounded-t-lg vh-100">
 
-    <div class="border bg-primary text-light col-4 vh-100">
+    <app-messages-bar></app-messages-bar>
 
-      <div class="border-bottom pt-2 pb-2 d-flex justify-content-center">
-          <h4>Wszystkie</h4>
-      </div>
-
-      <app-message-list-element></app-message-list-element>
-      <app-message-list-element></app-message-list-element>
-      <app-message-list-element></app-message-list-element>
-
+    <div class="fa-3x text-light border text-light col-8 vh-100 d-flex justify-content-center d-block">
+      <fa-icon [icon]="faEnvelope"></fa-icon>
     </div>
 
   </div>

@@ -18,14 +18,21 @@
 </div>
 
 <div class="app-background px-6">
+  <div class="row border vh-100 overflow-hidden">
 
-  <div class="d-flex border overflow-hidden vh-100">
+    <div class="col-4">
+      <app-messages-bar></app-messages-bar>
+    </div>
 
-    <app-messages-bar></app-messages-bar>
+    <div class="col-8">
+      <app-conversation></app-conversation>
+    </div>
 
-    <app-conversation></app-conversation>
 
   </div>
+
+
+
 
 </div>
 
@@ -33,4 +40,8 @@
 
 
 <!--<div class="fixed mh-100 flex border lg:shadow-sm overflow-hidden inset-0 lg:top-16 lg:inset-x-2 m-auto lg:h-[90%] rounded-t-lg">-->
+
+<!--<app-messages-bar></app-messages-bar>-->
+
+<!--<app-conversation></app-conversation>-->
 

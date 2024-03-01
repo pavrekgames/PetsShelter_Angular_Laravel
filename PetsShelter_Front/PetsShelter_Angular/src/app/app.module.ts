@@ -34,6 +34,7 @@ import { EditSickPetPhotoComponent } from './edit-sick-pet-photo/edit-sick-pet-p
 import { UsersComponent } from './users/users.component';
 import { SearchPipe } from './pipes/search.pipe';
 import { MessagesPanelComponent } from './messages-panel/messages-panel.component';
+import { MessageListElementComponent } from './message-list-element/message-list-element.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { MessagesPanelComponent } from './messages-panel/messages-panel.componen
     UsersComponent,
     SearchPipe,
     MessagesPanelComponent,
+    MessageListElementComponent,
   ],
   imports: [
     BrowserModule,

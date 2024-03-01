@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Message extends Model
+class Conversation extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'content',
-        'has_read',
         'user_sender_id',
         'user_receiver_id',
+        'pet_id'
     ];
 
 }

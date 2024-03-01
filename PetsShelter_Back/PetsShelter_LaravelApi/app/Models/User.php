@@ -77,4 +77,8 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Pet::class, 'saved_pets', 'user_id', 'pet_id');
     }
 
+    public function conversations(){
+        return $this->hasMany(Conversation::class, 'user_sender_id')->orWhere('user_receiver_id', $this->id);
+    }
+
 }

@@ -21,6 +21,7 @@ import { EditSickPetComponent } from "../edit-sick-pet/edit-sick-pet.component";
 import { EditSickPetPhotoComponent } from "../edit-sick-pet-photo/edit-sick-pet-photo.component";
 import { UsersComponent } from "../users/users.component";
 import { adminGuard } from "../guards/admin.guard";
+import { MessagesPanelComponent } from "../messages-panel/messages-panel.component";
 
 const routeConfig: Routes = [
   {
@@ -128,7 +129,13 @@ const routeConfig: Routes = [
     component: UsersComponent,
     canActivate: [adminGuard],
     title: 'Użytkownicy'
-  }
+  },
+  {
+    path: 'messages',
+    component: MessagesPanelComponent,
+    canActivate: [loggedGuard],
+    title: 'Wiadomosci'
+  },
 
 ];
 

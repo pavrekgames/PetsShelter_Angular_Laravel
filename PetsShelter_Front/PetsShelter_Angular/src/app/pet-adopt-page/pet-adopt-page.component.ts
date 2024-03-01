@@ -50,7 +50,7 @@ export class PetAdoptPageComponent {
   }
 
   handleSavedPet(data: any) {
-    if(this.petId == data.id_pet){
+    if(this.petId == data.pet_id){
       this.isPetSaved = true;
       this.currentButtonText = this.savedButtonText;
     }else{

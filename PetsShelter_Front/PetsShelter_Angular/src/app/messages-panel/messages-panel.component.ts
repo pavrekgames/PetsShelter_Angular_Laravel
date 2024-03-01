@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-messages-panel',
@@ -8,6 +7,6 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 })
 export class MessagesPanelComponent {
 
-  faEnvelope = faEnvelope;
+
 
 }

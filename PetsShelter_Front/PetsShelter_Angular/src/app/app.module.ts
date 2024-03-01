@@ -36,6 +36,7 @@ import { SearchPipe } from './pipes/search.pipe';
 import { MessagesPanelComponent } from './messages-panel/messages-panel.component';
 import { MessageListElementComponent } from './message-list-element/message-list-element.component';
 import { MessagesBarComponent } from './messages-bar/messages-bar.component';
+import { ConversationComponent } from './conversation/conversation.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { MessagesBarComponent } from './messages-bar/messages-bar.component';
     MessagesPanelComponent,
     MessageListElementComponent,
     MessagesBarComponent,
+    ConversationComponent,
   ],
   imports: [
     BrowserModule,

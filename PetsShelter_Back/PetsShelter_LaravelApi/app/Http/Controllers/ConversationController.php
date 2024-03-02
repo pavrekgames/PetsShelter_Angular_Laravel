@@ -12,7 +12,7 @@ class ConversationController extends Controller
     public function create(Request $request)
     {
 
-        $authUserId = auth()->user();
+        $authUserId = auth()->user()->id;
         $petUserId = $request->user_id;
         $petId = $request->id;
 
@@ -36,7 +36,7 @@ class ConversationController extends Controller
             'pet_id' => $petId
         ]);
 
-        return response()->json(['message' => 'Stworzyłeś nową konwersację', 'conversationData'=> $conversation], Response::HTTP_OK);
+        return response()->json($conversation, Response::HTTP_OK);
 
     }
 

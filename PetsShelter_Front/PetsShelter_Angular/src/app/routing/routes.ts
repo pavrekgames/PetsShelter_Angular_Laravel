@@ -134,7 +134,13 @@ const routeConfig: Routes = [
     path: 'messages',
     component: MessagesPanelComponent,
     canActivate: [loggedGuard],
-    title: 'Wiadomosci'
+    title: 'Wiadomości'
+  },
+  {
+    path: 'messages/:id',
+    component: MessagesPanelComponent,
+    canActivate: [loggedGuard],
+    title: 'Wiadomości'
   },
 
 ];

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\SickPetController;
 use Illuminate\Http\Request;
@@ -60,6 +61,8 @@ Route::group([
     Route::delete('saved-pets/delete/{id}', [PetController::class, 'deleteSavedPet']);
 
     Route::get('sick-pets', [SickPetController::class, 'showSickPets']);
+
+    Route::post('create-conversation', [ConversationController::class,'create']);
 
     Route::middleware(['can:isAdmin'])->group(function () {
         Route::post('add-sick-pet', [SickPetController::class,'create']);

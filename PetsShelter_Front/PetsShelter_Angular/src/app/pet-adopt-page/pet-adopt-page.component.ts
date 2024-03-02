@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../services/api-service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faEnvelope, faHeart } from '@fortawesome/free-solid-svg-icons';
 
 declare let alertify: any;
@@ -23,7 +23,7 @@ export class PetAdoptPageComponent {
   faHeart = faHeart;
   faEnvelope = faEnvelope;
 
-  constructor(private apiService: ApiService, private route: ActivatedRoute) {}
+  constructor(private apiService: ApiService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
 
@@ -80,5 +80,29 @@ export class PetAdoptPageComponent {
   handleSavePetError(){
     alertify.error('Wystąpił problem!');
   }
+
+  createConversation(){
+    this.apiService.createConversation(this.pet).subscribe({
+      next: (data: any) => {
+        this.handleConversationSuccess(data);
+        console.log(data);
+      },
+      error: (error) => {
+        this.handleConversationError();
+      },
+    });
+  }
+
+  handleConversationSuccess(data: any){
+
+    const conversationId = data.id;
+
+    this.router.navigate(['/messages/' + conversationId]);
+  }
+
+  handleConversationError(){
+    alertify.error('Wystąpił problem!');
+  }
+
 
 }

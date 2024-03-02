@@ -27,7 +27,7 @@ class ConversationController extends Controller
         })->first();
 
         if ($existingConversation) {
-            return response()->json(['message' => 'Konwersacja istnieje', 'conversationData'=> $existingConversation], Response::HTTP_OK);
+            return response()->json($existingConversation, Response::HTTP_OK);
         }
 
         $conversation = Conversation::Create([
@@ -37,6 +37,16 @@ class ConversationController extends Controller
         ]);
 
         return response()->json($conversation, Response::HTTP_OK);
+
+    }
+
+    public function getPet(){
+
+        //$pet = Pet::where()
+
+    }
+
+    public function getReceiverUser(){
 
     }
 

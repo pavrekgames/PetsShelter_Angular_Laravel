@@ -5,7 +5,7 @@
   </div>
 
   <div *ngFor="let conversation of convsersations">
-    <app-message-list-element></app-message-list-element>
+    <app-message-list-element [conversation]="conversation"></app-message-list-element>
   </div>
 
 </div>

@@ -35,4 +35,8 @@ class Pet extends Model
         return $this->belongsToMany(User::class, 'saved_pets', 'user_id', 'pet_id');
     }
 
+    public function conversations(): BelongsToMany{
+        return $this->belongsToMany(Conversation::class, 'pet_id');
+    }
+
 }

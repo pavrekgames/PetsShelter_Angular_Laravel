@@ -40,13 +40,9 @@ class ConversationController extends Controller
 
     }
 
-    public function getPet(){
+    public function getConversations(Request $request){
 
-        //$pet = Pet::where()
 
-    }
-
-    public function getReceiverUser(){
 
     }
 

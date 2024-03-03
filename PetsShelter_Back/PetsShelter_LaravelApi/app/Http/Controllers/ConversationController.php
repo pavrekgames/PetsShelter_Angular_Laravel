@@ -43,8 +43,16 @@ class ConversationController extends Controller
     public function getConversations(Request $request)
     {
 
-        $conversations = Conversation::join('users', 'conversations.user_receiver_id', 'users.id')
+        $authUser = auth()->user();
+        $authUserId = auth()->user()->id;
+
+
+        //dd($conversations);
+
+        $receiverConversations = Conversation::join('users', 'conversations.user_sender_id', 'users.id')
+            ->where('conversations.user_receiver_id', $authUserId)
             ->join('pets', 'conversations.pet_id', 'pets.id')
+            //->where('conversations.pet_id', 'pets.id')
             ->select(
                 'conversations.id',
                 'users.name AS user_name',
@@ -54,11 +62,28 @@ class ConversationController extends Controller
             )
             ->get();
 
-        return response()->json($conversations, Response::HTTP_OK);
+        $senderConversations = Conversation::join('users', 'conversations.user_receiver_id', 'users.id')
+            ->where('conversations.user_sender_id', $authUserId)
+            ->join('pets', 'conversations.pet_id', 'pets.id')
+            //->where('conversations.pet_id', 'pets.id')
+            ->select(
+                'conversations.id',
+                'users.name AS user_name',
+                'users.surname As user_surname',
+                'pets.name AS pet_name',
+                'pets.photo_path AS pet_photo'
+            )
+            ->get();
 
+            //dd($senderConversations);
+            //dd($receiverConversations);
+
+        if($receiverConversations != null) {
+            return response()->json($receiverConversations, Response::HTTP_OK);
+        }else if($senderConversations != null){
+            return response()->json($senderConversations, Response::HTTP_OK);
+        }
 
     }
-
-
 
 }

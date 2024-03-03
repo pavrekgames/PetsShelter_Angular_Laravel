@@ -25,4 +25,16 @@ class Conversation extends Model
         return $this->hasMany(User::class, 'user_id');
     }
 
+    public function getReceiver(){
+
+        $authUserId = auth()->user()->id;
+
+        if($this->user_sender_id == $authUserId){
+            return User::firstWhere('id', $this->user_receiver_id);
+        }else{
+            return User::firstWhere('id', $this->user_sender_id);
+        }
+
+    }
+
 }

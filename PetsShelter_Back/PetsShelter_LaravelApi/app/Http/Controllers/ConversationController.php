@@ -40,8 +40,21 @@ class ConversationController extends Controller
 
     }
 
-    public function getConversations(Request $request){
+    public function getConversations(Request $request)
+    {
 
+        $conversations = Conversation::join('users', 'conversations.user_receiver_id', 'users.id')
+            ->join('pets', 'conversations.pet_id', 'pets.id')
+            ->select(
+                'conversations.id',
+                'users.name AS user_name',
+                'users.surname As user_surname',
+                'pets.name AS pet_name',
+                'pets.photo_path AS pet_photo'
+            )
+            ->get();
+
+        return response()->json($conversations, Response::HTTP_OK);
 
 
     }

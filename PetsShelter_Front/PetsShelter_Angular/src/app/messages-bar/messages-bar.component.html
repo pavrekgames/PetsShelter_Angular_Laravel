@@ -4,8 +4,8 @@
       <h4>Wszystkie</h4>
   </div>
 
-  <app-message-list-element></app-message-list-element>
-  <app-message-list-element></app-message-list-element>
-  <app-message-list-element></app-message-list-element>
+  <div *ngFor="let conversation of convsersations">
+    <app-message-list-element></app-message-list-element>
+  </div>
 
 </div>

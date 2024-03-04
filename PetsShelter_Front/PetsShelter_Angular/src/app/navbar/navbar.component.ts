@@ -25,6 +25,7 @@ export class NavbarComponent implements OnInit {
   faEnvelope = faEnvelope;
 
   isLoggenIn: boolean = false;
+  isTokenExpired: boolean = false;
 
   loggedUser: User = {
     id: 0,
@@ -53,6 +54,8 @@ export class NavbarComponent implements OnInit {
           this.handleUser(data);
         }
       });
+
+      this.checkToken();
     }
   }
 
@@ -72,6 +75,15 @@ export class NavbarComponent implements OnInit {
     this.loggedUser.tokens_count = data.tokens_count;
 
     this.authService.setAuthUser();
+  }
+
+  checkToken(){
+    this.isTokenExpired = this.tokenService.isTokenExpired();
+
+    if(this.isTokenExpired){
+      this.logout();
+    }
+
   }
 
 }

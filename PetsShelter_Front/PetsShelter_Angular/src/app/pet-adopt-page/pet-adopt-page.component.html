@@ -6,7 +6,7 @@
 </div>
 
 
-<div class="row px-7 app-background text-light justify-content-center pb-2 ">
+<div class="row px-7 app-background text-light justify-content-center pb-2 " *ngIf="pet">
   <div class="col-3 p-2"><img [src]="pet.photo_path" class="img-size-pet"></div>
 
 
@@ -26,7 +26,7 @@
 
 </div>
 
-<div class="d-flex flex-row px-8 app-background text-light justify-content-start pb-2 ">
+<div class="d-flex flex-row px-8 app-background text-light justify-content-start pb-2 " *ngIf="pet">
   <div class="col-3 ps-5 text-center text-warning">
     <h3><b>{{pet.name}}</b></h3>
   </div>

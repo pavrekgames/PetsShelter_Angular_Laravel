@@ -11,7 +11,7 @@
         <h3>Zmień zdjęcie</h3>
       </div>
 
-      <div class="p-4 text-center">
+      <div class="p-4 text-center" *ngIf="pet">
         <img [src]="pet.photo_path" class="img-size-pet">
       </div>
 

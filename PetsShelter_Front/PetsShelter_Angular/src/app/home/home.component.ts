@@ -22,7 +22,7 @@ export class HomeComponent {
 
         setTimeout(() => {
           this.spinner.hide();
-        }, 1000);
+        }, 500);
 
         this.handleNewestPets(data);
         console.log(data);

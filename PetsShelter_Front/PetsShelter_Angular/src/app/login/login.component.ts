@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '../services/api-service';
 import { TokenService } from '../services/token.service';
 import { AuthService } from '../services/auth.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 declare let alertify: any;
 
@@ -28,7 +29,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private apiService: ApiService,
     private tokenService: TokenService,
-    private authService: AuthService
+    private authService: AuthService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -41,12 +43,23 @@ export class LoginComponent implements OnInit {
 
     if (this.loginForm.valid) {
       const formData = this.loginForm.getRawValue();
+      this.spinner.show();
 
       this.apiService.login(formData).subscribe({
         next: (data) => {
+
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 500);
+
           this.handleResponse(data);
         },
         error: (error) => {
+
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 500);
+
           this.handleError(error);
           console.log(this.error);
         },

@@ -18,11 +18,15 @@ class Conversation extends Model
     ];
 
     public function pet(): HasOne{
-        return $this->hasOne(Pet::class, 'user_id');
+        return $this->hasOne(Pet::class, 'id', 'pet_id');
     }
 
-    public function users(): HasMany{
-        return $this->hasMany(User::class, 'user_id');
+    public function sender(): HasOne{
+        return $this->hasOne(User::class, 'id', 'user_sender_id');
+    }
+
+    public function receiver(): HasOne{
+        return $this->hasOne(User::class, 'id', 'user_receiver_id');
     }
 
     public function getReceiver(){

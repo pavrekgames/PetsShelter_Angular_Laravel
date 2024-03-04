@@ -70,7 +70,7 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function pets(): HasMany{
-        return $this->hasMany(Pet::class, 'user_id');
+        return $this->hasMany(Pet::class);
     }
 
     public function savedPets(): BelongsToMany{

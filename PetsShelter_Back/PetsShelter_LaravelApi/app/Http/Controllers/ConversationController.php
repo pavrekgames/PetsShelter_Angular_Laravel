@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Conversation;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -43,46 +44,46 @@ class ConversationController extends Controller
     public function getConversations(Request $request)
     {
 
-        $authUser = auth()->user();
         $authUserId = auth()->user()->id;
 
+        $conversations = Conversation::where('user_receiver_id', $authUserId)->orWhere('user_sender_id', $authUserId)->get();
 
-        //dd($conversations);
+        $conversations = $conversations->map(function ($conversation) use ($authUserId) {
+            $data = [];
+            $pet = $conversation->pet;
 
-        $receiverConversations = Conversation::join('users', 'conversations.user_sender_id', 'users.id')
-            ->where('conversations.user_receiver_id', $authUserId)
-            ->join('pets', 'conversations.pet_id', 'pets.id')
-            //->where('conversations.pet_id', 'pets.id')
-            ->select(
-                'conversations.id',
-                'users.name AS user_name',
-                'users.surname As user_surname',
-                'pets.name AS pet_name',
-                'pets.photo_path AS pet_photo'
-            )
-            ->get();
+            if ($conversation->user_receiver_id == $authUserId) {
 
-        $senderConversations = Conversation::join('users', 'conversations.user_receiver_id', 'users.id')
-            ->where('conversations.user_sender_id', $authUserId)
-            ->join('pets', 'conversations.pet_id', 'pets.id')
-            //->where('conversations.pet_id', 'pets.id')
-            ->select(
-                'conversations.id',
-                'users.name AS user_name',
-                'users.surname As user_surname',
-                'pets.name AS pet_name',
-                'pets.photo_path AS pet_photo'
-            )
-            ->get();
+                //$user = User::find($conversation->user_sender_id);
+                $user = $conversation->sender;
 
-            //dd($senderConversations);
-            //dd($receiverConversations);
+                $data = [
+                    'id' => $conversation->id,
+                    'user_name' => $user->name,
+                    'user_surname' => $user->surname,
+                    'pet_name' => $pet->name,
+                    'pet_photo' => $pet->photo_path,
+                ];
+            }
 
-        if($receiverConversations != null) {
-            return response()->json($receiverConversations, Response::HTTP_OK);
-        }else if($senderConversations != null){
-            return response()->json($senderConversations, Response::HTTP_OK);
-        }
+            if ($conversation->user_sender_id == $authUserId) {
+
+                //$user = User::find($conversation->user_receiver_id);
+                $user = $conversation->receiver;
+
+                $data = [
+                    'id' => $conversation->id,
+                    'user_name' => $user->name,
+                    'user_surname' => $user->surname,
+                    'pet_name' => $pet->name,
+                    'pet_photo' => $pet->photo_path,
+                ];
+            }
+
+            return $data;
+        });
+
+        return response()->json($conversations, Response::HTTP_OK);
 
     }
 

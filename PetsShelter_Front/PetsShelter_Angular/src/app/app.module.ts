@@ -1,6 +1,7 @@
 import { PetsAdoptPageComponent } from './pets-adopt-page/pets-adopt-page.component';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -82,8 +83,10 @@ import { NgxSpinnerModule } from "ngx-spinner";
     ConfirmBoxConfigModule.forRoot(),
     ToastNotificationConfigModule.forRoot(),
     NgxPaginationModule,
+    BrowserAnimationsModule,
     NgxSpinnerModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     provideClientHydration(),
     provideRouter(routeConfig)

@@ -79,6 +79,7 @@ export class NavbarComponent implements OnInit {
 
   checkToken(){
     this.isTokenExpired = this.tokenService.isTokenExpired();
+    console.log('Token expired: ' +  this.isTokenExpired);
 
     if(this.isTokenExpired){
       this.logout();

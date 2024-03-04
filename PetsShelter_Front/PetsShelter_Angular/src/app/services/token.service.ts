@@ -63,11 +63,13 @@ export class TokenService {
     const token = this.getToken();
 
     if (token !== null) {
-      const expiry = JSON.parse(atob(token.split('.')[1])).exp;
-      return expiry * 1000 > Date.now();
+      const expiry = (JSON.parse(atob(token.split('.')[1])));
+
+      return expiry.exp < Date.now() / 1000;
     }else{
-      return true;
+      return false;
     }
 
   }
+
 }

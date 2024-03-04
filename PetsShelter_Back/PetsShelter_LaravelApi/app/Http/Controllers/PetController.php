@@ -144,6 +144,7 @@ class PetController extends Controller
         $id = $request->id;
         $pet = Pet::findOrFail($id);
         $oldPhotoPath = $pet->photo_path;
+        $oldPhotoPath = trim(str_replace('http://127.0.0.1:8000/storage/','',$oldPhotoPath));
 
         if(Storage::exists($oldPhotoPath)){
             Storage::delete($oldPhotoPath);

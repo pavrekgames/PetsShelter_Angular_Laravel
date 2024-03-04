@@ -37,6 +37,7 @@ import { MessagesPanelComponent } from './messages-panel/messages-panel.componen
 import { MessageListElementComponent } from './message-list-element/message-list-element.component';
 import { MessagesBarComponent } from './messages-bar/messages-bar.component';
 import { ConversationComponent } from './conversation/conversation.component';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { ConversationComponent } from './conversation/conversation.component';
     ConfirmBoxConfigModule.forRoot(),
     ToastNotificationConfigModule.forRoot(),
     NgxPaginationModule,
+    NgxSpinnerModule
   ],
   providers: [
     provideClientHydration(),

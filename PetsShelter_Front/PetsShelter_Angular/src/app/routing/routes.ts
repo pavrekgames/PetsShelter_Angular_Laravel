@@ -1,3 +1,4 @@
+import { ConversationComponent } from './../conversation/conversation.component';
 import { Routes } from "@angular/router";
 import { HomeComponent } from "../home/home.component";
 import { RegisterComponent } from "../register/register.component";

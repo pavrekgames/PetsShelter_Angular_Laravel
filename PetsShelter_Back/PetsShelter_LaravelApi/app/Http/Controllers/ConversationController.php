@@ -89,9 +89,9 @@ class ConversationController extends Controller
         $authUserId = auth()->user()->id;
         $conversationId = $request->id;
 
-        $currentConversation = Conversation::where('id', $conversationId)->get();
+        $currentConversation = Conversation::where('id', $conversationId)->first();
 
-        $currentConversation = $currentConversation->map(function ($conversation) use ($authUserId) {
+       /* $currentConversation = $currentConversation->map(function ($conversation) use ($authUserId) {
             $data = [];
             $pet = $conversation->pet;
 
@@ -122,9 +122,37 @@ class ConversationController extends Controller
             }
 
             return $data;
-        });
+        }); */
 
-        return response()->json($currentConversation, Response::HTTP_OK);
+        $pet = $currentConversation->pet;
+
+        if ($currentConversation->user_receiver_id == $authUserId) {
+
+            $user = $currentConversation->sender;
+
+            $conversation = [
+                'id' => $currentConversation->id,
+                'user_name' => $user->name,
+                'user_surname' => $user->surname,
+                'pet_name' => $pet->name,
+                'pet_photo' => $pet->photo_path,
+            ];
+        }
+
+        if ($currentConversation->user_sender_id == $authUserId) {
+
+            $user = $currentConversation->receiver;
+
+            $conversation = [
+                'id' => $currentConversation->id,
+                'user_name' => $user->name,
+                'user_surname' => $user->surname,
+                'pet_name' => $pet->name,
+                'pet_photo' => $pet->photo_path,
+            ];
+        }
+
+        return response()->json($conversation, Response::HTTP_OK);
 
     }
 

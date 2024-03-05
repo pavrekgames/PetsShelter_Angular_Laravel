@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { ApiService } from '../services/api-service';
 import { ActivatedRoute } from '@angular/router';
@@ -15,12 +15,13 @@ export class ConversationComponent {
   faEnvelope = faEnvelope;
 
   conversationId: number = 0;
+
   conversation: Conversation = {
     id: 0,
-    user_name: 'a',
-    user_surname: 'a',
-    pet_name: 'a',
-    pet_photo: 'a'
+    user_name: 'c',
+    user_surname: 'c',
+    pet_name: 'e',
+    pet_photo: 'f'
   };
 
   constructor(
@@ -30,19 +31,23 @@ export class ConversationComponent {
   ) {}
 
   ngOnInit(): void {
-    //this.spinnerService.show();
 
     this.conversationId = this.route.snapshot.params.id;
     console.log("Id konwersacji: " + this.conversationId);
 
-    this.apiService.getConversation(this.conversationId).subscribe({
-      next: (data: any) => {
-        this.spinnerService.hide();
-        this.handleConversation(data);
-        console.log(data);
-      },
-    });
+    if(this.conversationId != undefined){
+      this.spinnerService.show();
+
+      this.apiService.getConversation(this.conversationId).subscribe({
+        next: (data: any) => {
+          this.spinnerService.hide();
+          this.handleConversation(data);
+        },
+      });
+    }
+
   }
+
 
   handleConversation(data: any){
     this.conversation = data;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../services/api-service';
+import { SpinnerService } from '../services/spinner.service';
 
 declare let alertify: any;
 
@@ -30,7 +31,8 @@ export class AddPetComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private spinnerService: SpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -42,16 +44,18 @@ export class AddPetComponent implements OnInit {
     this.error = [];
 
     if (this.addPetForm.valid) {
-
+      this.spinnerService.show();
       const formData = this.addPetForm.getRawValue();
       console.log("Raw Values: " + JSON.stringify(formData));
 
       this.apiService.addPet(this.getFormData()).subscribe({
         next: (data) => {
+          this.spinnerService.hide();
           this.handleResponse();
           console.log(data);
         },
         error: (error) => {
+          this.spinnerService.hide();
           this.handleError(error);
           console.log(this.error);
         },

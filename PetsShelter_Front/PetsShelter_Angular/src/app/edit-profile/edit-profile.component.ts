@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../services/api-service';
+import { SpinnerService } from '../services/spinner.service';
 
 declare let alertify: any;
 
@@ -35,12 +36,17 @@ export class EditProfileComponent {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private spinnerService: SpinnerService
   ) {}
 
   ngOnInit(): void {
+
+    this.spinnerService.show();
+
     this.apiService.authorizedUser().subscribe({
       next: (data) => {
+        this.spinnerService.hide();
         this.handleUser(data);
       },
     });
@@ -53,14 +59,17 @@ export class EditProfileComponent {
     //this.checkPassword();
 
     if (this.editProfileForm.valid) {
+      this.spinnerService.show();
       const formData = this.editProfileForm.getRawValue();
 
       this.apiService.editProfile(formData).subscribe({
         next: (data) => {
+          this.spinnerService.hide();
           this.handleResponse();
           console.log(data);
         },
         error: (error) => {
+          this.spinnerService.hide();
           this.handleError(error);
           console.log(this.error);
         },

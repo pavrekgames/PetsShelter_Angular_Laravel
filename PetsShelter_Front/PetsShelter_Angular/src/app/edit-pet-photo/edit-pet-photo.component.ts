@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from '../services/api-service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SpinnerService } from '../services/spinner.service';
 
 declare let alertify: any;
 
@@ -27,14 +28,17 @@ export class EditPetPhotoComponent {
     private formBuilder: FormBuilder,
     private router: Router,
     private apiService: ApiService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private spinnerService: SpinnerService
   ) {}
 
   ngOnInit(): void {
     this.petId = this.route.snapshot.params.id;
+    this.spinnerService.show();
 
     this.apiService.getPetToEdit(this.petId).subscribe({
       next: (data: any) => {
+        this.spinnerService.hide();
         this.handlePetToEdit(data);
         console.log(data);
       },
@@ -46,16 +50,18 @@ export class EditPetPhotoComponent {
     this.error = [];
 
     if (this.editPetPhotoForm.valid) {
-
+      this.spinnerService.show();
       const formData = this.editPetPhotoForm.getRawValue();
       console.log("Raw Values: " + JSON.stringify(formData));
 
       this.apiService.editPetPhoto(this.petId, this.getFormData()).subscribe({
         next: (data) => {
+          this.spinnerService.hide();
           this.handleResponse();
           console.log(data);
         },
         error: (error) => {
+          this.spinnerService.hide();
           this.handleError(error);
           console.log(this.error);
         },

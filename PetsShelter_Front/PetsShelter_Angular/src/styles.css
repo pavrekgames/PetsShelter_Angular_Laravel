@@ -32,6 +32,12 @@
   object-fit: cover;
 }
 
+.img-size-pet-message{
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+}
+
 html { background-color: #0d1b2a; }
 
 /*----px-6 */

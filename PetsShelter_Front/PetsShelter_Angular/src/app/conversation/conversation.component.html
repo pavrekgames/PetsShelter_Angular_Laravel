@@ -43,14 +43,20 @@
 <ng-template #currentConversation>
 
 <div class="fa-3x text-center justify-center flex flex-col">
-  <h2>Dyskusja o: {{conversation.pet_name}}</h2>
 
+  <div class="p-2 text-light">
+    <h5>Wiadomość o: <span class="text-warning">{{conversation.pet_name}}</span>  z <span class="text-warning">{{conversation.user_name}} {{conversation.user_surname}}</span> </h5>
+  </div>
 
-  <div class="p-3 bg-success border">
-    <div class="d-inline ps-2">
-     <img [src]="conversation.pet_photo" class="img-size-my-pet rounded-circle">
+  <div class="p-1 bg-primary">
+    <div class="">
+     <img [src]="conversation.pet_photo" class="img-size-pet-message rounded-circle">
     </div>
+  </div>
 
+  <div class="p-4 text-light">
+     <h4>Napisz wiadomość</h4>
+    <textarea class="form-control" id="message" rows="3" formControlName = "message"></textarea>
   </div>
 
 

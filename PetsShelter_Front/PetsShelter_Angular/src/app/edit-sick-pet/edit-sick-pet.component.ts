@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../services/api-service';
+import { SpinnerService } from '../services/spinner.service';
 
 declare let alertify: any;
 
@@ -33,14 +34,17 @@ export class EditSickPetComponent {
     private formBuilder: FormBuilder,
     private router: Router,
     private apiService: ApiService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private spinnerService: SpinnerService
   ) {}
 
   ngOnInit(): void {
     this.petId = this.route.snapshot.params.id;
+    this.spinnerService.show();
 
     this.apiService.getSickPetToEdit(this.petId).subscribe({
       next: (data: any) => {
+        this.spinnerService.hide();
         this.handleSickPet(data);
         console.log(data);
       },
@@ -52,15 +56,18 @@ export class EditSickPetComponent {
     this.error = [];
 
     if (this.editSickPetForm.valid) {
+      this.spinnerService.show();
       const formData = this.editSickPetForm.getRawValue();
       console.log('Raw Values: ' + JSON.stringify(formData));
 
       this.apiService.editSickPet(this.petId, this.getFormData()).subscribe({
         next: (data) => {
+          this.spinnerService.hide();
           this.handleResponse();
           console.log(data);
         },
         error: (error) => {
+          this.spinnerService.hide();
           this.handleError(error);
           console.log(this.error);
         },

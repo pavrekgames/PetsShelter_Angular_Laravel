@@ -3,6 +3,7 @@ import { ApiService } from '../services/api-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faEnvelope, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../services/auth.service';
+import { SpinnerService } from '../services/spinner.service';
 
 declare let alertify: any;
 
@@ -29,11 +30,13 @@ export class PetAdoptPageComponent {
     private apiService: ApiService,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private spinnerService: SpinnerService
   ) {}
 
   ngOnInit(): void {
     this.petId = this.route.snapshot.params.id;
+    this.spinnerService.show();
 
     this.apiService.getPetToAdopt(this.petId).subscribe({
       next: (data: any) => {
@@ -44,6 +47,7 @@ export class PetAdoptPageComponent {
 
     this.apiService.checkSavedPet(this.petId).subscribe({
       next: (data: any) => {
+        this.spinnerService.hide();
         this.handleSavedPet(data);
         console.log(data);
       },
@@ -69,12 +73,16 @@ export class PetAdoptPageComponent {
   }
 
   savePet() {
+    this.spinnerService.show();
+
     this.apiService.savePet(this.petId).subscribe({
       next: (data: any) => {
+        this.spinnerService.hide();
         this.handleSavePetSuccess(data);
         console.log(data);
       },
       error: (error) => {
+        this.spinnerService.hide();
         this.handleSavePetError();
       },
     });

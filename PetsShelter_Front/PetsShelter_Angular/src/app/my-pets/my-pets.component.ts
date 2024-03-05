@@ -8,6 +8,7 @@ import {
   DisappearanceAnimation,
   AppearanceAnimation,
 } from '@costlydeveloper/ngx-awesome-popup';
+import { SpinnerService } from '../services/spinner.service';
 
 declare let alertify: any;
 
@@ -19,11 +20,18 @@ declare let alertify: any;
 export class MyPetsComponent {
   pets: Array<any> = [];
 
-  constructor(private apiService: ApiService, private router: Router) {}
+  constructor(
+    private apiService: ApiService,
+    private router: Router,
+    private spinnerService: SpinnerService
+  ) {}
 
   ngOnInit(): void {
+    this.spinnerService.show();
+
     this.apiService.getMyPets().subscribe({
       next: (data: any) => {
+        this.spinnerService.hide();
         this.handleNewestPets(data);
         console.log(data);
       },
@@ -38,7 +46,9 @@ export class MyPetsComponent {
     const newConfirmBox = new ConfirmBoxInitializer();
 
     newConfirmBox.setTitle('Usuwanie zwierzęcia');
-    newConfirmBox.setMessage('Czyn a pewno chcesz usunąć zwierzę o imieniu ' + petName + ' ?');
+    newConfirmBox.setMessage(
+      'Czyn a pewno chcesz usunąć zwierzę o imieniu ' + petName + ' ?'
+    );
 
     // Choose layout color type
     newConfirmBox.setConfig({
@@ -59,12 +69,16 @@ export class MyPetsComponent {
   }
 
   deletePet(petId: any) {
-     this.apiService.deletePet(petId).subscribe({
+    this.spinnerService.show();
+
+    this.apiService.deletePet(petId).subscribe({
       next: (data) => {
+        this.spinnerService.hide();
         this.handleResponse();
         console.log(data);
       },
       error: (error) => {
+        this.spinnerService.hide();
         this.handleError();
         console.log(error);
       },

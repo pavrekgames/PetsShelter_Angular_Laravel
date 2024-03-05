@@ -1,5 +1,5 @@
 
-<div class="bg-light rounded border-l vh-100" >
+<div class="bg-primary rounded border-l vh-100" >
 
   <div *ngIf="conversationId == undefined; then noConversations; else currentConversation">
 
@@ -9,9 +9,34 @@
 
 
 <ng-template #noConversations>
-  <div class="fa-3x text-center justify-center flex flex-col" >
+  <div class="fa-3x text-center text-light justify-center flex flex-col" >
     <fa-icon [icon]="faEnvelope"></fa-icon>
   </div>
+
+  <div class="fa-3x text-center text-light justify-center flex flex-col">
+    <h4>
+      Zobacz wiadomości z dostępnych konwersacji
+    </h4>
+  </div>
+
+  <div class="fa-3x text-center text-warning justify-center flex flex-col">
+    <h4>
+      lub
+    </h4>
+  </div>
+
+  <div class="fa-3x text-center text-light justify-center flex flex-col">
+    <h4>
+      przeglądnij zwierzęta do adopcji i rozpocznij rozmowy
+    </h4>
+  </div>
+
+  <div class="fa-3x text-center text-light justify-center flex flex-col">
+    <div class="p-2">
+      <button type="button" class="btn text-light btn-rounded" style="background-color:#6a994e" routerLink="/pets-to-adopt"> Zwierzęta do adopcji </button>
+    </div>
+  </div>
+
 </ng-template>
 
 

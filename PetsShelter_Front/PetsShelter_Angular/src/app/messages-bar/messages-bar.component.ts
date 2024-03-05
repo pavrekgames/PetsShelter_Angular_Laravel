@@ -9,6 +9,7 @@ declare let alertify: any;
   styleUrl: './messages-bar.component.css'
 })
 export class MessagesBarComponent {
+  searchText: any;
 
   convsersations: any;
 

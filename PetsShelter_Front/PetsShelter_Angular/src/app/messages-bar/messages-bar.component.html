@@ -13,7 +13,7 @@
     </div>
 
 
-    <div *ngFor="let conversation of convsersations | search:searchText ">
+    <div class="p-1" *ngFor="let conversation of convsersations | search:searchText ">
       <app-message-list-element [conversation]="conversation"></app-message-list-element>
     </div>
   </div>

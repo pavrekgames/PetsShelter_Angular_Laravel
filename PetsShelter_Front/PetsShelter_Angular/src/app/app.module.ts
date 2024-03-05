@@ -39,6 +39,7 @@ import { MessageListElementComponent } from './message-list-element/message-list
 import { MessagesBarComponent } from './messages-bar/messages-bar.component';
 import { ConversationComponent } from './conversation/conversation.component';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { MessageComponent } from './message/message.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     MessageListElementComponent,
     MessagesBarComponent,
     ConversationComponent,
+    MessageComponent,
   ],
   imports: [
     BrowserModule,

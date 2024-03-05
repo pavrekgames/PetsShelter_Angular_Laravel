@@ -7,16 +7,16 @@ import {
   DisappearanceAnimation,
   AppearanceAnimation,
 } from '@costlydeveloper/ngx-awesome-popup';
+import { SpinnerService } from '../services/spinner.service';
 
 declare let alertify: any;
 
 @Component({
   selector: 'app-sick-pets-manager',
   templateUrl: './sick-pets-manager.component.html',
-  styleUrl: './sick-pets-manager.component.css'
+  styleUrl: './sick-pets-manager.component.css',
 })
 export class SickPetsManagerComponent {
-
   faPlus = faPlus;
 
   pets: any;
@@ -24,11 +24,17 @@ export class SickPetsManagerComponent {
   page: number = 1;
   petsPerPage: number = 4;
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private spinnerService: SpinnerService
+  ) {}
 
   ngOnInit(): void {
+    this.spinnerService.show();
+
     this.apiService.getSickPets().subscribe({
       next: (data) => {
+        this.spinnerService.hide();
         this.handleAllPets(data);
         console.log(data);
       },
@@ -43,7 +49,9 @@ export class SickPetsManagerComponent {
     const newConfirmBox = new ConfirmBoxInitializer();
 
     newConfirmBox.setTitle('Usuwanie chorego zwierzęcia');
-    newConfirmBox.setMessage('Czy na pewno chcesz usunąć chore zwierzę o imieniu ' + petName + ' ?');
+    newConfirmBox.setMessage(
+      'Czy na pewno chcesz usunąć chore zwierzę o imieniu ' + petName + ' ?'
+    );
 
     // Choose layout color type
     newConfirmBox.setConfig({
@@ -64,26 +72,28 @@ export class SickPetsManagerComponent {
   }
 
   deleteSickPet(petId: any) {
+    this.spinnerService.show();
+
     this.apiService.deleteSickPet(petId).subscribe({
-     next: (data) => {
-       this.handleResponse();
-       console.log(data);
-     },
-     error: (error) => {
-       this.handleError();
-       console.log(error);
-     },
-   });
- }
+      next: (data) => {
+        this.spinnerService.hide();
+        this.handleResponse();
+        console.log(data);
+      },
+      error: (error) => {
+        this.spinnerService.hide();
+        this.handleError();
+        console.log(error);
+      },
+    });
+  }
 
- handleResponse() {
-  window.location.reload();
-  alertify.success('Usunąłeś chore zwierzę');
-}
+  handleResponse() {
+    window.location.reload();
+    alertify.success('Usunąłeś chore zwierzę');
+  }
 
-handleError() {
-  alertify.error('Wystąpił problem!');
-}
-
-
+  handleError() {
+    alertify.error('Wystąpił problem!');
+  }
 }

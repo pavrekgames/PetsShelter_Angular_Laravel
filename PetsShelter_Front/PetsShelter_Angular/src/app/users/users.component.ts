@@ -6,26 +6,32 @@ import {
   DisappearanceAnimation,
   AppearanceAnimation,
 } from '@costlydeveloper/ngx-awesome-popup';
+import { SpinnerService } from '../services/spinner.service';
 
 declare let alertify: any;
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrl: './users.component.css'
+  styleUrl: './users.component.css',
 })
 export class UsersComponent {
-
   users: any;
 
   page: number = 1;
   usersPerPage: number = 4;
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private spinnerService: SpinnerService
+  ) {}
 
   ngOnInit(): void {
+    this.spinnerService.show();
+
     this.apiService.getUsers().subscribe({
       next: (data) => {
+        this.spinnerService.hide();
         this.handleAllUsers(data);
         console.log(data);
       },
@@ -40,7 +46,13 @@ export class UsersComponent {
     const newConfirmBox = new ConfirmBoxInitializer();
 
     newConfirmBox.setTitle('Usuwanie użytkownika');
-    newConfirmBox.setMessage('Czy na pewno chcesz usunąć użytkownika ' + userName + ' ' + userSurname + ' ?');
+    newConfirmBox.setMessage(
+      'Czy na pewno chcesz usunąć użytkownika ' +
+        userName +
+        ' ' +
+        userSurname +
+        ' ?'
+    );
 
     // Choose layout color type
     newConfirmBox.setConfig({
@@ -61,25 +73,28 @@ export class UsersComponent {
   }
 
   deleteUser(petId: any) {
+    this.spinnerService.show();
+
     this.apiService.deleteUser(petId).subscribe({
-     next: (data) => {
-       this.handleResponse();
-       console.log(data);
-     },
-     error: (error) => {
-       this.handleError();
-       console.log(error);
-     },
-   });
- }
+      next: (data) => {
+        this.spinnerService.hide();
+        this.handleResponse();
+        console.log(data);
+      },
+      error: (error) => {
+        this.spinnerService.hide();
+        this.handleError();
+        console.log(error);
+      },
+    });
+  }
 
- handleResponse() {
-  window.location.reload();
-  alertify.success('Usunąłeś użytkownika');
-}
+  handleResponse() {
+    window.location.reload();
+    alertify.success('Usunąłeś użytkownika');
+  }
 
-handleError() {
-  alertify.error('Wystąpił problem!');
-}
-
+  handleError() {
+    alertify.error('Wystąpił problem!');
+  }
 }

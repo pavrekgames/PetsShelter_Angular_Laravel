@@ -7,23 +7,30 @@ import {
   DisappearanceAnimation,
   AppearanceAnimation,
 } from '@costlydeveloper/ngx-awesome-popup';
+import { SpinnerService } from '../services/spinner.service';
 
 declare let alertify: any;
 
 @Component({
   selector: 'app-saved-pets',
   templateUrl: './saved-pets.component.html',
-  styleUrl: './saved-pets.component.css'
+  styleUrl: './saved-pets.component.css',
 })
 export class SavedPetsComponent {
-
   pets: Array<any> = [];
 
-  constructor(private apiService: ApiService, private router: Router) {}
+  constructor(
+    private apiService: ApiService,
+    private router: Router,
+    private spinnerService: SpinnerService
+  ) {}
 
   ngOnInit(): void {
+    this.spinnerService.show();
+
     this.apiService.getSavedPets().subscribe({
       next: (data: any) => {
+        this.spinnerService.hide();
         this.handleNewestPets(data);
         console.log(data);
       },
@@ -38,7 +45,9 @@ export class SavedPetsComponent {
     const newConfirmBox = new ConfirmBoxInitializer();
 
     newConfirmBox.setTitle('Usuwanie zapisanego zwierzęcia');
-    newConfirmBox.setMessage('Czyn a pewno chcesz usunąć zapisane zwierzę o imieniu ' + petName + ' ?');
+    newConfirmBox.setMessage(
+      'Czyn a pewno chcesz usunąć zapisane zwierzę o imieniu ' + petName + ' ?'
+    );
 
     // Choose layout color type
     newConfirmBox.setConfig({
@@ -59,25 +68,28 @@ export class SavedPetsComponent {
   }
 
   deleteSavedPet(petId: any) {
+    this.spinnerService.show();
+
     this.apiService.deleteSavedPet(petId).subscribe({
-     next: (data) => {
-       this.handleResponse();
-       console.log(data);
-     },
-     error: (error) => {
-       this.handleError();
-       console.log(error);
-     },
-   });
- }
+      next: (data) => {
+        this.spinnerService.hide();
+        this.handleResponse();
+        console.log(data);
+      },
+      error: (error) => {
+        this.spinnerService.hide();
+        this.handleError();
+        console.log(error);
+      },
+    });
+  }
 
- handleResponse() {
-  window.location.reload();
-  alertify.success('Usunąłeś zapisane zwierzę');
-}
+  handleResponse() {
+    window.location.reload();
+    alertify.success('Usunąłeś zapisane zwierzę');
+  }
 
-handleError() {
-  alertify.error('Wystąpił problem!');
-}
-
+  handleError() {
+    alertify.error('Wystąpił problem!');
+  }
 }

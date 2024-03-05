@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../services/api-service';
-import { error } from 'console';
+import { SpinnerService } from '../services/spinner.service';
+
 
 declare let alertify: any;
 
@@ -27,7 +28,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private spinnerService: SpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -42,14 +44,17 @@ export class RegisterComponent implements OnInit {
     this.checkPassword();
 
     if (this.registerForm.valid && this.isPasswordsSame) {
+      this.spinnerService.show();
       const formData = this.registerForm.getRawValue();
 
       this.apiService.register(formData).subscribe({
         next: (data) => {
+          this.spinnerService.hide();
           this.handleResponse();
           console.log(data);
         },
         error: (error) => {
+          this.spinnerService.hide();
           this.handleError(error);
           console.log(this.error);
         },

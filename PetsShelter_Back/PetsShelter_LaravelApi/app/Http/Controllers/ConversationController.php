@@ -43,7 +43,6 @@ class ConversationController extends Controller
 
     public function getConversations(Request $request)
     {
-
         $authUserId = auth()->user()->id;
 
         $conversations = Conversation::where('user_receiver_id', $authUserId)->orWhere('user_sender_id', $authUserId)->get();
@@ -54,7 +53,6 @@ class ConversationController extends Controller
 
             if ($conversation->user_receiver_id == $authUserId) {
 
-                //$user = User::find($conversation->user_sender_id);
                 $user = $conversation->sender;
 
                 $data = [
@@ -68,7 +66,6 @@ class ConversationController extends Controller
 
             if ($conversation->user_sender_id == $authUserId) {
 
-                //$user = User::find($conversation->user_receiver_id);
                 $user = $conversation->receiver;
 
                 $data = [
@@ -84,6 +81,50 @@ class ConversationController extends Controller
         });
 
         return response()->json($conversations, Response::HTTP_OK);
+
+    }
+
+    public function getConversation(Request $request){
+
+        $authUserId = auth()->user()->id;
+        $conversationId = $request->id;
+
+        $currentConversation = Conversation::where('id', $conversationId)->get();
+
+        $currentConversation = $currentConversation->map(function ($conversation) use ($authUserId) {
+            $data = [];
+            $pet = $conversation->pet;
+
+            if ($conversation->user_receiver_id == $authUserId) {
+
+                $user = $conversation->sender;
+
+                $data = [
+                    'id' => $conversation->id,
+                    'user_name' => $user->name,
+                    'user_surname' => $user->surname,
+                    'pet_name' => $pet->name,
+                    'pet_photo' => $pet->photo_path,
+                ];
+            }
+
+            if ($conversation->user_sender_id == $authUserId) {
+
+                $user = $conversation->receiver;
+
+                $data = [
+                    'id' => $conversation->id,
+                    'user_name' => $user->name,
+                    'user_surname' => $user->surname,
+                    'pet_name' => $pet->name,
+                    'pet_photo' => $pet->photo_path,
+                ];
+            }
+
+            return $data;
+        });
+
+        return response()->json($currentConversation, Response::HTTP_OK);
 
     }
 

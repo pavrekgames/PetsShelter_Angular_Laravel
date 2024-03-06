@@ -40,7 +40,6 @@ import { MessagesBarComponent } from './messages-bar/messages-bar.component';
 import { ConversationComponent } from './conversation/conversation.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { MessageComponent } from './message/message.component';
-import { MessageElementDirective } from './directives/message-element.directive';
 
 @NgModule({
   declarations: [
@@ -72,7 +71,6 @@ import { MessageElementDirective } from './directives/message-element.directive'
     MessagesBarComponent,
     ConversationComponent,
     MessageComponent,
-    MessageElementDirective,
   ],
   imports: [
     BrowserModule,

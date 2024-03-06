@@ -17,25 +17,34 @@ class Conversation extends Model
         'pet_id'
     ];
 
-    public function pet(): HasOne{
+    public function pet(): HasOne
+    {
         return $this->hasOne(Pet::class, 'id', 'pet_id');
     }
 
-    public function sender(): HasOne{
+    public function sender(): HasOne
+    {
         return $this->hasOne(User::class, 'id', 'user_sender_id');
     }
 
-    public function receiver(): HasOne{
+    public function receiver(): HasOne
+    {
         return $this->hasOne(User::class, 'id', 'user_receiver_id');
     }
 
-    public function getReceiver(){
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class, 'conversation_id');
+    }
+
+    public function getReceiver()
+    {
 
         $authUserId = auth()->user()->id;
 
-        if($this->user_sender_id == $authUserId){
+        if ($this->user_sender_id == $authUserId) {
             return User::firstWhere('id', $this->user_receiver_id);
-        }else{
+        } else {
             return User::firstWhere('id', $this->user_sender_id);
         }
 

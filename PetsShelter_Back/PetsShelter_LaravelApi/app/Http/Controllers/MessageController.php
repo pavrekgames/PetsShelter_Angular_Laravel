@@ -87,9 +87,14 @@ class MessageController extends Controller
      * @param  \App\Models\Message  $message
      * @return \Illuminate\Http\Response
      */
-    public function show(Message $message)
+    public function getMessages(Request $request)
     {
-        //
+        $conversationId = $request->id;
+        $conversation = Conversation::where('id', $conversationId)->first();
+
+        $messages = $conversation->messages()->orderBy('created_at','desc')->get();
+
+        return response()->json($messages, Response::HTTP_OK);
     }
 
     /**

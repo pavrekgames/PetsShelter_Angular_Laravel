@@ -68,6 +68,7 @@ Route::group([
     Route::get('conversations/{id}', [ConversationController::class, 'getConversation']);
 
     Route::post('create-message', [MessageController::class,'create']);
+    Route::get('messages/{id}', [MessageController::class, 'getMessages']);
 
     Route::middleware(['can:isAdmin'])->group(function () {
         Route::post('add-sick-pet', [SickPetController::class,'create']);

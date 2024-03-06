@@ -18,8 +18,8 @@ class Message extends Model
         'user_receiver_id',
     ];
 
-    public function conversation(){
+   /* public function conversation(){
         return $this->belongsTo(Conversation::class);
-    }
+    } */
 
 }

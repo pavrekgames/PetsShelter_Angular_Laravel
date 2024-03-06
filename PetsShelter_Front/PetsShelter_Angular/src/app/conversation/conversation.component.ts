@@ -56,12 +56,24 @@ export class ConversationComponent {
           this.handleConversation(data);
         },
       });
+
+      this.apiService.getMessages(this.conversationId).subscribe({
+        next: (data: any) => {
+          this.spinnerService.hide();
+          this.handleConversationMessages(data);
+        },
+      });
+
     }
 
   }
 
   handleConversation(data: any){
     this.conversation = data;
+  }
+
+  handleConversationMessages(data: any){
+    this.conversationMessages = data;
   }
 
   sendMessage(){
@@ -95,6 +107,7 @@ export class ConversationComponent {
   handleMessageError(error: any) {
     alertify.error('Wystąpił problem podczas wysłania wiadomości!');
   }
+
 
 
 }

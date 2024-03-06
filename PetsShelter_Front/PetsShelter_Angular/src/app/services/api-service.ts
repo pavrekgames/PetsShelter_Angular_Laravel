@@ -266,5 +266,14 @@ export class ApiService {
     return this.http.post('http://127.0.0.1:8000/api/create-message', data, {'headers': headers});
   }
 
+  getMessages(id: any){
+
+    const token = this.tokenService.getTokenValue();
+    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
+
+    return this.http.get('http://127.0.0.1:8000/api/messages/' + id, {'headers': headers});
+
+  }
+
 
 }

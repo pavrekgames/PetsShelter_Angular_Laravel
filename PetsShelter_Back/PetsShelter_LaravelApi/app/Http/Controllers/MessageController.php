@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Conversation;
 use App\Models\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
+
 
 class MessageController extends Controller
 {
@@ -22,9 +26,48 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $data = $request->only('content', 'conversation_id');
+
+        $validator = Validator::make($data, [
+            'content' => 'required',
+            'conversation_id' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+        }
+
+        $user = auth()->user();
+        $authUserId = $user->id;
+        $conversationId = $request->conversation_id;
+        $conversation = Conversation::where('id', $conversationId)->first();
+
+        if($conversation->user_sender_id == $authUserId){
+            $message = Message::Create([
+                'content' => $request->input('content'),
+                'has_sender_read' => '1',
+                'has_receiver_read' => '0',
+                'conversation_id' => $conversationId,
+                'user_sender_id' => $conversation->user_sender_id,
+                'user_receiver_id' => $conversation->user_receiver_id,
+            ]);
+        }
+
+        if($conversation->user_receiver_id == $authUserId){
+            $message = Message::Create([
+                'content' => $request->input('content'),
+                'has_sender_read' => '0',
+                'has_receiver_read' => '1',
+                'conversation_id' => $conversationId,
+                'user_sender_id' => $conversation->user_sender_id,
+                'user_receiver_id' => $conversation->user_receiver_id,
+            ]);
+        }
+
+        return response()->json(['message' => 'Wysłałeś wiadomość', 'messageData'=> $message], Response::HTTP_OK);
+
     }
 
     /**

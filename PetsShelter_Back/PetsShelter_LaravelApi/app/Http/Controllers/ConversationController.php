@@ -90,40 +90,6 @@ class ConversationController extends Controller
         $conversationId = $request->id;
 
         $currentConversation = Conversation::where('id', $conversationId)->first();
-
-       /* $currentConversation = $currentConversation->map(function ($conversation) use ($authUserId) {
-            $data = [];
-            $pet = $conversation->pet;
-
-            if ($conversation->user_receiver_id == $authUserId) {
-
-                $user = $conversation->sender;
-
-                $data = [
-                    'id' => $conversation->id,
-                    'user_name' => $user->name,
-                    'user_surname' => $user->surname,
-                    'pet_name' => $pet->name,
-                    'pet_photo' => $pet->photo_path,
-                ];
-            }
-
-            if ($conversation->user_sender_id == $authUserId) {
-
-                $user = $conversation->receiver;
-
-                $data = [
-                    'id' => $conversation->id,
-                    'user_name' => $user->name,
-                    'user_surname' => $user->surname,
-                    'pet_name' => $pet->name,
-                    'pet_photo' => $pet->photo_path,
-                ];
-            }
-
-            return $data;
-        }); */
-
         $pet = $currentConversation->pet;
 
         if ($currentConversation->user_receiver_id == $authUserId) {

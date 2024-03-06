@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConversationController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\SickPetController;
 use Illuminate\Http\Request;
@@ -65,6 +66,8 @@ Route::group([
     Route::post('create-conversation', [ConversationController::class,'create']);
     Route::get('conversations', [ConversationController::class, 'getConversations']);
     Route::get('conversations/{id}', [ConversationController::class, 'getConversation']);
+
+    Route::post('create-message', [MessageController::class,'create']);
 
     Route::middleware(['can:isAdmin'])->group(function () {
         Route::post('add-sick-pet', [SickPetController::class,'create']);

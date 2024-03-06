@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SpinnerService } from '../services/spinner.service';
 import { Conversation } from '../models/conversation';
 import { Message } from '../models/message';
-import { Router } from '@angular/router';
+import { RoutingService } from '../services/routing.service';
 
 declare let alertify: any;
 
@@ -39,7 +39,7 @@ export class ConversationComponent {
     private apiService: ApiService,
     private route: ActivatedRoute,
     private spinnerService: SpinnerService,
-    private router: Router,
+    private routingService: RoutingService,
   ) {}
 
   ngOnInit(): void {
@@ -100,8 +100,10 @@ export class ConversationComponent {
 
   handleMessageResponse() {
     this.message.content = "";
-    this.router.navigate(['/messages/' + this.conversationId]);
+
     alertify.success('Wysłano wiadomość');
+    const url = '/messages/' + this.conversation.id;
+    this.routingService.redirectTo(url);
   }
 
   handleMessageError(error: any) {

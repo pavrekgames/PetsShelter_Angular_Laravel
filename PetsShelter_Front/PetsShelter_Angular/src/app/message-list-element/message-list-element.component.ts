@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { Conversation } from '../models/conversation';
 import { Router } from '@angular/router';
+import { RoutingService } from '../services/routing.service';
 
 
 @Component({
@@ -22,17 +23,13 @@ export class MessageListElementComponent {
     pet_photo: 'a'
   };
 
-  constructor(private router: Router){}
+  constructor(private routingService: RoutingService){}
 
   selectConversation(){
 
     const url = '/messages/' + this.conversation.id;
-    this.redirectTo(url);
+    this.routingService.redirectTo(url);
   }
 
-  redirectTo(url: string) {
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
-    this.router.navigate([url]));
-  }
 
 }

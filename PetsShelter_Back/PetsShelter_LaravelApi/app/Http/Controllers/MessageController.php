@@ -61,8 +61,8 @@ class MessageController extends Controller
                 'has_sender_read' => '0',
                 'has_receiver_read' => '1',
                 'conversation_id' => $conversationId,
-                'user_sender_id' => $conversation->user_sender_id,
-                'user_receiver_id' => $conversation->user_receiver_id,
+                'user_sender_id' => $conversation->user_receiver_id,
+                'user_receiver_id' => $conversation->user_sender_id,
             ]);
         }
 

@@ -44,7 +44,7 @@ class MessageController extends Controller
         $conversationId = $request->conversation_id;
         $conversation = Conversation::where('id', $conversationId)->first();
 
-        if($conversation->user_sender_id == $authUserId){
+        if ($conversation->user_sender_id == $authUserId) {
             $message = Message::Create([
                 'content' => $request->input('content'),
                 'has_sender_read' => '1',
@@ -55,7 +55,7 @@ class MessageController extends Controller
             ]);
         }
 
-        if($conversation->user_receiver_id == $authUserId){
+        if ($conversation->user_receiver_id == $authUserId) {
             $message = Message::Create([
                 'content' => $request->input('content'),
                 'has_sender_read' => '0',
@@ -66,7 +66,7 @@ class MessageController extends Controller
             ]);
         }
 
-        return response()->json(['message' => 'Wysłałeś wiadomość', 'messageData'=> $message], Response::HTTP_OK);
+        return response()->json(['message' => 'Wysłałeś wiadomość', 'messageData' => $message], Response::HTTP_OK);
 
     }
 
@@ -92,7 +92,21 @@ class MessageController extends Controller
         $conversationId = $request->id;
         $conversation = Conversation::where('id', $conversationId)->first();
 
-        $messages = $conversation->messages()->orderBy('created_at','desc')->get();
+        $messages = $conversation->messages()->orderBy('created_at', 'desc')->get();
+
+        $messages = $messages->map(function ($message) {
+            $data = [];
+
+            $data = [
+                'content' => $message->content,
+                'user_name' => $message->userSender->name,
+                'user_surname' => $message->userSender->surname,
+                'date' => $message->created_at->format('Y-m-d H:i:s'),
+            ];
+
+            return $data;
+        });
+
 
         return response()->json($messages, Response::HTTP_OK);
     }

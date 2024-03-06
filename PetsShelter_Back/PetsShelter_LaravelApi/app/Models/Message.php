@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Message extends Model
 {
@@ -18,8 +20,12 @@ class Message extends Model
         'user_receiver_id',
     ];
 
-   /* public function conversation(){
+    public function conversation(){
         return $this->belongsTo(Conversation::class);
-    } */
+    }
+
+    public function userSender(): HasOne{
+        return $this->hasone(User::class, 'id', 'user_sender_id');
+    }
 
 }

@@ -33,6 +33,8 @@ export class ConversationComponent {
     conversation_id: 0
   };
 
+  conversationMessages: any;
+
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute,

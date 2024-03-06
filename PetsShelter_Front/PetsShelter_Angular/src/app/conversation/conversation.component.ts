@@ -22,10 +22,10 @@ export class ConversationComponent {
 
   conversation: Conversation = {
     id: 0,
-    user_name: 'c',
-    user_surname: 'c',
-    pet_name: 'e',
-    pet_photo: 'f'
+    user_name: '',
+    user_surname: '',
+    pet_name: '',
+    pet_photo: ''
   };
 
   message: Message = {

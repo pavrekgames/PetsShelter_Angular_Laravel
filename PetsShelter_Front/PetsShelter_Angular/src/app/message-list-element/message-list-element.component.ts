@@ -24,11 +24,15 @@ export class MessageListElementComponent {
 
   constructor(private router: Router){}
 
-  @Input()
   selectConversation(){
 
-    this.router.navigate(['/messages/' + this.conversation.id]);
+    const url = '/messages/' + this.conversation.id;
+    this.redirectTo(url);
+  }
 
+  redirectTo(url: string) {
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+    this.router.navigate([url]));
   }
 
 }

@@ -102,6 +102,7 @@ class MessageController extends Controller
                 'user_name' => $message->userSender->name,
                 'user_surname' => $message->userSender->surname,
                 'date' => $message->created_at->format('Y-m-d H:i'),
+                'sender_id' => $message->user_sender_id,
             ];
 
             return $data;

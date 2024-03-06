@@ -31,6 +31,9 @@ export class MessageComponent {
   }
 
   checkSender(){
+
+    console.log('Sender_id: ' + this.conversationMessage.sender_id);
+
     if(this.conversationMessage.sender_id == this.authUser.id){
       this.isSenderMessage = true;
     }else{

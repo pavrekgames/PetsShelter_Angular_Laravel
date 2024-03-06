@@ -4,6 +4,10 @@ import { ApiService } from '../services/api-service';
 import { ActivatedRoute } from '@angular/router';
 import { SpinnerService } from '../services/spinner.service';
 import { Conversation } from '../models/conversation';
+import { Message } from '../models/message';
+import { Router } from '@angular/router';
+
+declare let alertify: any;
 
 @Component({
   selector: 'app-conversation',
@@ -24,10 +28,16 @@ export class ConversationComponent {
     pet_photo: 'f'
   };
 
+  message: Message = {
+    content: '',
+    conversation_id: 0
+  };
+
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -48,9 +58,41 @@ export class ConversationComponent {
 
   }
 
-
   handleConversation(data: any){
     this.conversation = data;
   }
+
+  sendMessage(){
+
+    if(this.message.content.length > 0){
+
+      this.spinnerService.show();
+      this.message.conversation_id = this.conversationId;
+
+      this.apiService.createMessage(this.message).subscribe({
+        next: (data: any) => {
+          this.spinnerService.hide();
+          this.handleMessageResponse();
+        },
+        error: (error) => {
+          this.spinnerService.hide();
+          this.handleMessageError(error);
+        },
+      });
+
+    }
+
+  }
+
+  handleMessageResponse() {
+    this.message.content = "";
+    this.router.navigate(['/messages/' + this.conversationId]);
+    alertify.success('Wysłano wiadomość');
+  }
+
+  handleMessageError(error: any) {
+    alertify.error('Wystąpił problem podczas wysłania wiadomości!');
+  }
+
 
 }

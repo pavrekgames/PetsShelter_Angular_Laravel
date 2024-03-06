@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { Conversation } from '../models/conversation';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,5 +21,14 @@ export class MessageListElementComponent {
     pet_name: 'a',
     pet_photo: 'a'
   };
+
+  constructor(private router: Router){}
+
+  @Input()
+  selectConversation(){
+
+    this.router.navigate(['/messages/' + this.conversation.id]);
+
+  }
 
 }

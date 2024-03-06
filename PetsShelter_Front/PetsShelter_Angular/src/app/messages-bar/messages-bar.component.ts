@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ApiService } from '../services/api-service';
+import { MessageListElementComponent } from '../message-list-element/message-list-element.component';
 
 declare let alertify: any;
 

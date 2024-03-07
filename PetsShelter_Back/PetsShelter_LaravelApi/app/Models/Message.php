@@ -28,4 +28,8 @@ class Message extends Model
         return $this->hasone(User::class, 'id', 'user_sender_id');
     }
 
+    public function userReceiver(): HasOne{
+        return $this->hasone(User::class, 'id', 'user_receiver_id');
+    }
+
 }

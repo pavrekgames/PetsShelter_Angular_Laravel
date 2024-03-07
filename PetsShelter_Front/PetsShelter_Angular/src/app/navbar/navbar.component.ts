@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit {
 
   isLoggenIn: boolean = false;
   isTokenExpired: boolean = false;
-  messageCount: number = 1;
+  messagesCount: number = 0;
 
   loggedUser: User = {
     id: 0,

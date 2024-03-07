@@ -14,9 +14,13 @@
                   <fa-icon class="pe-1" [icon]="faSackDollar"></fa-icon> <b>{{loggedUser.tokens_count}}</b>
                 </div>
 
-                <div class="fa-1x pe-1" *ngIf="isLoggenIn">
-                  <button type="button" class="btn btn-primary" routerLink="/messages">
+                <div class="fa-1x pe-3" *ngIf="isLoggenIn">
+                  <button type="button" class="btn btn-primary position-relative" routerLink="/messages">
                      <fa-icon [icon]="faEnvelope"></fa-icon>
+
+                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" *ngIf="messageCount > 0">
+                      {{messageCount}}
+                    </span>
                   </button>
                 </div>
 

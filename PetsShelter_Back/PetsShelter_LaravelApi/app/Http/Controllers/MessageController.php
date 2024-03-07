@@ -47,7 +47,7 @@ class MessageController extends Controller
         if ($conversation->user_sender_id == $authUserId) {
             $message = Message::Create([
                 'content' => $request->input('content'),
-                'has_sender_read' => '1',
+                'has_sender_read' => '0',
                 'has_receiver_read' => '0',
                 'conversation_id' => $conversationId,
                 'user_sender_id' => $conversation->user_sender_id,
@@ -59,7 +59,7 @@ class MessageController extends Controller
             $message = Message::Create([
                 'content' => $request->input('content'),
                 'has_sender_read' => '0',
-                'has_receiver_read' => '1',
+                'has_receiver_read' => '0',
                 'conversation_id' => $conversationId,
                 'user_sender_id' => $conversation->user_receiver_id,
                 'user_receiver_id' => $conversation->user_sender_id,

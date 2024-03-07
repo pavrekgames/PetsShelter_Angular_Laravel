@@ -89,13 +89,19 @@ class MessageController extends Controller
      */
     public function getMessages(Request $request)
     {
+        $user = auth()->user();
+        $authUserId = $user->id;
         $conversationId = $request->id;
         $conversation = Conversation::where('id', $conversationId)->first();
 
         $messages = $conversation->messages()->orderBy('created_at', 'desc')->get();
 
-        $messages = $messages->map(function ($message) {
+        $messages = $messages->map(function ($message) use ( $authUserId) {
             $data = [];
+
+            if($message->user_receiver_id == $authUserId && $message->has_receiver_read == '0'){
+                $message->update(['has_receiver_read' => '1']);
+            }
 
             $data = [
                 'content' => $message->content,

@@ -56,6 +56,12 @@ export class NavbarComponent implements OnInit {
         }
       });
 
+      this.apiService.getUnreadMessagesCount().subscribe({
+        next: (data) => {
+          this.getUnreadMessagesCount(data);
+        }
+      });
+
       this.checkToken();
     }
   }
@@ -86,6 +92,11 @@ export class NavbarComponent implements OnInit {
       this.logout();
     }
 
+  }
+
+  getUnreadMessagesCount(data: any){
+    console.log('Messages count' + JSON.stringify(data));
+    this.messagesCount = data.messagesCount;
   }
 
 }

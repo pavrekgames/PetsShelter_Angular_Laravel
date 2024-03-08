@@ -128,6 +128,22 @@ class MessageController extends Controller
 
     }
 
+    public function getUnreadConversationMessagesCount(Request $request){
+
+        $conversationId = $request->id;
+        //$conversation = Conversation::where('id', $conversationId)->first();
+
+        $user = auth()->user();
+        $authUserId = $user->id;
+
+        $messagesCount = Message::where('conversation_id', $conversationId)
+        ->where('user_receiver_id', $authUserId)
+        ->where('has_read', '0')->count();
+
+        return response()->json(['messagesCount' => $messagesCount], Response::HTTP_OK);
+
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

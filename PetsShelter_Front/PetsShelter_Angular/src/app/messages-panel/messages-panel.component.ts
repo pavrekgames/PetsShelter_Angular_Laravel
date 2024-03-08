@@ -8,7 +8,6 @@ import { MessagesService } from '../services/messages.service';
 })
 export class MessagesPanelComponent {
 
-
   messagesCount: number = 0;
 
   constructor(private messagesService: MessagesService) { }

@@ -34,10 +34,7 @@ export class ConversationComponent {
   };
 
   conversationMessages: any;
-
   unreadMessagesCount: number = 0;
-  @Output()
-  messagesCountEvent = new EventEmitter<number>();
 
   constructor(
     private apiService: ApiService,
@@ -117,8 +114,6 @@ export class ConversationComponent {
 
   updateUnreadMessagesCount(data: any) {
     this.unreadMessagesCount = data.messagesCount;
-    console.log('Data messages count: ' + data.messagesCount);
-
     this.messagesService.updateMessagesCount(this.unreadMessagesCount);
   }
 }

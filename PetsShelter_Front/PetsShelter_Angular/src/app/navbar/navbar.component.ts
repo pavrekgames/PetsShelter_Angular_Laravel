@@ -112,7 +112,6 @@ export class NavbarComponent implements OnInit {
   }
 
   getUnreadMessagesCount(data: any) {
-    console.log('Messages count' + JSON.stringify(data));
     this.messagesCount = data.messagesCount;
   }
 }

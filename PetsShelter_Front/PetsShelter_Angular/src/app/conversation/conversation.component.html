@@ -69,9 +69,15 @@
 </div>
 
 <div class="row ps-4 pe-4 pt-5 pb-3">
-  <div class="pb-2" *ngFor="let message of conversationMessages">
+  <div class="pb-2" *ngFor="let message of conversationMessages | paginate: { itemsPerPage: petsPerPage, currentPage: page }">
     <app-message [conversationMessage]="message"></app-message>
   </div>
+
 </div>
 
+
 </ng-template>
+
+<div class="app-background d-flex justify-content-center items-center p-3">
+  <pagination-controls class="paginator" previousLabel="" nextLabel="" (pageChange)="page = $event"></pagination-controls>
+</div>

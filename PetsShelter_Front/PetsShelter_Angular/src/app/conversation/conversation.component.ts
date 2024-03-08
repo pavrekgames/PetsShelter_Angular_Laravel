@@ -36,6 +36,9 @@ export class ConversationComponent {
   conversationMessages: any;
   unreadMessagesCount: number = 0;
 
+  page: number = 1;
+  petsPerPage: number = 10;
+
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute,

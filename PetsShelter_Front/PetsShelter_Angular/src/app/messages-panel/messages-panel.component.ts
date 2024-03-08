@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MessagesService } from '../services/messages.service';
 
 @Component({
   selector: 'app-messages-panel',
@@ -8,13 +9,14 @@ import { Component } from '@angular/core';
 export class MessagesPanelComponent {
 
 
-  messagesCount: number = 1;
+  messagesCount: number = 0;
 
-  constructor() { }
+  constructor(private messagesService: MessagesService) { }
 
-  receiveMessagesCount($event: number) {
-    this.messagesCount = $event;
-    console.log("Messages Count dupaaa: " + $event);
+  ngOnInit() {
+    this.messagesService.messagesCountObs.subscribe(
+      (messagesCount) => (this.messagesCount = messagesCount)
+    );
   }
 
 }

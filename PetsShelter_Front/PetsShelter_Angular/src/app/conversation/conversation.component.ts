@@ -6,6 +6,7 @@ import { SpinnerService } from '../services/spinner.service';
 import { Conversation } from '../models/conversation';
 import { Message } from '../models/message';
 import { RoutingService } from '../services/routing.service';
+import { MessagesService } from '../services/messages.service';
 
 declare let alertify: any;
 
@@ -42,7 +43,8 @@ export class ConversationComponent {
     private apiService: ApiService,
     private route: ActivatedRoute,
     private spinnerService: SpinnerService,
-    private routingService: RoutingService
+    private routingService: RoutingService,
+    private messagesService: MessagesService
   ) {}
 
   ngOnInit(): void {
@@ -117,6 +119,6 @@ export class ConversationComponent {
     this.unreadMessagesCount = data.messagesCount;
     console.log('Data messages count: ' + data.messagesCount);
 
-    this.messagesCountEvent.emit(this.unreadMessagesCount);
+    this.messagesService.updateMessagesCount(this.unreadMessagesCount);
   }
 }

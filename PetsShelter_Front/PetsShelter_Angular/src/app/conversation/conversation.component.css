@@ -9,7 +9,7 @@
 .paginator{
   font-family: 'Lato', sans-serif;
   font-size: 15px;
-  color: white;
+  color: white !important;
   padding: 5px;
 }
 
@@ -24,6 +24,14 @@
   padding-left: 9px;
   padding-right: 9px;
 }
+
+.paginator::ng-deep .ngx-pagination a {
+  color: white !important;
+}
+
+.paginator::ng-deep .ngx-pagination .disabled {
+  color: white !important;
+  }
 
 .paginator ::ng-deep .ngx-pagination a:hover, .ngx-pagination button:hover {
   background: #E4A11B;

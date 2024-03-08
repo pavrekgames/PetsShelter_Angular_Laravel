@@ -284,7 +284,7 @@ export class ApiService {
 
   }
 
-  getConversationUnreadMessagesCount(id: any){
+  getUnreadConversationMessagesCount(id: any){
 
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);

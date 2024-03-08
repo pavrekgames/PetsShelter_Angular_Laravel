@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 export class MessagesService {
 
   messagesCountObs = new BehaviorSubject<number>(0);
-  conversationMessagesCountObs = new BehaviorSubject<number>(0);
+  conversationMessagesCountObs = new BehaviorSubject<[number, number]>([0, 0]);
 
   constructor() { }
 
@@ -15,8 +15,8 @@ export class MessagesService {
     this.messagesCountObs.next(messagesCount);
   }
 
-  updateConversationMessagesCount(messagesCount: number){
-    this.conversationMessagesCountObs.next(messagesCount);
+  updateConversationMessagesCount(messagesCount: number, conversationId: number){
+    this.conversationMessagesCountObs.next([messagesCount, conversationId]);
   }
 
 }

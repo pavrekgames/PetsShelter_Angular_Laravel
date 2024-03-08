@@ -35,6 +35,7 @@ export class ConversationComponent {
 
   conversationMessages: any;
   unreadMessagesCount: number = 0;
+  unreadConversationMessagesCount: number = 0;
 
   page: number = 1;
   petsPerPage: number = 10;
@@ -83,6 +84,13 @@ export class ConversationComponent {
       }
     });
 
+    this.apiService.getUnreadConversationMessagesCount(this.conversationId).subscribe({
+      next: (data) => {
+        this.updateUnreadConversationMessagesCount(data);
+      }
+    });
+
+
   }
 
   sendMessage() {
@@ -119,4 +127,10 @@ export class ConversationComponent {
     this.unreadMessagesCount = data.messagesCount;
     this.messagesService.updateMessagesCount(this.unreadMessagesCount);
   }
+
+  updateUnreadConversationMessagesCount(data: any) {
+    this.unreadConversationMessagesCount = data.messagesCount;
+    this.messagesService.updateConversationMessagesCount(this.unreadConversationMessagesCount, this.conversationId);
+  }
+
 }

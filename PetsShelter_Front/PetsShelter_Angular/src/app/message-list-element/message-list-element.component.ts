@@ -23,7 +23,7 @@ export class MessageListElementComponent {
     pet_photo: 'a',
   };
 
-  messagesCount: number = 1;
+  messagesCount: number = 0;
 
   constructor(
     private routingService: RoutingService,
@@ -31,20 +31,21 @@ export class MessageListElementComponent {
     private messagesService: MessagesService
   ) {
     this.messagesService.conversationMessagesCountObs.subscribe(
-      (messagesCount) => (this.messagesCount = messagesCount)
+      ([messagesCount, conversationId]) => this.updateConversationMessagesCount(messagesCount, conversationId)
     );
   }
 
   ngOnInit(): void {
-
-    this.apiService.getConversationUnreadMessagesCount(this.conversation.id).subscribe({
-      next: (data) => {
-        this.getUnreadMessagesCount(data);
-      },
-    });
+    this.apiService
+      .getUnreadConversationMessagesCount(this.conversation.id)
+      .subscribe({
+        next: (data) => {
+          this.getUnreadMessagesCount(data);
+        },
+      });
 
     this.messagesService.conversationMessagesCountObs.subscribe(
-      (messagesCount) => (this.messagesCount = messagesCount)
+      ([messagesCount, conversationId]) => this.updateConversationMessagesCount(messagesCount, conversationId)
     );
   }
 
@@ -57,4 +58,12 @@ export class MessageListElementComponent {
     this.messagesCount = data.messagesCount;
   }
 
+  updateConversationMessagesCount(
+    messagesCount: number,
+    conversationId: number
+  ) {
+    if (this.conversation.id == conversationId) {
+      this.messagesCount = messagesCount;
+    }
+  }
 }

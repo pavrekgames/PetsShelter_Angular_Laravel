@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Conversation;
 use App\Models\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -63,6 +65,9 @@ class MessageController extends Controller
                 'user_receiver_id' => $conversation->user_sender_id,
             ]);
         }
+
+        $conversation->updated_at = Carbon::now();
+        $conversation->save();
 
         return response()->json(['message' => 'Wysłałeś wiadomość', 'messageData' => $message], Response::HTTP_OK);
 

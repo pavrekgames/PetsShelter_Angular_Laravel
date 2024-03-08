@@ -15,6 +15,7 @@ class Message extends Model
         'content',
         'has_read',
         'conversation_id',
+        'updated_at',
         'user_sender_id',
         'user_receiver_id',
     ];

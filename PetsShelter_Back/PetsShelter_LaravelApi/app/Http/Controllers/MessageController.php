@@ -47,8 +47,7 @@ class MessageController extends Controller
         if ($conversation->user_sender_id == $authUserId) {
             $message = Message::Create([
                 'content' => $request->input('content'),
-                'has_sender_read' => '0',
-                'has_receiver_read' => '0',
+                'has_read' => '0',
                 'conversation_id' => $conversationId,
                 'user_sender_id' => $conversation->user_sender_id,
                 'user_receiver_id' => $conversation->user_receiver_id,
@@ -58,8 +57,7 @@ class MessageController extends Controller
         if ($conversation->user_receiver_id == $authUserId) {
             $message = Message::Create([
                 'content' => $request->input('content'),
-                'has_sender_read' => '0',
-                'has_receiver_read' => '0',
+                'has_read' => '0',
                 'conversation_id' => $conversationId,
                 'user_sender_id' => $conversation->user_receiver_id,
                 'user_receiver_id' => $conversation->user_sender_id,
@@ -99,8 +97,8 @@ class MessageController extends Controller
         $messages = $messages->map(function ($message) use ( $authUserId) {
             $data = [];
 
-            if($message->user_receiver_id == $authUserId && $message->has_receiver_read == '0'){
-                $message->update(['has_receiver_read' => '1']);
+            if($message->user_receiver_id == $authUserId && $message->has_read == '0'){
+                $message->update(['has_read' => '1']);
             }
 
             $data = [
@@ -124,7 +122,7 @@ class MessageController extends Controller
         $authUserId = $user->id;
 
         $messagesCount = Message::where('user_receiver_id', $authUserId)
-        ->where('has_receiver_read', '0')->count();
+        ->where('has_read', '0')->count();
 
         return response()->json(['messagesCount' => $messagesCount], Response::HTTP_OK);
 

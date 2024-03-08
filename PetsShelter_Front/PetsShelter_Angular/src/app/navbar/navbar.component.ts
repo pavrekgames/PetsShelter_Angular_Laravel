@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { faShieldDog } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -26,6 +26,8 @@ export class NavbarComponent implements OnInit {
 
   isLoggenIn: boolean = false;
   isTokenExpired: boolean = false;
+
+  @Input()
   messagesCount: number = 0;
 
   loggedUser: User = {

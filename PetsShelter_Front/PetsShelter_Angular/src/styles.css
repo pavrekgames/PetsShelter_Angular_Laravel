@@ -9,6 +9,18 @@
   background-color: #6a994e;
 }
 
+.app-background-text{
+  color: #0d1b2a !important;
+}
+
+.invisible{
+  opacity: 0;
+}
+
+.visible{
+  opacity: 1;
+}
+
 .img-fluid {
   max-width: 100%;
   height: auto

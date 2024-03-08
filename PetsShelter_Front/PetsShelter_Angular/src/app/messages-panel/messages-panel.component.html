@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+<app-navbar [messagesCount]="messagesCount"></app-navbar>
 
 <div class="app-background center ">
 
@@ -25,7 +25,7 @@
     </div>
 
     <div class="col-8">
-      <app-conversation></app-conversation>
+      <app-conversation (messagesCountEvent)="receiveMessagesCount($event)"></app-conversation>
     </div>
 
 

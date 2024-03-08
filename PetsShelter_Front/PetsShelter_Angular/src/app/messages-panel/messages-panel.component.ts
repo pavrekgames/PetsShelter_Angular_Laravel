@@ -8,4 +8,13 @@ import { Component } from '@angular/core';
 export class MessagesPanelComponent {
 
 
+  messagesCount: number = 1;
+
+  constructor() { }
+
+  receiveMessagesCount($event: number) {
+    this.messagesCount = $event;
+    console.log("Messages Count dupaaa: " + $event);
+  }
+
 }

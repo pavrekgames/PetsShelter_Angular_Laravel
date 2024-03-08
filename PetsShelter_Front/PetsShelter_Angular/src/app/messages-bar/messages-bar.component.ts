@@ -20,7 +20,6 @@ export class MessagesBarComponent {
     this.apiService.getConversations().subscribe({
       next: (data) => {
         this.handleConversations(data);
-        console.log(data);
       },
       error: (error) => {
         this.handleError();

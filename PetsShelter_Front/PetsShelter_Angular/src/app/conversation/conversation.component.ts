@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { ApiService } from '../services/api-service';
 import { ActivatedRoute } from '@angular/router';
@@ -12,10 +12,9 @@ declare let alertify: any;
 @Component({
   selector: 'app-conversation',
   templateUrl: './conversation.component.html',
-  styleUrl: './conversation.component.css'
+  styleUrl: './conversation.component.css',
 })
 export class ConversationComponent {
-
   faEnvelope = faEnvelope;
 
   conversationId: number = 0;
@@ -25,29 +24,32 @@ export class ConversationComponent {
     user_name: '',
     user_surname: '',
     pet_name: '',
-    pet_photo: ''
+    pet_photo: '',
   };
 
   message: Message = {
     content: '',
-    conversation_id: 0
+    conversation_id: 0,
   };
 
   conversationMessages: any;
+
+  unreadMessagesCount: number = 0;
+  @Output()
+  messagesCountEvent = new EventEmitter<number>();
 
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute,
     private spinnerService: SpinnerService,
-    private routingService: RoutingService,
+    private routingService: RoutingService
   ) {}
 
   ngOnInit(): void {
-
     this.conversationId = this.route.snapshot.params.id;
-    console.log("Id konwersacji: " + this.conversationId);
+    console.log('Id konwersacji: ' + this.conversationId);
 
-    if(this.conversationId != undefined){
+    if (this.conversationId != undefined) {
       this.spinnerService.show();
 
       this.apiService.getConversation(this.conversationId).subscribe({
@@ -63,23 +65,26 @@ export class ConversationComponent {
           this.handleConversationMessages(data);
         },
       });
-
     }
-
   }
 
-  handleConversation(data: any){
+  handleConversation(data: any) {
     this.conversation = data;
   }
 
-  handleConversationMessages(data: any){
+  handleConversationMessages(data: any) {
     this.conversationMessages = data;
+
+    this.apiService.getUnreadMessagesCount().subscribe({
+      next: (data) => {
+        this.updateUnreadMessagesCount(data);
+      }
+    });
+
   }
 
-  sendMessage(){
-
-    if(this.message.content.length > 0){
-
+  sendMessage() {
+    if (this.message.content.length > 0) {
       this.spinnerService.show();
       this.message.conversation_id = this.conversationId;
 
@@ -93,13 +98,11 @@ export class ConversationComponent {
           this.handleMessageError(error);
         },
       });
-
     }
-
   }
 
   handleMessageResponse() {
-    this.message.content = "";
+    this.message.content = '';
 
     alertify.success('Wysłano wiadomość');
     const url = '/messages/' + this.conversation.id;
@@ -110,6 +113,10 @@ export class ConversationComponent {
     alertify.error('Wystąpił problem podczas wysłania wiadomości!');
   }
 
+  updateUnreadMessagesCount(data: any) {
+    this.unreadMessagesCount = data.messagesCount;
+    console.log('Data messages count: ' + data.messagesCount);
 
-
+    this.messagesCountEvent.emit(this.unreadMessagesCount);
+  }
 }

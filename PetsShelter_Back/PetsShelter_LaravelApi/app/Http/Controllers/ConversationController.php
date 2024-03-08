@@ -45,7 +45,7 @@ class ConversationController extends Controller
     {
         $authUserId = auth()->user()->id;
 
-        $conversations = Conversation::where('user_receiver_id', $authUserId)->orWhere('user_sender_id', $authUserId)->get();
+        $conversations = Conversation::where('user_receiver_id', $authUserId)->orWhere('user_sender_id', $authUserId)->orderBy('updated_at', 'desc')->get();
 
         $conversations = $conversations->map(function ($conversation) use ($authUserId) {
             $data = [];

@@ -1,12 +1,8 @@
 
-<div class="p-3 bg-success border" id="message-element" (click)="selectConversation()">
+<div class="p-3 bg-success border d-flex justify-content-between" id="message-element" (click)="selectConversation()">
 
-  <div class="fa-1x d-inline pe-2 border-end">
+  <div class="fa-1x d-inline pe-2">
     <fa-icon [icon]="faUser"></fa-icon> {{conversation.user_name}} {{conversation.user_surname}}
-  </div>
-
-  <div class="d-inline ps-2">
-    Zwierzę:
   </div>
 
   <div class="d-inline ps-2">

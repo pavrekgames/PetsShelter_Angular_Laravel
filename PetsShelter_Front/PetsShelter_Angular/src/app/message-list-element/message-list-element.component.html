@@ -9,8 +9,13 @@
     {{conversation.pet_name}}
   </div>
 
-  <div class="d-inline ps-2">
+  <div class="d-inline ps-2 position-relative">
     <img [src]="conversation.pet_photo" class="img-message-list-size rounded-circle">
+
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" [ngClass]="messagesCount > 0 ? 'visible' : 'invisible'">
+      {{messagesCount}}
+    </span>
+
   </div>
 
 </div>

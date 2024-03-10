@@ -30,6 +30,8 @@ export class TokensComponent {
     tokens_count: 0,
   };
 
+  bundles: any;
+
   smallBundleTokens: number = 100;
   mediumBundleTokens: number = 250;
   bigBundleTokens: number = 600;
@@ -49,10 +51,23 @@ export class TokensComponent {
           this.handleTokens(data);
         }
       });
+
+      this.apiService.getbundles().subscribe({
+        next: (data) => {
+          this.handleAllBundles(data);
+        }
+      });
+
   }
 
   handleTokens(data: any){
     this.loggedUser.tokens_count = data.tokens_count;
+  }
+
+  handleAllBundles(data: any) {
+    this.bundles = data;
+
+    console.log(this.bundles);
   }
 
   topUpTokensWindow(tokensCount: number) {

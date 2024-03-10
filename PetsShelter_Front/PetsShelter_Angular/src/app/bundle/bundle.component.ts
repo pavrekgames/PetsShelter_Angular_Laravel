@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
 import { Bundle } from '../models/bundle';
 
@@ -11,6 +11,7 @@ export class BundleComponent {
 
   faSackDollar = faSackDollar;
 
+  @Input()
   bundle: Bundle = {
     id: 0,
     name: 'Mały pakiet',

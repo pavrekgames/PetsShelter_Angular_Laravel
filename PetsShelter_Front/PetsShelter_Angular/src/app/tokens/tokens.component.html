@@ -5,39 +5,19 @@
 </div>
 
 <div class="row app-background px-6 justify-content-center text-center">
+
+
   <div class="col-md-4 col-xl-3">
-    <div class="card bg-c-blue order-card">
-        <div class="card-block">
-            <h5 class="m-b-20">Mały pakiet</h5>
-            <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>{{smallBundleTokens}} <fa-icon class="pe-1" [icon]="faSackDollar"></fa-icon></span></h2>
-            <p class="m-b-0">{{smallBundlePrice}} PLN</p>
-            <a class="btn btn-success" (click)="topUpTokensWindow(smallBundleTokens)">Kup żetony</a>
-        </div>
-    </div>
+    <app-bundle></app-bundle>
   </div>
 
   <div class="col-md-4 col-xl-3">
-    <div class="card bg-c-blue order-card">
-        <div class="card-block">
-            <h5 class="m-b-20">Średni pakiet</h5>
-            <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>{{mediumBundleTokens}} <fa-icon class="pe-1" [icon]="faSackDollar"></fa-icon></span></h2>
-            <p class="m-b-0"> {{mediumBundlePrice}} PLN </p>
-            <a class="btn btn-success" (click)="topUpTokensWindow(mediumBundleTokens)">Kup żetony</a>
-        </div>
-    </div>
+    <app-bundle></app-bundle>
   </div>
 
   <div class="col-md-4 col-xl-3">
-    <div class="card bg-c-blue order-card">
-        <div class="card-block">
-            <h5 class="m-b-20">Duży pakiet</h5>
-            <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>{{bigBundleTokens}} <fa-icon class="pe-1" [icon]="faSackDollar"></fa-icon></span></h2>
-            <p class="m-b-0"> {{bigBundlePrice}} PLN</p>
-            <a class="btn btn-success" (click)="topUpTokensWindow(bigBundleTokens)">Kup żetony</a>
-        </div>
-    </div>
+    <app-bundle></app-bundle>
   </div>
-
 
 </div>
 

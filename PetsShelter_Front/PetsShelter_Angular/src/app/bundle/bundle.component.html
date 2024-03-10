@@ -1,8 +1,9 @@
-<div class="card bg-c-blue order-card">
-  <div class="card-block">
-      <h5 class="m-b-20">{{bundle.name}}</h5>
-      <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>{{bundle.tokens_count}} <fa-icon class="pe-1" [icon]="faSackDollar"></fa-icon></span></h2>
-      <p class="m-b-0"> {{bundle.price}} {{bundle.currency | uppercase}} </p>
-      <a class="btn btn-success" (click)="topUpTokensWindow(bundle.tokens_count)">Kup żetony</a>
+
+  <div class="card bg-c-blue order-card">
+    <div class="card-block">
+        <h5 class="m-b-20">{{bundle.name}}</h5>
+        <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>{{bundle.tokens_count}} <fa-icon class="pe-1" [icon]="faSackDollar"></fa-icon></span></h2>
+        <p class="m-b-0"> {{bundle.price}} {{bundle.currency | uppercase}} </p>
+        <a class="btn btn-success" (click)="topUpTokensWindow(bundle.tokens_count)">Kup żetony</a>
+    </div>
   </div>
-</div>

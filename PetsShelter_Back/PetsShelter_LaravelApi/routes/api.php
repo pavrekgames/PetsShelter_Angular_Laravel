@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BundleController;
 use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\SickPetController;
 use Illuminate\Http\Request;
@@ -75,6 +76,9 @@ Route::group([
     Route::put('top-up-tokens', [AuthController::class, 'topUpTokens']);
     Route::post('transfer-tokens/{petId}', [AuthController::class, 'transferTokens']);
     Route::get('bundles', [BundleController::class, 'showBundles']);
+
+    Route::post('payment-intent', [PaymentController::class, 'createPayIntent']);
+    Route::post('store-payment', [PaymentController::class, 'storeStripePayment']);
 
     Route::middleware(['can:isAdmin'])->group(function () {
         Route::post('add-sick-pet', [SickPetController::class,'create']);

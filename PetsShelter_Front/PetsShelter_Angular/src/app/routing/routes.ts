@@ -120,7 +120,7 @@ const routeConfig: Routes = [
     title: 'Edytuj profil'
   },
   {
-    path: 'tokens',
+    path: 'tokens-bundles',
     component: TokensComponent,
     canActivate: [loggedGuard],
     title: 'Doładuj tokeny'

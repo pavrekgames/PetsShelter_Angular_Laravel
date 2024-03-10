@@ -7,6 +7,7 @@ import {
   AppearanceAnimation,
 } from '@costlydeveloper/ngx-awesome-popup';
 import { SpinnerService } from '../services/spinner.service';
+import { RoutingService } from '../services/routing.service';
 
 declare let alertify: any;
 
@@ -23,6 +24,7 @@ export class UsersComponent {
 
   constructor(
     private apiService: ApiService,
+    private routingService: RoutingService,
     private spinnerService: SpinnerService
   ) {}
 
@@ -90,8 +92,9 @@ export class UsersComponent {
   }
 
   handleResponse() {
-    window.location.reload();
     alertify.success('Usunąłeś użytkownika');
+    const url = '/users';
+    this.routingService.redirectTo(url);
   }
 
   handleError() {

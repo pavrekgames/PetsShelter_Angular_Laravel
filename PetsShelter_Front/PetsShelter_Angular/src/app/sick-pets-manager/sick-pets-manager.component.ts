@@ -8,6 +8,7 @@ import {
   AppearanceAnimation,
 } from '@costlydeveloper/ngx-awesome-popup';
 import { SpinnerService } from '../services/spinner.service';
+import { RoutingService } from '../services/routing.service';
 
 declare let alertify: any;
 
@@ -26,6 +27,7 @@ export class SickPetsManagerComponent {
 
   constructor(
     private apiService: ApiService,
+    private routingService: RoutingService,
     private spinnerService: SpinnerService
   ) {}
 
@@ -89,8 +91,9 @@ export class SickPetsManagerComponent {
   }
 
   handleResponse() {
-    window.location.reload();
     alertify.success('Usunąłeś chore zwierzę');
+    const url = '/sick-pets-manager';
+    this.routingService.redirectTo(url);
   }
 
   handleError() {

@@ -41,6 +41,7 @@ import { ConversationComponent } from './conversation/conversation.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { MessageComponent } from './message/message.component';
 import { BundleComponent } from './bundle/bundle.component';
+import { PaymentComponent } from './payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { BundleComponent } from './bundle/bundle.component';
     ConversationComponent,
     MessageComponent,
     BundleComponent,
+    PaymentComponent,
   ],
   imports: [
     BrowserModule,

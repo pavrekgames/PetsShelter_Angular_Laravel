@@ -23,6 +23,7 @@ import { EditSickPetPhotoComponent } from "../edit-sick-pet-photo/edit-sick-pet-
 import { UsersComponent } from "../users/users.component";
 import { adminGuard } from "../guards/admin.guard";
 import { MessagesPanelComponent } from "../messages-panel/messages-panel.component";
+import { PaymentComponent } from '../payment/payment.component';
 
 const routeConfig: Routes = [
   {
@@ -124,6 +125,12 @@ const routeConfig: Routes = [
     component: TokensComponent,
     canActivate: [loggedGuard],
     title: 'Doładuj tokeny'
+  },
+  {
+    path: 'tokens-bundles/payment',
+    component: PaymentComponent,
+    canActivate: [loggedGuard],
+    title: 'Dokonaj płatności'
   },
   {
     path: 'users',

@@ -4,18 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Bundle;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class BundleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -47,6 +40,13 @@ class BundleController extends Controller
     public function show(Bundle $bundle)
     {
         //
+    }
+
+    public function showBundles(){
+
+        $bundles = Bundle::all();
+
+        return response()->json($bundles, Response::HTTP_OK);
     }
 
     /**

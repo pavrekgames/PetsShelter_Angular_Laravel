@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BundleController;
 use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PetController;
@@ -46,8 +47,7 @@ Route::group([
     Route::post('me', [AuthController::class,'me']);
     Route::put('edit-profile', [AuthController::class, 'editProfile']);
     Route::put('change-password', [AuthController::class, 'changePassword']);
-    Route::put('top-up-tokens', [AuthController::class, 'topUpTokens']);
-    Route::post('transfer-tokens/{petId}', [AuthController::class, 'transferTokens']);
+
 
     Route::post('add-pet', [PetController::class,'create']);
     Route::get('my-pets', [PetController::class, 'myPets']);
@@ -71,6 +71,10 @@ Route::group([
     Route::get('messages/{id}', [MessageController::class, 'getMessages']);
     Route::get('messages-count', [MessageController::class, 'getUnreadMessagesCount']);
     Route::get('messages-count/{id}', [MessageController::class, 'getUnreadConversationMessagesCount']);
+
+    Route::put('top-up-tokens', [AuthController::class, 'topUpTokens']);
+    Route::post('transfer-tokens/{petId}', [AuthController::class, 'transferTokens']);
+    Route::get('bundles', [BundleController::class, 'showBundles']);
 
     Route::middleware(['can:isAdmin'])->group(function () {
         Route::post('add-sick-pet', [SickPetController::class,'create']);

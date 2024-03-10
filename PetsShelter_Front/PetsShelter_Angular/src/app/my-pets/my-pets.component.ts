@@ -9,6 +9,7 @@ import {
   AppearanceAnimation,
 } from '@costlydeveloper/ngx-awesome-popup';
 import { SpinnerService } from '../services/spinner.service';
+import { RoutingService } from '../services/routing.service';
 
 declare let alertify: any;
 
@@ -22,7 +23,7 @@ export class MyPetsComponent {
 
   constructor(
     private apiService: ApiService,
-    private router: Router,
+    private routingService: RoutingService,
     private spinnerService: SpinnerService
   ) {}
 
@@ -86,9 +87,10 @@ export class MyPetsComponent {
   }
 
   handleResponse() {
-    //this.router.navigate(['/my-pets']);
-    window.location.reload();
     alertify.success('Usunąłeś zwierzę');
+
+    const url = '/my-pets';
+    this.routingService.redirectTo(url);
   }
 
   handleError() {

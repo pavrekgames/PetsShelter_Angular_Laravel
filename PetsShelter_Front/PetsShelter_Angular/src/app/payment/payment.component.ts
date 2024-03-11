@@ -2,10 +2,12 @@ import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/co
 import { Bundle } from '../models/bundle';
 import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
 import { ApiService } from '../services/api-service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SpinnerService } from '../services/spinner.service';
 import { AngularStripeService } from '@fireflysemantics/angular-stripe-service';
 import  { NgForm } from "@angular/forms"
+
+declare let alertify: any;
 
 @Component({
   selector: 'app-payment',
@@ -39,8 +41,9 @@ export class PaymentComponent {
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute,
+    private router: Router,
     private spinnerService: SpinnerService,
-    private cd: ChangeDetectorRef,
+    private changeDetector: ChangeDetectorRef,
     private stripeService: AngularStripeService
   ) {}
 
@@ -59,7 +62,7 @@ export class PaymentComponent {
   }
 
   ngAfterViewInit() {
-    this.stripeService.setPublishableKey('pk_test_2syov9fTMRwOxYG97AAXbOgt008X6NL46o').then(
+    this.stripeService.setPublishableKey('pk_test_51OrcDGEWRNv9J4W30uKuSTxXolrFz4Yxfrxqp2ndhzRB7fYauRp8umR0o8DFQ6HAKu8cfyMCDl7JmLUuiK4pLqJI002Qyu35zf').then(
       stripe=> {
         this.stripe = stripe;
     const elements = stripe.elements();
@@ -84,7 +87,7 @@ export class PaymentComponent {
     } else {
       this.error = '';
     }
-    this.cd.detectChanges();
+    this.changeDetector.detectChanges();
   }
 
   async onSubmit(form: NgForm) {
@@ -94,7 +97,31 @@ export class PaymentComponent {
       console.log('Error:', error);
     } else {
       console.log('Success!', token);
+
+      this.spinnerService.show();
+      this.apiService.storePayment(this.bundle).subscribe({
+        next: (data: any) => {
+          this.spinnerService.hide();
+          this.handlePaymentResponse(data);
+          console.log(data);
+        },
+        error: (error) => {
+          this.spinnerService.hide();
+          this.handlePaymentError();
+          console.log(error);
+        },
+      });
     }
+  }
+
+  handlePaymentResponse(data: any){
+    alertify.success('Doładowano żetony');
+
+    this.router.navigate(['/tokens-bundles']);
+  }
+
+  handlePaymentError(){
+    alertify.error('Wystąpił problem!');
   }
 
 }

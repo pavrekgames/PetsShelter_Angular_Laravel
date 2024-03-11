@@ -5,7 +5,8 @@
 </div>
 
 <div class="row app-background px-6 justify-content-center text-center">
-  <div class="card bg-c-blue order-card">
+
+  <div class="col-3 card bg-c-blue order-card">
     <div class="card-block">
         <h5 class="m-b-20">{{bundle.name}}</h5>
         <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>{{bundle.tokens_count}} <fa-icon class="pe-1" [icon]="faSackDollar"></fa-icon></span></h2>
@@ -13,17 +14,30 @@
     </div>
   </div>
 
-  <div>
-    <form #checkout="ngForm" (ngSubmit)="onSubmit(checkout)" class="checkout">
-      <div class="form-row">
-        <label for="card-info">Card Info</label>
-        <div id="card-info" #cardInfo></div>
+  <div class="col-4">
 
-        <div id="card-errors" role="alert" *ngIf="error">{{ error }}</div>
-      </div>
+    <div class="ps-5">
+      <form #checkout="ngForm" (ngSubmit)="onSubmit(checkout)" class="checkout">
+        <div class="form-row p-2">
 
-      <button type="submit">Pay $5</button>
-    </form>
+          <div class="pb-2">
+            <label for="card-info">Karta płatnicza</label>
+          </div>
+
+          <div id="card-info" #cardInfo></div>
+
+          <div id="card-errors" role="alert" *ngIf="error">{{ error }}</div>
+        </div>
+
+        <div class="p-1">
+          <button type="submit">Zapłać {{bundle.price}} {{bundle.currency | uppercase}}</button>
+        </div>
+
+
+      </form>
+    </div>
+
+
   </div>
 
 </div>

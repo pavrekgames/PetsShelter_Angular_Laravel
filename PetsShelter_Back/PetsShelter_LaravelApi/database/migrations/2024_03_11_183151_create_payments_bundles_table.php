@@ -19,7 +19,6 @@ return new class extends Migration
 
             $table->foreignId('payment_id')->constrained('payments')->cascadeOnDelete();
             $table->foreignId('bundle_id')->constrained('bundles')->cascadeOnDelete();
-
         });
     }
 

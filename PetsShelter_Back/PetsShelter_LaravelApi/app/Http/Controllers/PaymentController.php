@@ -50,8 +50,14 @@ class PaymentController extends Controller
             $user = auth()->user();
             $userId = $user->id;
             $bundleId = $request->id;
+            $tokens_count = $request->tokens_count;
 
             $payment = DB::table('payments_bundles')->insert(array('user_id' => $userId, 'bundle_id' => $bundleId));
+
+            $updatedTokensCount = $user->tokens_count + $tokens_count;
+
+            $user->tokens_count = $updatedTokensCount;
+            $user->save();
 
             return response(['payment' => $payment]);
 

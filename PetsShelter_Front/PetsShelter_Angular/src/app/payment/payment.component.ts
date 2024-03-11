@@ -1,11 +1,18 @@
-import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { Bundle } from '../models/bundle';
 import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
 import { ApiService } from '../services/api-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SpinnerService } from '../services/spinner.service';
 import { AngularStripeService } from '@fireflysemantics/angular-stripe-service';
-import  { NgForm } from "@angular/forms"
+import { NgForm } from '@angular/forms';
+import { StripeService } from '../services/stripe.service';
 
 declare let alertify: any;
 
@@ -25,7 +32,7 @@ export class PaymentComponent {
     tokens_count: 0,
     price: 0,
     currency: 'pln',
-    intent_id: 0
+    intent_id: '',
   };
 
   intent: any;
@@ -35,11 +42,11 @@ export class PaymentComponent {
   stripe: any;
   loading = false;
   confirmation: any;
+  clSecret: string = '';
 
   card: any;
   cardHandler = this.onChange.bind(this);
   error: string = '';
-
 
   constructor(
     private apiService: ApiService,
@@ -47,7 +54,8 @@ export class PaymentComponent {
     private router: Router,
     private spinnerService: SpinnerService,
     private changeDetector: ChangeDetectorRef,
-    private stripeService: AngularStripeService
+    private angularStripeService: AngularStripeService,
+    private stripeService: StripeService
   ) {}
 
   ngOnInit(): void {
@@ -62,29 +70,29 @@ export class PaymentComponent {
       },
     });
 
+    this.intent = this.stripeService.getIntent();
+    console.log("Intent: " + JSON.stringify(this.intent));
   }
 
   ngAfterViewInit() {
-    this.stripeService.setPublishableKey('pk_test_51OrcDGEWRNv9J4W30uKuSTxXolrFz4Yxfrxqp2ndhzRB7fYauRp8umR0o8DFQ6HAKu8cfyMCDl7JmLUuiK4pLqJI002Qyu35zf').then(
-      stripe=> {
+    this.angularStripeService
+      .setPublishableKey(
+        'pk_test_51OrcDGEWRNv9J4W30uKuSTxXolrFz4Yxfrxqp2ndhzRB7fYauRp8umR0o8DFQ6HAKu8cfyMCDl7JmLUuiK4pLqJI002Qyu35zf'
+      )
+      .then((stripe) => {
         this.stripe = stripe;
-    const elements = stripe.elements();
-    this.card = elements.create('card');
-    this.card.mount(this.cardInfo.nativeElement);
-    this.card.addEventListener('change', this.cardHandler);
-    });
+        const elements = stripe.elements();
+        this.card = elements.create('card');
+        this.card.mount(this.cardInfo.nativeElement);
+        this.card.addEventListener('change', this.cardHandler);
+      });
   }
 
   handleBundle(data: any) {
     this.bundle = data;
   }
 
-  ngOnDestroy() {
-    this.card.removeEventListener('change', this.cardHandler);
-    this.card.destroy();
-  }
-
-  onChange({error} : {error:any}) {
+  onChange({ error }: { error: any }) {
     if (error) {
       this.error = error.message;
     } else {
@@ -95,6 +103,10 @@ export class PaymentComponent {
 
   async onSubmit(form: NgForm) {
     const { token, error } = await this.stripe.createToken(this.card);
+    this.clSecret = this.intent.intent.client_secret;
+    this.bundle.intent_id = this.intent.intent.id;
+    console.log('clSecret: ' + this.clSecret);
+    console.log('Intent_id: ' + this.bundle.intent_id);
 
     if (error) {
       console.log('Error:', error);
@@ -117,14 +129,38 @@ export class PaymentComponent {
     }
   }
 
-  handlePaymentResponse(data: any){
-    alertify.success('Doładowano żetony');
-
-    this.router.navigate(['/tokens-bundles']);
+  handlePaymentResponse(data: any) {
+    this.stripe
+      .confirmCardPayment(this.clSecret, {
+        receipt_email: '',
+        payment_method: {
+          card: this.card,
+          billing_details: {
+            name: '',
+            email: '',
+          },
+        },
+      })
+      .subscribe({
+        next: (res: any) => {
+          console.log('Confirmed Card Payment' + res);
+          if (res.paymentIntent && res.paymentIntent.status === 'succeeded') {
+            alertify.success('Doładowano żetony');
+            this.router.navigate(['/tokens-bundles']);
+          } else {
+            const errorCode = res.error.message;
+            alertify.error(errorCode);
+          }
+        },
+      });
   }
 
-  handlePaymentError(){
+  handlePaymentError() {
     alertify.error('Wystąpił problem!');
   }
 
+  ngOnDestroy() {
+    this.card.removeEventListener('change', this.cardHandler);
+    this.card.destroy();
+  }
 }

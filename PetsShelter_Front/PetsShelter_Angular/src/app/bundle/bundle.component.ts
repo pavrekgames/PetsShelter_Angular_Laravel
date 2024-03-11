@@ -10,6 +10,7 @@ import {
 import { ApiService } from '../services/api-service';
 import { User } from '../models/user';
 import { Router } from '@angular/router';
+import { StripeService } from '../services/stripe.service';
 
 declare let alertify: any;
 
@@ -37,10 +38,14 @@ export class BundleComponent {
     tokens_count: 100,
     price: 49.99,
     currency: 'pln',
-    intent_id: 0
+    intent_id: '',
   };
 
-  constructor(private apiService: ApiService, private router: Router) {}
+  constructor(
+    private apiService: ApiService,
+    private router: Router,
+    private stripeService: StripeService
+  ) {}
 
   ngOnInit(): void {
     this.apiService.authorizedUser().subscribe({
@@ -77,14 +82,16 @@ export class BundleComponent {
         this.apiService.createPayIntent(this.bundle).subscribe({
           next: (data) => {
             console.log(data);
-            this.bundlePayment(this.bundle.id);
+            this.bundlePayment(this.bundle.id, data);
           },
         });
       }
     });
   }
 
-  bundlePayment(id: any) {
+  bundlePayment(id: any, intent: any) {
+    this.stripeService.setIntent(intent);
+
     this.router.navigate(['tokens-bundles/payment/' + id]);
   }
 

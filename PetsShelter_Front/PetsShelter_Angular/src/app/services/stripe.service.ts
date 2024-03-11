@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StripeService {
-
   intent: any;
 
-  constructor() { }
+  constructor() {}
 
-  setIntent(data: any){
+  setIntent(data: any) {
     this.intent = data;
   }
 
-  getIntent(){
-
+  getIntent() {
+    return this.intent;
   }
-
 }

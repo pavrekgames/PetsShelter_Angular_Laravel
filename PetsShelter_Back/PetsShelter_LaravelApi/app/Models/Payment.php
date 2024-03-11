@@ -11,7 +11,7 @@ class Payment extends Model
 
     protected $fillable = [
         'status',
-        'bundle_id',
+        'user_id',
     ];
 
 }

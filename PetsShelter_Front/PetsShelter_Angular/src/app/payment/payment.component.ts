@@ -25,7 +25,10 @@ export class PaymentComponent {
     tokens_count: 0,
     price: 0,
     currency: 'pln',
+    intent_id: 0
   };
+
+  intent: any;
 
   @ViewChild('cardInfo', { static: false }) cardInfo: ElementRef;
 

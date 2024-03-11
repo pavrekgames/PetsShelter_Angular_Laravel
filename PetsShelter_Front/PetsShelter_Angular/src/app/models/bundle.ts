@@ -4,4 +4,5 @@ export interface Bundle{
   tokens_count: number;
   price: number;
   currency: string;
+  intent_id: number;
 }

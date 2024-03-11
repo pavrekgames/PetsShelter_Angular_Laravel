@@ -37,6 +37,7 @@ export class BundleComponent {
     tokens_count: 100,
     price: 49.99,
     currency: 'pln',
+    intent_id: 0
   };
 
   constructor(private apiService: ApiService, private router: Router) {}

@@ -9,6 +9,7 @@ import {
 } from '@costlydeveloper/ngx-awesome-popup';
 import { ApiService } from '../services/api-service';
 import { User } from '../models/user';
+import { Router } from '@angular/router';
 
 declare let alertify: any;
 
@@ -38,7 +39,7 @@ export class BundleComponent {
     currency: 'pln',
   };
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private router: Router) {}
 
   ngOnInit(): void {
     this.apiService.authorizedUser().subscribe({
@@ -72,9 +73,18 @@ export class BundleComponent {
     // Simply open the popup and observe button click
     newConfirmBox.openConfirmBox$().subscribe((resp) => {
       if (resp.success) {
-        this.topUpTokens(tokensCount);
+        this.apiService.createPayIntent(this.bundle).subscribe({
+          next: (data) => {
+            console.log(data);
+            this.bundlePayment(this.bundle.id);
+          },
+        });
       }
     });
+  }
+
+  bundlePayment(id: any) {
+    this.router.navigate(['tokens-bundles/payment/' + id]);
   }
 
   topUpTokens(tokens: number) {

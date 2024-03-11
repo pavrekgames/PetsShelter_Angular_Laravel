@@ -127,7 +127,7 @@ const routeConfig: Routes = [
     title: 'Doładuj tokeny'
   },
   {
-    path: 'tokens-bundles/payment',
+    path: 'tokens-bundles/payment/:id',
     component: PaymentComponent,
     canActivate: [loggedGuard],
     title: 'Dokonaj płatności'

@@ -19,15 +19,16 @@ class PaymentController extends Controller
             $itemPrice = $request->price;
             $itemCurrency = $request->currency;
 
+            $user = auth()->user();
+
             \Stripe\Stripe::setApiKey(config('app.stripekey'));
 
             $intent = \Stripe\PaymentIntent::create([
-                'amount' => $itemPrice,
+                'amount' => round($itemPrice * 100),
                 'currency' => $itemCurrency,
-                'description' => $itemName
+                'description' => $itemName,
             ]);
 
-            $user = auth()->user();
             $payment = Payment::Create([
                 'status' => 'In progress',
                 'user_id' => $user->id,

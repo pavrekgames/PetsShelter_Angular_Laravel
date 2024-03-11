@@ -48,18 +48,23 @@ class PaymentController extends Controller
 
         try {
             $user = auth()->user();
-            $userId = $user->id;
+            $intentId = $request->intend_id;
             $bundleId = $request->id;
             $tokens_count = $request->tokens_count;
 
-            $payment = DB::table('payments_bundles')->insert(array('payment_id' => '2', 'bundle_id' => $bundleId));
+            $payment = Payment::where('intent_id', $intentId)->first();
+            $paymentId = $payment->id;
+
+            $paymentBundle = DB::table('payments_bundles')->insert(array('payment_id' => $paymentId, 'bundle_id' => $bundleId));
+            $payment->status = 'Done';
+            $payment->save();
 
             $updatedTokensCount = $user->tokens_count + $tokens_count;
 
             $user->tokens_count = $updatedTokensCount;
             $user->save();
 
-            return response(['payment' => $payment]);
+            return response(['payment' => $paymentBundle]);
 
         } catch (Exception $e) {
             return response()->json([

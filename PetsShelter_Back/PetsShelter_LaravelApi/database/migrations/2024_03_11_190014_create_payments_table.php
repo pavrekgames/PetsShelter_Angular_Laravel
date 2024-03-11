@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('status');
             $table->timestamps();
-            $table->integer('intent_id')->nullable();
+            $table->string('intent_id')->nullable();
 
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
         });

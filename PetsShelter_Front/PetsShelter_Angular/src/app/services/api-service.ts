@@ -302,6 +302,15 @@ export class ApiService {
 
   }
 
+  getbundle(id: any){
+
+    const token = this.tokenService.getTokenValue();
+    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
+
+    return this.http.get('http://127.0.0.1:8000/api/bundles/' + id, {'headers': headers});
+
+  }
+
   createPayIntent(data: any){
 
     const token = this.tokenService.getTokenValue();

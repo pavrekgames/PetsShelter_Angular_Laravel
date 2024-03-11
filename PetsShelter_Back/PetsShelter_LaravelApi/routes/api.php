@@ -76,6 +76,7 @@ Route::group([
     Route::put('top-up-tokens', [AuthController::class, 'topUpTokens']);
     Route::post('transfer-tokens/{petId}', [AuthController::class, 'transferTokens']);
     Route::get('bundles', [BundleController::class, 'showBundles']);
+    Route::get('bundles/{id}', [BundleController::class, 'show']);
 
     Route::post('payment-intent', [PaymentController::class, 'createPayIntent']);
     Route::post('store-payment', [PaymentController::class, 'storeStripePayment']);

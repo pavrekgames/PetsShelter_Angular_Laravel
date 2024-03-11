@@ -37,9 +37,12 @@ class BundleController extends Controller
      * @param  \App\Models\Bundle  $bundle
      * @return \Illuminate\Http\Response
      */
-    public function show(Bundle $bundle)
+    public function show(Request $request)
     {
-        //
+        $id = $request->id;
+        $bundle = Bundle::findOrFail($id);
+
+        return response()->json($bundle, Response::HTTP_OK);
     }
 
     public function showBundles(){

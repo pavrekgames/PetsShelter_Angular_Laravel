@@ -52,7 +52,7 @@ class PaymentController extends Controller
             $bundleId = $request->id;
             $tokens_count = $request->tokens_count;
 
-            $payment = DB::table('payments_bundles')->insert(array('user_id' => $userId, 'bundle_id' => $bundleId));
+            $payment = DB::table('payments_bundles')->insert(array('payment_id' => '2', 'bundle_id' => $bundleId));
 
             $updatedTokensCount = $user->tokens_count + $tokens_count;
 

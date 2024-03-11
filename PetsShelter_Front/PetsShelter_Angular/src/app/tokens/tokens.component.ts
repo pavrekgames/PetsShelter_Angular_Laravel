@@ -2,16 +2,16 @@ import { ApiService } from './../services/api-service';
 import { Component } from '@angular/core';
 import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
 import { User } from '../models/user';
+import { SpinnerService } from '../services/spinner.service';
 
 declare let alertify: any;
 
 @Component({
   selector: 'app-tokens',
   templateUrl: './tokens.component.html',
-  styleUrl: './tokens.component.css'
+  styleUrl: './tokens.component.css',
 })
 export class TokensComponent {
-
   faSackDollar = faSackDollar;
 
   loggedUser: User = {
@@ -26,26 +26,28 @@ export class TokensComponent {
   bundles: any;
 
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
+    private spinnerService: SpinnerService
   ) {}
 
   ngOnInit(): void {
+    this.spinnerService.show();
 
-      this.apiService.authorizedUser().subscribe({
-        next: (data) => {
-          this.handleTokens(data);
-        }
-      });
+    this.apiService.authorizedUser().subscribe({
+      next: (data) => {
+        this.handleTokens(data);
+      },
+    });
 
-      this.apiService.getbundles().subscribe({
-        next: (data) => {
-          this.handleAllBundles(data);
-        }
-      });
-
+    this.apiService.getbundles().subscribe({
+      next: (data) => {
+        this.spinnerService.hide();
+        this.handleAllBundles(data);
+      },
+    });
   }
 
-  handleTokens(data: any){
+  handleTokens(data: any) {
     this.loggedUser.tokens_count = data.tokens_count;
   }
 
@@ -54,5 +56,4 @@ export class TokensComponent {
 
     console.log(this.bundles);
   }
-
 }

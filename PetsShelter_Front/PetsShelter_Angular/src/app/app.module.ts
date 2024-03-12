@@ -42,6 +42,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { MessageComponent } from './message/message.component';
 import { BundleComponent } from './bundle/bundle.component';
 import { PaymentComponent } from './payment/payment.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { PaymentComponent } from './payment/payment.component';
     MessageComponent,
     BundleComponent,
     PaymentComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

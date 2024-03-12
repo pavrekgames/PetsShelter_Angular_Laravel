@@ -24,6 +24,7 @@ import { UsersComponent } from "../users/users.component";
 import { adminGuard } from "../guards/admin.guard";
 import { MessagesPanelComponent } from "../messages-panel/messages-panel.component";
 import { PaymentComponent } from '../payment/payment.component';
+import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 
 const routeConfig: Routes = [
   {
@@ -42,6 +43,12 @@ const routeConfig: Routes = [
     component: LoginComponent,
     canActivate: [notLoggedGuard],
     title: 'Logowanie'
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent,
+    canActivate: [notLoggedGuard],
+    title: 'Reset hasła'
   },
   {
     path: 'pets-to-adopt',

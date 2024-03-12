@@ -95,28 +95,4 @@ export class BundleComponent {
     this.router.navigate(['tokens-bundles/payment/' + id]);
   }
 
-  topUpTokens(tokens: number) {
-    this.loggedUser.tokens_count += tokens;
-
-    this.apiService.topUpTokens(this.loggedUser).subscribe({
-      next: (data) => {
-        this.handleResponse();
-        console.log(data);
-      },
-      error: (error) => {
-        this.handleError();
-        console.log(error);
-      },
-    });
-  }
-
-  handleResponse() {
-    //this.router.navigate(['/my-pets']);
-    alertify.success('Doładowano żetony');
-    window.location.reload();
-  }
-
-  handleError() {
-    alertify.error('Wystąpił problem!');
-  }
 }

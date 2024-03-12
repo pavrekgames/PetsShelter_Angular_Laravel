@@ -42,7 +42,7 @@ export class ResetPasswordComponent {
       this.spinnerService.show();
       const formData = this.resetPasswordForm.getRawValue();
 
-      this.apiService.login(formData).subscribe({
+      this.apiService.resetPassword(formData).subscribe({
         next: (data) => {
           this.spinnerService.hide();
           this.handleResponse(data);

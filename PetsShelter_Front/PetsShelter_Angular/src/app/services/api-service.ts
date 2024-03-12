@@ -146,6 +146,10 @@ export class ApiService {
 
   }
 
+  resetPassword(data: any){
+    return this.http.post('http://127.0.0.1:8000/api/reset-password', data);
+  }
+
   topUpTokens(data: any){
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);

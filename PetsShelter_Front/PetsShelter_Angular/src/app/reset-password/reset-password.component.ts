@@ -31,7 +31,7 @@ export class ResetPasswordComponent {
 
   ngOnInit(): void {
     this.hasSubmitted = false;
-    this.hasResetSend = true;
+    this.hasResetSend = false;
   }
 
   onSubmit() {

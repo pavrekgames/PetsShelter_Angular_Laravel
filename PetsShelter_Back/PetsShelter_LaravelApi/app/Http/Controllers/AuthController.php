@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\SickPet;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -165,6 +166,51 @@ class AuthController extends Controller
         $editedUser = User::where('id', $id)->update($request->only('password'));
 
         return response()->json($editedUser, Response::HTTP_OK);
+
+    }
+
+     /**
+     * Reset password based on name and e-mail.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function resetPassword(Request $request){
+
+        $data = $request->only('name', 'email');
+
+        $validator = Validator::make($data, [
+            'name' => 'required',
+            'email' => 'required|email',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+        }
+
+        $user = User::where('name', $request->name)
+        ->where('email', $request->email)
+        ->first();
+
+        if(!$user) return response()->json(['error' => 'Nie ma takiego użytkownika'], Response::HTTP_BAD_REQUEST);
+
+        $newPassword = '696969';
+        $resetPassword = Hash::make($newPassword);
+
+        $user->password = $resetPassword;
+        $user->save();
+
+        $mailData = [
+            'reset_password' => $newPassword,
+            'name' => $user->name
+        ];
+
+        Mail::send('emails.ResetPasswordMail', $mailData, function ($message) use ($user){
+            $message->to($user->email, $user->name)
+            ->subject("Resetowanie hasła - Pet Shelter");
+            $message->from('petshelter@support.gamil.com', 'Paweł Śruta');
+        });
+
+        return response()->json(['message' => 'Wysłano e-mail'], Response::HTTP_OK);
 
     }
 

@@ -31,6 +31,7 @@ class PaymentController extends Controller
 
             $payment = Payment::Create([
                 'status' => 'In progress',
+                'intent_id' => $intent->id,
                 'user_id' => $user->id,
             ]);
 
@@ -48,7 +49,7 @@ class PaymentController extends Controller
 
         try {
             $user = auth()->user();
-            $intentId = $request->intend_id;
+            $intentId = $request->intent_id;
             $bundleId = $request->id;
             $tokens_count = $request->tokens_count;
 

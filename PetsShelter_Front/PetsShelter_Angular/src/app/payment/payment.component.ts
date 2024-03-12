@@ -105,6 +105,7 @@ export class PaymentComponent {
     const { token, error } = await this.stripe.createToken(this.card);
     this.clSecret = this.intent.intent.client_secret;
     this.bundle.intent_id = this.intent.intent.id;
+    console.log('IntentID: ' + this.bundle.intent_id);
 
     if (error) {
       console.log('Error:', error);

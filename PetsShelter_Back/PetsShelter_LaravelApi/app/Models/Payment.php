@@ -11,6 +11,7 @@ class Payment extends Model
 
     protected $fillable = [
         'status',
+        'intent_id',
         'user_id',
     ];
 

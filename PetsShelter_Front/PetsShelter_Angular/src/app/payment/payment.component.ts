@@ -71,7 +71,6 @@ export class PaymentComponent {
     });
 
     this.intent = this.stripeService.getIntent();
-    console.log("Intent: " + JSON.stringify(this.intent));
   }
 
   ngAfterViewInit() {
@@ -80,6 +79,7 @@ export class PaymentComponent {
         'pk_test_51OrcDGEWRNv9J4W30uKuSTxXolrFz4Yxfrxqp2ndhzRB7fYauRp8umR0o8DFQ6HAKu8cfyMCDl7JmLUuiK4pLqJI002Qyu35zf'
       )
       .then((stripe) => {
+        console.log('Stripe: ' + stripe);
         this.stripe = stripe;
         const elements = stripe.elements();
         this.card = elements.create('card');
@@ -105,8 +105,6 @@ export class PaymentComponent {
     const { token, error } = await this.stripe.createToken(this.card);
     this.clSecret = this.intent.intent.client_secret;
     this.bundle.intent_id = this.intent.intent.id;
-    console.log('clSecret: ' + this.clSecret);
-    console.log('Intent_id: ' + this.bundle.intent_id);
 
     if (error) {
       console.log('Error:', error);
@@ -141,9 +139,8 @@ export class PaymentComponent {
           },
         },
       })
-      .subscribe({
-        next: (res: any) => {
-          console.log('Confirmed Card Payment' + res);
+      .then(
+         (res) => {
           if (res.paymentIntent && res.paymentIntent.status === 'succeeded') {
             alertify.success('Doładowano żetony');
             this.router.navigate(['/tokens-bundles']);
@@ -151,8 +148,7 @@ export class PaymentComponent {
             const errorCode = res.error.message;
             alertify.error(errorCode);
           }
-        },
-      });
+        });
   }
 
   handlePaymentError() {

@@ -68,7 +68,7 @@
 
 </div>
 
-<div class="row ps-4 pe-4 pt-5 pb-3">
+<div class="mx-auto row ps-4 pe-4 pt-5 pb-3">
   <div class="pb-2" *ngFor="let message of conversationMessages | paginate: { itemsPerPage: petsPerPage, currentPage: page }">
     <app-message [conversationMessage]="message"></app-message>
   </div>

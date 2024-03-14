@@ -53,6 +53,10 @@
 
 html { background-color: #0d1b2a; }
 
+body {
+  min-width: fit-content !important;
+}
+
 /*----px-6 */
 
 .pt-6,

@@ -13,6 +13,7 @@ import { SpinnerService } from '../services/spinner.service';
 import { AngularStripeService } from '@fireflysemantics/angular-stripe-service';
 import { NgForm } from '@angular/forms';
 import { StripeService } from '../services/stripe.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 declare let alertify: any;
 
@@ -22,6 +23,8 @@ declare let alertify: any;
   styleUrl: './payment.component.css',
 })
 export class PaymentComponent {
+  isMobile: boolean = false;
+
   faSackDollar = faSackDollar;
 
   bundleId: number = 0;
@@ -55,7 +58,8 @@ export class PaymentComponent {
     private spinnerService: SpinnerService,
     private changeDetector: ChangeDetectorRef,
     private angularStripeService: AngularStripeService,
-    private stripeService: StripeService
+    private stripeService: StripeService,
+    private breakPointService: BreakpointObserver
   ) {}
 
   ngOnInit(): void {
@@ -68,6 +72,16 @@ export class PaymentComponent {
         this.handleBundle(data);
         console.log(data);
       },
+    });
+
+    this.breakPointService.observe(Breakpoints.XSmall).subscribe((result) => {
+      this.isMobile = false;
+
+      if (result.matches) {
+        this.isMobile = true;
+      }else{
+        this.isMobile = false;
+      }
     });
 
     this.intent = this.stripeService.getIntent();

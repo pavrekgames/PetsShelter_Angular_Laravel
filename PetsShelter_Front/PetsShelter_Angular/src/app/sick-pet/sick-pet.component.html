@@ -1,40 +1,99 @@
 
-<div class="mx-auto row px-7 app-background text-light justify-content-center pb-2 ">
-  <div class="col-3 theme-bgr p-2 border-start border-top border-bottom border-warning border-3"><img [src]="pet.photo_path" class="img-size"></div>
+<div *ngIf="!isMobile; then desktop; else mobile">
 
-  <div class="col-6 theme-bgr p-2 border border-warning border-3">
-    <div class="d-flex flex-row">
-      <div class="d-inline p-2 pe-4"><b>{{pet.name | titlecase}}</b></div>
-      <div class="d-inline p-1"><span class="p-3 badge bg-primary rounded-pill">{{pet.species | titlecase}}</span></div>
-      <div class="d-inline p-1"><span class=" p-3 badge bg-primary rounded-pill">{{pet.disease | titlecase}}</span></div>
-      <div class="d-inline p-1"><span [ngClass]="pet.status == 'Aktywne' ? 'p-3 badge bg-danger rounded-pill' : 'p-3 badge bg-success rounded-pill'">{{pet.status | titlecase}}</span></div>
+</div>
+
+<ng-template #desktop>
+
+  <div class="mx-auto row px-7 app-background text-light justify-content-center pb-2 ">
+    <div class="col-3 theme-bgr p-2 border-start border-top border-bottom border-warning border-3"><img [src]="pet.photo_path" class="img-size"></div>
+
+    <div class="col-6 theme-bgr p-2 border border-warning border-3">
+      <div class="d-flex flex-row">
+        <div class="d-inline p-2 pe-4"><b>{{pet.name | titlecase}}</b></div>
+        <div class="d-inline p-1"><span class="p-3 badge bg-primary rounded-pill">{{pet.species | titlecase}}</span></div>
+        <div class="d-inline p-1"><span class=" p-3 badge bg-primary rounded-pill">{{pet.disease | titlecase}}</span></div>
+        <div class="d-inline p-1"><span [ngClass]="pet.status == 'Aktywne' ? 'p-3 badge bg-danger rounded-pill' : 'p-3 badge bg-success rounded-pill'">{{pet.status | titlecase}}</span></div>
+      </div>
+
+      <div class="p-4 d-flex flex-row justify-content-center">
+
+        <div class="d-inline">
+          <h4 class="text-light">{{pet.current_tokens}} / {{pet.required_tokens}} <fa-icon [icon]="faSackDollar"></fa-icon></h4>
+        </div>
+
+      </div>
+
+      <div class="d-flex flex-row pb-2" *ngIf="pet.status == 'Aktywne'">
+        <div class="d-inline">
+          <label for="tokens_count" class="form-label m-2"> <b>Wspomóż:</b></label>
+        </div>
+        <div class="d-inline">
+          <input type="number" class="form-control" id="tokens_count" name="tokens_count" min="1" max="1000" maxlength="4" [(ngModel)]="tokensCount.tokens_count">
+        </div>
+        <div class="d-inline ps-1">
+          <button type="button" class="btn btn-warning btn-rounded" (click)="transferTokensWindow()"> Wyślij </button>
+        </div>
+
+      </div>
+
+      <span class="text-dark bg-danger" *ngIf="tokensCount.tokens_count < 1">
+        <b>Minimalna ilość żetonów musi wynosić 1</b>
+      </span>
+
     </div>
-
-    <div class="p-4 d-flex flex-row justify-content-center">
-
-      <div class="d-inline">
-        <h4 class="text-light">{{pet.current_tokens}} / {{pet.required_tokens}} <fa-icon [icon]="faSackDollar"></fa-icon></h4>
-      </div>
-
-    </div>
-
-    <div class="d-flex flex-row pb-2" *ngIf="pet.status == 'Aktywne'">
-      <div class="d-inline">
-        <label for="tokens_count" class="form-label m-2"> <b>Wspomóż:</b></label>
-      </div>
-      <div class="d-inline">
-        <input type="number" class="form-control" id="tokens_count" name="tokens_count" min="1" max="1000" maxlength="4" [(ngModel)]="tokensCount.tokens_count">
-      </div>
-      <div class="d-inline ps-1">
-        <button type="button" class="btn btn-warning btn-rounded" (click)="transferTokensWindow()"> Wyślij </button>
-      </div>
-
-    </div>
-
-    <span class="text-dark bg-danger" *ngIf="tokensCount.tokens_count < 1">
-      <b>Minimalna ilość żetonów musi wynosić 1</b>
-    </span>
 
   </div>
 
-</div>
+</ng-template>
+
+
+
+
+<ng-template #mobile>
+
+  <div class="mx-auto row app-background text-light justify-content-center pb-2 ">
+
+    <div class="col-12 theme-bgr p-2 border-start border-top border-end border-warning border-3 text-center">
+      <img [src]="pet.photo_path" class="img-size">
+    </div>
+
+    <div class="col-12 p-2 theme-bgr border-start border-end border-warning border-3 text-center">
+      <b>{{pet.name | titlecase}}</b>
+    </div>
+
+    <div class="theme-bgr p-2 border-start border-bottom border-end border-warning border-3">
+      <div class="mx-auto row justify-content-center p-1">
+        <div class="col-auto p-1"><span class="p-3 badge bg-primary rounded-pill">{{pet.species | titlecase}}</span></div>
+        <div class="col-auto p-1"><span class="p-3 badge bg-primary rounded-pill">{{pet.disease | titlecase}}</span></div>
+        <div class="col-auto p-1"><span [ngClass]="pet.status == 'Aktywne' ? 'p-3 badge bg-danger rounded-pill' : 'p-3 badge bg-success rounded-pill'">{{pet.status | titlecase}}</span></div>
+      </div>
+
+      <div class="p-4 d-flex flex-row justify-content-center">
+        <div class="d-inline">
+          <h4 class="text-light">{{pet.current_tokens}} / {{pet.required_tokens}} <fa-icon [icon]="faSackDollar"></fa-icon></h4>
+        </div>
+      </div>
+
+      <div class="d-flex flex-row pb-2 justify-content-center" *ngIf="pet.status == 'Aktywne'">
+        <div class="d-inline">
+          <label for="tokens_count" class="form-label m-2"> <b>Wspomóż:</b></label>
+        </div>
+        <div class="d-inline">
+          <input type="number" class="form-control" id="tokens_count" name="tokens_count" min="1" max="1000" maxlength="4" [(ngModel)]="tokensCount.tokens_count">
+        </div>
+        <div class="d-inline ps-1">
+          <button type="button" class="btn btn-warning btn-rounded" (click)="transferTokensWindow()"> Wyślij </button>
+        </div>
+
+      </div>
+
+      <span class="text-dark bg-danger" *ngIf="tokensCount.tokens_count < 1">
+        <b>Minimalna ilość żetonów musi wynosić 1</b>
+      </span>
+
+    </div>
+
+  </div>
+
+</ng-template>

@@ -9,6 +9,7 @@ import {
   AppearanceAnimation,
 } from '@costlydeveloper/ngx-awesome-popup';
 import { ApiService } from '../services/api-service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 declare let alertify: any;
 
@@ -18,6 +19,8 @@ declare let alertify: any;
   styleUrl: './sick-pet.component.css',
 })
 export class SickPetComponent {
+  isMobile: boolean = false;
+
   faSackDollar = faSackDollar;
 
   userTokensCount: number = 0;
@@ -39,7 +42,10 @@ export class SickPetComponent {
     photo_path: './assets/PetsBgr.jpg',
   };
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private breakPointService: BreakpointObserver
+  ) {}
 
   ngOnInit(): void {
     this.apiService.authorizedUser().subscribe({
@@ -47,6 +53,19 @@ export class SickPetComponent {
         this.handleUserTokens(data);
       },
     });
+
+    this.breakPointService.observe(Breakpoints.XSmall).subscribe((result) => {
+      this.isMobile = false;
+
+      if (result.matches) {
+        this.isMobile = true;
+        console.log('Is Mobile!!!');
+      }else{
+        this.isMobile = false;
+        console.log('Not Mobile!!!');
+      }
+    });
+
   }
 
   transferTokensWindow() {
@@ -107,7 +126,7 @@ export class SickPetComponent {
       this.tokensCount.tokens_count >= 1 &&
       this.tokensCount.tokens_count <= this.userTokensCount;
 
-    if(this.tokensCount.tokens_count > this.userTokensCount){
+    if (this.tokensCount.tokens_count > this.userTokensCount) {
       this.tokensCountWarningWindow();
     }
   }
@@ -120,25 +139,23 @@ export class SickPetComponent {
 
     // Choose layout color type
     newConfirmBox.setConfig({
-    layoutType: DialogLayoutDisplay.WARNING,
-    animationIn: AppearanceAnimation.BOUNCE_IN,
-    animationOut: DisappearanceAnimation.BOUNCE_OUT,
-    buttonPosition: 'center', // optional
+      layoutType: DialogLayoutDisplay.WARNING,
+      animationIn: AppearanceAnimation.BOUNCE_IN,
+      animationOut: DisappearanceAnimation.BOUNCE_OUT,
+      buttonPosition: 'center', // optional
     });
 
     newConfirmBox.setButtonLabels('Zamknij', '');
 
     // Simply open the popup and observe button click
-    newConfirmBox.openConfirmBox$().subscribe(resp => {
-      if(resp.clickedButtonID){
+    newConfirmBox.openConfirmBox$().subscribe((resp) => {
+      if (resp.clickedButtonID) {
         console.log('Button clicked: ', resp.clickedButtonID);
       }
     });
-}
-
-
-  handleUserTokens(data: any){
-    this.userTokensCount = data.tokens_count;
   }
 
+  handleUserTokens(data: any) {
+    this.userTokensCount = data.tokens_count;
+  }
 }

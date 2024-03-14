@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { faEnvelope, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../services/auth.service';
 import { SpinnerService } from '../services/spinner.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 declare let alertify: any;
 
@@ -13,6 +14,9 @@ declare let alertify: any;
   styleUrl: './pet-adopt-page.component.css',
 })
 export class PetAdoptPageComponent {
+
+  isMobile: boolean = false;
+
   pet: any;
   petId: any;
   loggedUser: any;
@@ -31,12 +35,23 @@ export class PetAdoptPageComponent {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private breakPointService: BreakpointObserver
   ) {}
 
   ngOnInit(): void {
     this.petId = this.route.snapshot.params.id;
     this.spinnerService.show();
+
+    this.breakPointService.observe(Breakpoints.XSmall).subscribe((result) => {
+      this.isMobile = false;
+
+      if (result.matches) {
+        this.isMobile = true;
+      }else{
+        this.isMobile = false;
+      }
+    });
 
     this.apiService.getPetToAdopt(this.petId).subscribe({
       next: (data: any) => {

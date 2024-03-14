@@ -38,6 +38,12 @@
   object-fit: cover;
 }
 
+.img-size-pet-mobile{
+  width: 175px;
+  height: 175px;
+  object-fit: cover;
+}
+
 .img-size-my-pet{
   width: 100px;
   height: 100px;
@@ -52,10 +58,6 @@
 
 
 html { background-color: #0d1b2a; }
-
-body {
-  min-width: fit-content !important;
-}
 
 /*----px-6 */
 

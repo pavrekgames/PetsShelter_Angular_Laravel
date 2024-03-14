@@ -35,7 +35,7 @@ export class EditSickPetComponent {
     private router: Router,
     private apiService: ApiService,
     private route: ActivatedRoute,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
   ) {}
 
   ngOnInit(): void {
@@ -49,6 +49,7 @@ export class EditSickPetComponent {
         console.log(data);
       },
     });
+
   }
 
   onSubmit() {

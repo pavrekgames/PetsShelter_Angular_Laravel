@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../services/api-service';
 import { SpinnerService } from '../services/spinner.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 declare let alertify: any;
 
@@ -12,7 +13,7 @@ declare let alertify: any;
   styleUrl: './edit-sick-pet-photo.component.css'
 })
 export class EditSickPetPhotoComponent {
-
+  isMobile: boolean = false;
   hasSubmitted: boolean = false;
 
   userId: number = 1;
@@ -30,7 +31,8 @@ export class EditSickPetPhotoComponent {
     private router: Router,
     private apiService: ApiService,
     private route: ActivatedRoute,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private breakPointService: BreakpointObserver
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +46,17 @@ export class EditSickPetPhotoComponent {
         console.log(data);
       },
     });
+
+    this.breakPointService.observe(Breakpoints.XSmall).subscribe((result) => {
+      this.isMobile = false;
+
+      if (result.matches) {
+        this.isMobile = true;
+      }else{
+        this.isMobile = false;
+      }
+    });
+
   }
 
   onSubmit() {

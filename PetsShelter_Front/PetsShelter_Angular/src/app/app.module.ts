@@ -43,6 +43,7 @@ import { MessageComponent } from './message/message.component';
 import { BundleComponent } from './bundle/bundle.component';
 import { PaymentComponent } from './payment/payment.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     ToastNotificationConfigModule.forRoot(),
     NgxPaginationModule,
     BrowserAnimationsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    LayoutModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

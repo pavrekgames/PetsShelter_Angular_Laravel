@@ -12,7 +12,7 @@
       </div>
 
       <div class="p-4 text-center" *ngIf="pet">
-        <img [src]="pet.photo_path" class="img-size-pet">
+        <img [src]="pet.photo_path" [ngClass]="isMobile ? 'img-size-pet-mobile' : 'img-size-pet'">
       </div>
 
       <div class="text-light">

@@ -36,12 +36,13 @@
       <img [src]="pet.photo_path" class="img-size center-block">
     </div>
 
-    <div class="col-12 theme-bgr p-2 border-start border-bottom border-end border-warning border-3">
-      <div class="d-flex flex-row justify-content-center">
-        <div class="d-inline p-2 pe-4"><b>{{pet.name}}</b></div>
-        <div class="d-inline p-1"><span class="p-3 badge bg-primary rounded-pill">{{pet.species}}</span></div>
-        <div class="d-inline p-1"><span class=" p-3 badge bg-primary rounded-pill">{{pet.race | titlecase}}</span></div>
-        <div class="d-inline p-1"><span class=" p-3 badge bg-primary rounded-pill">{{pet.size}}</span></div>
+    <div class="col-12 p-2 theme-bgr border-start border-end border-warning border-3 text-center"><b>{{pet.name}}</b></div>
+
+    <div class="theme-bgr p-2 border-start border-bottom border-end border-warning border-3">
+      <div class=" row justify-content-center p-1">
+        <div class="col-auto p-1"><span class="p-3 badge bg-primary rounded-pill">{{pet.species}}</span></div>
+        <div class="col-auto p-1"><span class="p-3 badge bg-primary rounded-pill">{{pet.race | titlecase}}</span></div>
+        <div class="col-auto p-1"><span class="p-3 badge bg-primary rounded-pill">{{pet.size}}</span></div>
       </div>
 
       <div class="p-4 row justify-content-center">

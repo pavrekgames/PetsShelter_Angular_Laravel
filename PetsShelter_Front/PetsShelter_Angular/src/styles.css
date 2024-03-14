@@ -125,7 +125,7 @@ html { background-color: #0d1b2a; }
   padding-left: 40rem !important;
 }
 
-@media (max-width: 1190px) {
+@media (max-width: 1200px) {
   .pt-md-6,
   .py-md-6 {
     padding-top: 5rem !important;

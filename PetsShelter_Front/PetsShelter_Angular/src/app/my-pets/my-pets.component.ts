@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../services/api-service';
-import { Pet } from '../models/pet';
-import { Router } from '@angular/router';
 import {
   ConfirmBoxInitializer,
   DialogLayoutDisplay,
@@ -10,6 +8,7 @@ import {
 } from '@costlydeveloper/ngx-awesome-popup';
 import { SpinnerService } from '../services/spinner.service';
 import { RoutingService } from '../services/routing.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 declare let alertify: any;
 
@@ -19,12 +18,15 @@ declare let alertify: any;
   styleUrl: './my-pets.component.css',
 })
 export class MyPetsComponent {
+  isMobile: boolean = false;
+
   pets: Array<any> = [];
 
   constructor(
     private apiService: ApiService,
     private routingService: RoutingService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private breakPointService: BreakpointObserver
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +39,17 @@ export class MyPetsComponent {
         console.log(data);
       },
     });
+
+    this.breakPointService.observe(Breakpoints.XSmall).subscribe((result) => {
+      this.isMobile = false;
+
+      if (result.matches) {
+        this.isMobile = true;
+      }else{
+        this.isMobile = false;
+      }
+    });
+
   }
 
   handleNewestPets(data: any) {

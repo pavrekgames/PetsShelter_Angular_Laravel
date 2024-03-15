@@ -34,10 +34,10 @@
             <td >{{pet.race}}</td>
             <td >{{pet.size}}</td>
             <td >
-              <div class="text-center m-2 d-inline">
+              <div class="text-center pt-2">
                 <button type="button" class="btn btn-warning" routerLink="/pets-to-adopt/{{pet.id}}">Zobacz</button>
               </div>
-              <div class="text-center d-inline">
+              <div class="text-center pt-2">
                 <button type="button" class="btn btn-danger" (click)="deletePetWindow(pet.id, pet.name)">Usuń</button>
               </div>
             </td>

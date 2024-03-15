@@ -5,40 +5,91 @@
 </div>
 
 
-<div *ngIf="pets.length > 0">
-  <div class="px-6 app-background">
-    <table class="table table-striped table-dark table-sm table-bordered text-center">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Zdjęcie</th>
-          <th scope="col">Imię</th>
-          <th scope="col">Gatunek</th>
-          <th scope="col">Rasa</th>
-          <th scope="col">Rozmiar</th>
-          <th scope="col">Akcja</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let pet of pets; let i = index">
-          <th scope="row">{{i+1}}</th>
-          <td><img [src]="pet.photo_path" class="img-size-my-pet"> <div class="ps-2 d-inline"> </div> </td>
-          <td >{{pet.name}}</td>
-          <td >{{pet.species}}</td>
-          <td >{{pet.race}}</td>
-          <td >{{pet.size}}</td>
-          <td >
-            <div class="text-center m-2 d-inline">
-              <button type="button" class="btn btn-warning" routerLink="/pets-to-adopt/{{pet.id}}">Zobacz</button>
-            </div>
-            <div class="text-center d-inline">
-              <button type="button" class="btn btn-danger" (click)="deletePetWindow(pet.id, pet.name)">Usuń</button>
-            </div>
-          </td>
-        </tr>
+<div *ngIf="!isMobile; then desktop; else mobile">
 
-      </tbody>
-    </table>
-    </div>
 </div>
 
+<ng-template #desktop>
+
+  <div *ngIf="pets.length > 0">
+    <div class="px-6 app-background">
+      <table class="table table-striped table-dark table-sm table-bordered text-center">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Zdjęcie</th>
+            <th scope="col">Imię</th>
+            <th scope="col">Gatunek</th>
+            <th scope="col">Rasa</th>
+            <th scope="col">Rozmiar</th>
+            <th scope="col">Akcja</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pet of pets; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td><img [src]="pet.photo_path" class="img-size-my-pet"> <div class="ps-2 d-inline"> </div> </td>
+            <td >{{pet.name}}</td>
+            <td >{{pet.species}}</td>
+            <td >{{pet.race}}</td>
+            <td >{{pet.size}}</td>
+            <td >
+              <div class="text-center m-2 d-inline">
+                <button type="button" class="btn btn-warning" routerLink="/pets-to-adopt/{{pet.id}}">Zobacz</button>
+              </div>
+              <div class="text-center d-inline">
+                <button type="button" class="btn btn-danger" (click)="deletePetWindow(pet.id, pet.name)">Usuń</button>
+              </div>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+      </div>
+  </div>
+
+</ng-template>
+
+
+
+
+<ng-template #mobile>
+
+  <div *ngIf="pets.length > 0">
+    <div class="px-6 app-background table-responsive">
+      <table class="table table-striped table-dark table-sm table-bordered text-center">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Zdjęcie</th>
+            <th scope="col">Akcja</th>
+            <th scope="col">Imię</th>
+            <th scope="col">Gatunek</th>
+            <th scope="col">Rasa</th>
+            <th scope="col">Rozmiar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pet of pets; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td><img [src]="pet.photo_path" class="img-size-my-pet-mobile"> <div class="ps-2 d-inline"> </div> </td>
+            <td>
+              <div class="text-center pt-2">
+                <button type="button" class="btn btn-warning btn-sm" routerLink="/pets-to-adopt/{{pet.id}}">Zobacz</button>
+              </div>
+              <div class="text-center pt-2">
+                <button type="button" class="btn btn-danger btn-sm" (click)="deletePetWindow(pet.id, pet.name)">Usuń</button>
+              </div>
+            </td>
+            <td>{{pet.name}}</td>
+            <td>{{pet.species}}</td>
+            <td>{{pet.race}}</td>
+            <td>{{pet.size}}</td>
+          </tr>
+
+        </tbody>
+      </table>
+      </div>
+  </div>
+
+</ng-template>

@@ -8,6 +8,7 @@ import {
   AppearanceAnimation,
 } from '@costlydeveloper/ngx-awesome-popup';
 import { SpinnerService } from '../services/spinner.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 declare let alertify: any;
 
@@ -17,12 +18,14 @@ declare let alertify: any;
   styleUrl: './saved-pets.component.css',
 })
 export class SavedPetsComponent {
+  isMobile: boolean = false;
+
   pets: Array<any> = [];
 
   constructor(
     private apiService: ApiService,
-    private router: Router,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private breakPointService: BreakpointObserver
   ) {}
 
   ngOnInit(): void {
@@ -35,6 +38,17 @@ export class SavedPetsComponent {
         console.log(data);
       },
     });
+
+    this.breakPointService.observe(Breakpoints.XSmall).subscribe((result) => {
+      this.isMobile = false;
+
+      if (result.matches) {
+        this.isMobile = true;
+      }else{
+        this.isMobile = false;
+      }
+    });
+
   }
 
   handleNewestPets(data: any) {

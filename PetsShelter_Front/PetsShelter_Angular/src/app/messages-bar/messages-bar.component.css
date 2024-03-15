@@ -7,5 +7,9 @@
 }
 
 .sidebar-collapsed{
-  width: 80%;
+  width: 100%;
+}
+
+.sidebar{
+  width: 23px;
 }

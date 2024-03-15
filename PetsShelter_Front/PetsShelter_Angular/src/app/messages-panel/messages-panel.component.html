@@ -14,34 +14,48 @@
 
   </div>
 
+</div>
+
+
+<div *ngIf="!isMobile; then desktop; else mobile">
 
 </div>
 
-<div class="app-background px-6">
-  <div class="mx-auto row pt-2">
 
-    <div class="col-4">
-      <app-messages-bar></app-messages-bar>
+<ng-template #desktop>
+
+  <div class="app-background px-6">
+    <div class="mx-auto row pt-2">
+
+      <div class="col-4">
+        <app-messages-bar></app-messages-bar>
+      </div>
+
+      <div class="col-8">
+        <app-conversation></app-conversation>
+      </div>
+
     </div>
-
-    <div class="col-8">
-      <app-conversation></app-conversation>
-    </div>
-
-
   </div>
 
+</ng-template>
 
 
 
-</div>
+<ng-template #mobile>
 
+  <div class="app-background">
+    <div class="pt-2">
 
+      <div class="d-inline position-absolute">
+        <app-messages-bar></app-messages-bar>
+      </div>
 
+      <div class="d-inline">
+        <app-conversation></app-conversation>
+      </div>
 
-<!--<div class="fixed mh-100 flex border lg:shadow-sm overflow-hidden inset-0 lg:top-16 lg:inset-x-2 m-auto lg:h-[90%] rounded-t-lg">-->
+    </div>
+  </div>
 
-<!--<app-messages-bar></app-messages-bar>-->
-
-<!--<app-conversation></app-conversation>-->
-
+</ng-template>

@@ -34,9 +34,9 @@
 
 <ng-template #mobile>
 
-  <div class="rounded rounded bg-primary text-light vh-100" [ngClass]="!isCollapsed ? 'sidebar-collapsed' : ''">
+  <div class="rounded rounded bg-secondary text-light vh-100" [ngClass]="!isCollapsed ? 'sidebar' : 'sidebar-collapsed'">
 
-    <div class="border-bottom pt-2 pb-2 d-flex justify-content-center" (click)="toggleSidebar()">
+    <div class="border-bottom pt-2 pb-2 d-flex justify-content-center text-info" (click)="toggleSidebar()">
         <h4 *ngIf="!isCollapsed; then rightArrows; else leftArrows">
 
         </h4>

@@ -56,20 +56,22 @@
 
   <div class="mx-auto row app-background justify-content-center text-center">
 
-    <div class="col-11 card bg-c-blue order-card">
+    <div class="ps-3 pe-3 justify-content-center ">
+      <div class="col-12 card bg-c-blue order-card">
 
-      <div class="ps-2 pe-2">
-        <div class="card-block">
-          <h5 class="m-b-20">{{bundle.name}}</h5>
-          <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>{{bundle.tokens_count}} <fa-icon class="pe-1" [icon]="faSackDollar"></fa-icon></span></h2>
-          <p class="m-b-0"> {{bundle.price}} {{bundle.currency | uppercase}} </p>
+        <div class="mx-auto">
+          <div class="card-block">
+            <h5 class="m-b-20">{{bundle.name}}</h5>
+            <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>{{bundle.tokens_count}} <fa-icon class="pe-1" [icon]="faSackDollar"></fa-icon></span></h2>
+            <p class="m-b-0"> {{bundle.price}} {{bundle.currency | uppercase}} </p>
+          </div>
         </div>
+
       </div>
-
-
     </div>
 
-    <div class="col-12 pb-2">
+
+    <div class="col-12 pb-2 justify-content-center ">
 
       <div class="ps-1 pe-1">
         <form #checkout="ngForm" (ngSubmit)="onSubmit(checkout)" class="checkout">

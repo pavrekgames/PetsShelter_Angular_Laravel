@@ -9,6 +9,7 @@ import {
 } from '@costlydeveloper/ngx-awesome-popup';
 import { SpinnerService } from '../services/spinner.service';
 import { RoutingService } from '../services/routing.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 declare let alertify: any;
 
@@ -18,6 +19,8 @@ declare let alertify: any;
   styleUrl: './sick-pets-manager.component.css',
 })
 export class SickPetsManagerComponent {
+  isMobile: boolean = false;
+
   faPlus = faPlus;
 
   pets: any;
@@ -28,7 +31,8 @@ export class SickPetsManagerComponent {
   constructor(
     private apiService: ApiService,
     private routingService: RoutingService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private breakPointService: BreakpointObserver
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +45,17 @@ export class SickPetsManagerComponent {
         console.log(data);
       },
     });
+
+    this.breakPointService.observe(Breakpoints.XSmall).subscribe((result) => {
+      this.isMobile = false;
+
+      if (result.matches) {
+        this.isMobile = true;
+      }else{
+        this.isMobile = false;
+      }
+    });
+
   }
 
   handleAllPets(data: any) {

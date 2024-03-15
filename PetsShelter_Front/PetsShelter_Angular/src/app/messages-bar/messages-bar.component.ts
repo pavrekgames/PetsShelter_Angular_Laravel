@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { ApiService } from '../services/api-service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { faAnglesRight } from '@fortawesome/free-solid-svg-icons';
+import { faAnglesLeft } from '@fortawesome/free-solid-svg-icons';
 
 declare let alertify: any;
 
@@ -12,6 +14,9 @@ declare let alertify: any;
 export class MessagesBarComponent {
   isMobile: boolean = false;
   isCollapsed: boolean = false;
+
+  faAnglesRight = faAnglesRight;
+  faAnglesLeft = faAnglesLeft;
 
   searchText: any;
 

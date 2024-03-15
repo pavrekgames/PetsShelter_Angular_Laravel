@@ -34,25 +34,42 @@
 
 <ng-template #mobile>
 
-  <div class="rounded rounded bg-primary text-light vh-100">
+  <div class="rounded rounded bg-primary text-light vh-100" [ngClass]="!isCollapsed ? 'sidebar-collapsed' : ''">
 
-    <div class="border-bottom pt-2 pb-2 d-flex justify-content-center">
-        <h4>Wszystkie</h4>
+    <div class="border-bottom pt-2 pb-2 d-flex justify-content-center" (click)="toggleSidebar()">
+        <h4 *ngIf="!isCollapsed; then rightArrows; else leftArrows">
+
+        </h4>
     </div>
 
-    <div *ngIf="convsersations != null">
-      <div class="p-3">
-        <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
-        placeholder="&#xF002; Szukaj" style="font-family:Arial, FontAwesome">
-      </div>
+    <div *ngIf="isCollapsed">
+
+      <div *ngIf="convsersations != null">
+        <div class="p-3">
+          <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+          placeholder="&#xF002; Szukaj" style="font-family:Arial, FontAwesome">
+        </div>
 
 
-      <div class="p-1" *ngFor="let conversation of convsersations | search:searchText ">
-        <app-message-list-element [conversation]="conversation" ></app-message-list-element>
+        <div class="p-1" *ngFor="let conversation of convsersations | search:searchText ">
+          <app-message-list-element [conversation]="conversation" ></app-message-list-element>
+        </div>
       </div>
+
     </div>
+
+
 
 
   </div>
+</ng-template>
 
+
+
+<ng-template #rightArrows>
+  <fa-icon [icon]="faAnglesRight"></fa-icon>
+</ng-template>
+
+<ng-template #leftArrows>
+  <fa-icon [icon]="faAnglesLeft"></fa-icon>
 </ng-template>

@@ -5,3 +5,7 @@
 .vw-30 {
   min-width: 30vw;
 }
+
+.sidebar-collapsed{
+  width: 80%;
+}

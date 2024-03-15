@@ -8,6 +8,7 @@ import {
 } from '@costlydeveloper/ngx-awesome-popup';
 import { SpinnerService } from '../services/spinner.service';
 import { RoutingService } from '../services/routing.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 declare let alertify: any;
 
@@ -17,6 +18,8 @@ declare let alertify: any;
   styleUrl: './users.component.css',
 })
 export class UsersComponent {
+  isMobile: boolean = false;
+
   users: any;
 
   page: number = 1;
@@ -25,7 +28,8 @@ export class UsersComponent {
   constructor(
     private apiService: ApiService,
     private routingService: RoutingService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private breakPointService: BreakpointObserver
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +42,17 @@ export class UsersComponent {
         console.log(data);
       },
     });
+
+    this.breakPointService.observe(Breakpoints.XSmall).subscribe((result) => {
+      this.isMobile = false;
+
+      if (result.matches) {
+        this.isMobile = true;
+      }else{
+        this.isMobile = false;
+      }
+    });
+
   }
 
   handleAllUsers(data: any) {

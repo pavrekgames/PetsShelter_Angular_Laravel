@@ -109,12 +109,12 @@
                 </div>
               </div>
 
-              <div class="ms-auto" *ngIf="isLoggenIn">
-                <div class="fa-lg pe-3 pt-2 text-dark" *ngIf="isLoggenIn">
+
+                <div class="fa-lg pt-4 text-dark ms-auto" *ngIf="isLoggenIn">
                   <fa-icon class="pe-1" [icon]="faSackDollar"></fa-icon> <b>{{loggedUser.tokens_count}}</b>
                 </div>
 
-                <div class="fa-1x pe-3" *ngIf="isLoggenIn">
+                <div class="fa-1x pt-3 ps-2" *ngIf="isLoggenIn">
                   <button type="button" class="btn btn-primary position-relative btn-sm" routerLink="/messages">
                      <fa-icon [icon]="faEnvelope"></fa-icon>
 
@@ -123,11 +123,12 @@
                     </span>
                   </button>
                 </div>
-              </div>
+
+
 
             </div>
 
-              <div class="" [hidden]="false">
+              <div class="" [hidden]="true">
                   <div class="navbar-nav ms-auto">
 
                     <div class="fa-1x pe-1" *ngIf="isLoggenIn">

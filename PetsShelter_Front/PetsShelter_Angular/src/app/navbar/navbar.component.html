@@ -94,7 +94,7 @@
               </div>
 
               <div class="pt-4">
-                <a class="navbar-brand text-light" href="#" routerLink=""> <h5>Pets Shelter</h5>  </a>
+                <a class="navbar-brand text-light" href="#" routerLink=""> <h6> Pets Shelter</h6>  </a>
               </div>
 
               <div class="ms-auto" *ngIf="!isLoggenIn">
@@ -112,6 +112,12 @@
 
                 <div class="fa-lg pt-4 text-dark ms-auto" *ngIf="isLoggenIn">
                   <fa-icon class="pe-1" [icon]="faSackDollar"></fa-icon> <b>{{loggedUser.tokens_count}}</b>
+                </div>
+
+                <div class="fa-1x pt-3 ps-2">
+                  <button type="button" class="btn btn-success btn-sm dropdown-toggle" aria-expanded="false">
+                     <fa-icon [icon]="faUser"></fa-icon>
+                  </button>
                 </div>
 
                 <div class="fa-1x pt-3 ps-2" *ngIf="isLoggenIn">

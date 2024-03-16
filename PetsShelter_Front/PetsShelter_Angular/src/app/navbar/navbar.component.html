@@ -119,26 +119,26 @@
                      <fa-icon [icon]="faUser"></fa-icon>
                   </button>
 
-                  <ul class="dropdown-menu" style="width: 100%;">
+                  <ul class="dropdown-menu bg-success" style="width: 100%;">
                     <li class="dropdown-item">
                       <button type="button" class="btn btn-primary btn-sm " routerLink="/add-pet">
                         Dodaj <fa-icon [icon]="faPlus"></fa-icon>
                       </button>
                     </li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#" routerLink="/edit-profile">Edytuj profil</a></li>
-                    <li><a class="dropdown-item" href="#" routerLink="/my-pets">Moje zwierzęta</a></li>
-                    <li><a class="dropdown-item" href="#" routerLink="/saved-pets">Zapisane</a></li>
-                    <li><a class="dropdown-item" href="#" routerLink="/tokens-bundles">Doładuj żetony</a></li>
+                    <li><hr class="dropdown-divider text-light"></li>
+                    <li><a class="dropdown-item text-light" href="#" routerLink="/edit-profile">Edytuj profil</a></li>
+                    <li><a class="dropdown-item text-light" href="#" routerLink="/my-pets">Moje zwierzęta</a></li>
+                    <li><a class="dropdown-item text-light" href="#" routerLink="/saved-pets">Zapisane</a></li>
+                    <li><a class="dropdown-item text-light" href="#" routerLink="/tokens-bundles">Doładuj żetony</a></li>
 
                     <div *ngIf="loggedUser.role == 'admin'">
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#" routerLink="/users">Użytkownicy</a></li>
-                      <li><a class="dropdown-item" href="#" routerLink="/sick-pets-manager">Chore zwierzęta</a></li>
+                      <li><hr class="dropdown-divider text-light"></li>
+                      <li><a class="dropdown-item text-light" href="#" routerLink="/users">Użytkownicy</a></li>
+                      <li><a class="dropdown-item text-light" href="#" routerLink="/sick-pets-manager">Chore zwierzęta</a></li>
                     </div>
 
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#" (click)="logout()">Wyloguj</a></li>
+                    <li><hr class="dropdown-divider text-light"></li>
+                    <li><a class="dropdown-item text-light" href="#" (click)="logout()">Wyloguj</a></li>
                   </ul>
 
                 </div>

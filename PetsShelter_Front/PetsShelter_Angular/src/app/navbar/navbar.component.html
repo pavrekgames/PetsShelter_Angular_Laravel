@@ -94,7 +94,7 @@
               </div>
 
               <div class="pt-4">
-                <a class="navbar-brand text-light" href="#" routerLink=""> <h6> Pets Shelter</h6>  </a>
+                <a class="navbar-brand text-light" href="#" routerLink=""> <h6> Pets Shelter</h6> </a>
               </div>
 
               <div class="ms-auto" *ngIf="!isLoggenIn">
@@ -114,10 +114,33 @@
                   <fa-icon class="pe-1" [icon]="faSackDollar"></fa-icon> <b>{{loggedUser.tokens_count}}</b>
                 </div>
 
-                <div class="fa-1x pt-3 ps-2">
-                  <button type="button" class="btn btn-success btn-sm dropdown-toggle" aria-expanded="false">
+                <div class="fa-1x pt-3 ps-2" *ngIf="isLoggenIn">
+                  <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                      <fa-icon [icon]="faUser"></fa-icon>
                   </button>
+
+                  <ul class="dropdown-menu" style="width: 100%;">
+                    <li class="dropdown-item">
+                      <button type="button" class="btn btn-primary btn-sm " routerLink="/add-pet">
+                        Dodaj <fa-icon [icon]="faPlus"></fa-icon>
+                      </button>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#" routerLink="/edit-profile">Edytuj profil</a></li>
+                    <li><a class="dropdown-item" href="#" routerLink="/my-pets">Moje zwierzęta</a></li>
+                    <li><a class="dropdown-item" href="#" routerLink="/saved-pets">Zapisane</a></li>
+                    <li><a class="dropdown-item" href="#" routerLink="/tokens-bundles">Doładuj żetony</a></li>
+
+                    <div *ngIf="loggedUser.role == 'admin'">
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="#" routerLink="/users">Użytkownicy</a></li>
+                      <li><a class="dropdown-item" href="#" routerLink="/sick-pets-manager">Chore zwierzęta</a></li>
+                    </div>
+
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#" (click)="logout()">Wyloguj</a></li>
+                  </ul>
+
                 </div>
 
                 <div class="fa-1x pt-3 ps-2" *ngIf="isLoggenIn">
@@ -138,9 +161,7 @@
                   <div class="navbar-nav ms-auto">
 
                     <div class="fa-1x pe-1" *ngIf="isLoggenIn">
-                      <button type="button" class="btn btn-primary" routerLink="/add-pet">
-                        Dodaj <fa-icon [icon]="faPlus"></fa-icon>
-                      </button>
+
                     </div>
 
                     <div class="btn-group" *ngIf="isLoggenIn">
@@ -148,6 +169,12 @@
                         {{loggedUser.name}}  <fa-icon [icon]="faUser"></fa-icon>
                       </button>
                       <ul class="dropdown-menu">
+                        <li>
+                          <button type="button" class="btn btn-primary" routerLink="/add-pet">
+                            Dodaj <fa-icon [icon]="faPlus"></fa-icon>
+                          </button>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#" routerLink="/edit-profile">Edytuj profil</a></li>
                         <li><a class="dropdown-item" href="#" routerLink="/my-pets">Moje zwierzęta</a></li>
                         <li><a class="dropdown-item" href="#" routerLink="/saved-pets">Zapisane</a></li>

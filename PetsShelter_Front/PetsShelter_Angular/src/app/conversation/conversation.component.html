@@ -1,7 +1,7 @@
 
-<div class="bg-primary rounded border-l vh-100" >
+<div class="bg-primary rounded border-l vh-100" [ngClass]="isMobile ? 'text-danger' : ''">
 
-  <div  div *ngIf="conversationId == undefined; then noConversations; else currentConversation">
+  <div *ngIf="conversationId == undefined; then noConversations; else currentConversation">
 
   </div>
 
@@ -9,32 +9,37 @@
 
 
 <ng-template #noConversations>
-  <div class="fa-3x text-center text-light justify-center flex flex-col" >
-    <fa-icon [icon]="faEnvelope"></fa-icon>
-  </div>
 
-  <div class="fa-3x text-center text-light justify-center flex flex-col">
-    <h4>
-      Zobacz wiadomości z dostępnych konwersacji
-    </h4>
-  </div>
+  <div [ngClass]="isMobile ? 'ps-3' : '' ">
 
-  <div class="fa-3x text-center text-warning justify-center flex flex-col">
-    <h4>
-      lub
-    </h4>
-  </div>
-
-  <div class="fa-3x text-center text-light justify-center flex flex-col">
-    <h4>
-      przeglądnij zwierzęta do adopcji i rozpocznij rozmowy
-    </h4>
-  </div>
-
-  <div class="fa-3x text-center text-light justify-center flex flex-col">
-    <div class="p-2">
-      <button type="button" class="btn text-light btn-rounded" style="background-color:#6a994e" routerLink="/pets-to-adopt"> Zwierzęta do adopcji </button>
+    <div class="fa-3x text-center text-light justify-center flex flex-col">
+      <fa-icon [icon]="faEnvelope"></fa-icon>
     </div>
+
+    <div class="fa-3x text-center text-light justify-center flex flex-col">
+      <h4>
+        Zobacz wiadomości z dostępnych konwersacji
+      </h4>
+    </div>
+
+    <div class="fa-3x text-center text-warning justify-center flex flex-col">
+      <h4>
+        lub
+      </h4>
+    </div>
+
+    <div class="fa-3x text-center text-light justify-center flex flex-col">
+      <h4>
+        przeglądnij zwierzęta do adopcji i rozpocznij rozmowy
+      </h4>
+    </div>
+
+    <div class="fa-3x text-center text-light justify-center flex flex-col">
+      <div class="p-2">
+        <button type="button" class="btn text-light btn-rounded" style="background-color:#6a994e" routerLink="/pets-to-adopt"> Zwierzęta do adopcji </button>
+      </div>
+    </div>
+
   </div>
 
 </ng-template>
@@ -42,33 +47,35 @@
 
 <ng-template #currentConversation>
 
-<div class="text-center justify-center flex flex-col">
+<div [ngClass]="isMobile ? 'ps-3' : '' ">
 
-  <div class="p-2 text-light">
-    <h5>Wiadomość o: <span class="text-warning">{{conversation.pet_name}}</span>  z <span class="text-warning">{{conversation.user_name}} {{conversation.user_surname}}</span> </h5>
-  </div>
+  <div class="text-center justify-center flex flex-col">
 
-  <div class="p-1 bg-primary">
-    <div class="" *ngIf="conversation.pet_photo != ''">
-     <img [src]="conversation.pet_photo" class="img-size-pet-message rounded-circle">
+    <div class="p-2 text-light">
+      <h5>Wiadomość o: <span class="text-warning">{{conversation.pet_name}}</span>  z <span class="text-warning">{{conversation.user_name}} {{conversation.user_surname}}</span> </h5>
     </div>
+
+    <div class="p-1 bg-primary">
+      <div class="" *ngIf="conversation.pet_photo != ''">
+       <img [src]="conversation.pet_photo" class="img-size-pet-message rounded-circle">
+      </div>
+    </div>
+
+    <div class="ps-4 pt-4 pe-4 pb-3 text-light">
+       <h4>Napisz wiadomość</h4>
+      <textarea class="form-control" id="message" rows="3" [(ngModel)]="message.content"></textarea>
+    </div>
+
+    <div>
+      <button type="button" class="btn btn-warning" (click)="sendMessage()" >Wyślij</button>
+    </div>
+
   </div>
-
-  <div class="ps-4 pt-4 pe-4 pb-3 text-light">
-     <h4>Napisz wiadomość</h4>
-    <textarea class="form-control" id="message" rows="3" [(ngModel)]="message.content"></textarea>
-  </div>
-
-  <div>
-    <button type="button" class="btn btn-warning" (click)="sendMessage()" >Wyślij</button>
-  </div>
-
-
-
 
 </div>
 
 <div class="mx-auto row ps-4 pe-4 pt-5 pb-3">
+
   <div class="pb-2" *ngFor="let message of conversationMessages | paginate: { itemsPerPage: petsPerPage, currentPage: page }">
     <app-message [conversationMessage]="message"></app-message>
   </div>

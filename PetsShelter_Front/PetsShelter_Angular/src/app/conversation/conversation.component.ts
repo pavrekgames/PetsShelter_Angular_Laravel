@@ -7,6 +7,7 @@ import { Conversation } from '../models/conversation';
 import { Message } from '../models/message';
 import { RoutingService } from '../services/routing.service';
 import { MessagesService } from '../services/messages.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 declare let alertify: any;
 
@@ -16,6 +17,8 @@ declare let alertify: any;
   styleUrl: './conversation.component.css',
 })
 export class ConversationComponent {
+  isMobile: boolean = false;
+
   faEnvelope = faEnvelope;
 
   conversationId: number = 0;
@@ -45,7 +48,8 @@ export class ConversationComponent {
     private route: ActivatedRoute,
     private spinnerService: SpinnerService,
     private routingService: RoutingService,
-    private messagesService: MessagesService
+    private messagesService: MessagesService,
+    private breakPointService: BreakpointObserver
   ) {}
 
   ngOnInit(): void {
@@ -69,6 +73,17 @@ export class ConversationComponent {
         },
       });
     }
+
+    this.breakPointService.observe(Breakpoints.XSmall).subscribe((result) => {
+      this.isMobile = false;
+
+      if (result.matches) {
+        this.isMobile = true;
+      }else{
+        this.isMobile = false;
+      }
+    });
+
   }
 
   handleConversation(data: any) {

@@ -16,6 +16,7 @@ import { TokenService } from '../services/token.service';
 import { ApiService } from '../services/api-service';
 import { User } from '../models/user';
 import { MessagesService } from '../services/messages.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 declare let alertify: any;
 
@@ -25,6 +26,8 @@ declare let alertify: any;
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent implements OnInit {
+  isMobile: boolean = false;
+
   faShieldDog = faShieldDog;
   faUser = faUser;
   faPlus = faPlus;
@@ -51,7 +54,8 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     private tokenService: TokenService,
     private apiService: ApiService,
-    private messagesService: MessagesService
+    private messagesService: MessagesService,
+    private breakPointService: BreakpointObserver
   ) {
     this.messagesService.messagesCountObs.subscribe(
       (messagesCount) => (this.messagesCount = messagesCount)
@@ -82,6 +86,17 @@ export class NavbarComponent implements OnInit {
         (messagesCount) => (this.messagesCount = messagesCount)
       );
     }
+
+    this.breakPointService.observe(Breakpoints.XSmall).subscribe((result) => {
+      this.isMobile = false;
+
+      if (result.matches) {
+        this.isMobile = true;
+      }else{
+        this.isMobile = false;
+      }
+    });
+
   }
 
   logout() {

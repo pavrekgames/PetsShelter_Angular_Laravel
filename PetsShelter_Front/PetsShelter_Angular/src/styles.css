@@ -131,7 +131,7 @@ html { background-color: #0d1b2a; }
   padding-left: 40rem !important;
 }
 
-@media (max-width: 1200px) {
+/* @media (max-width: 1009px) {
   .pt-md-6,
   .py-md-6 {
     padding-top: 5rem !important;
@@ -167,5 +167,64 @@ html { background-color: #0d1b2a; }
     padding-right: 0 !important;
   }
 
+} */
+
+@media (max-width: 600px) {
+
+   .px-6 {
+     padding-left: 0 !important;
+     padding-right: 0 !important;
+   }
+
+   .px-7 {
+     padding-left: 0 !important;
+     padding-right: 0 !important;
+   }
+
+   .px-8 {
+     padding-left: 0 !important;
+     padding-right: 0 !important;
+   }
+
+ }
+
+
+ @media (min-width: 600px) and (max-width: 1200px) {
+
+  .px-6 {
+    padding-left: 5rem !important;
+    padding-right: 5rem !important;
+  }
+
+  .px-7 {
+    padding-left: 5rem !important;
+    padding-right: 5rem !important;
+  }
+
+  .px-8 {
+    padding-left: 5rem !important;
+    padding-right: 5rem !important;
+  }
+
 }
+
+@media (min-width: 1201px) and (max-width: 1700px) {
+
+  .px-6 {
+    padding-left: 10rem !important;
+    padding-right: 10rem !important;
+  }
+
+  .px-7 {
+    padding-left: 10rem !important;
+    padding-right: 10rem !important;
+  }
+
+  .px-8 {
+    padding-left: 10rem !important;
+    padding-right: 10rem !important;
+  }
+
+}
+
 

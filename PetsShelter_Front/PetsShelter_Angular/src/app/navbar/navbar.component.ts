@@ -27,6 +27,8 @@ declare let alertify: any;
 })
 export class NavbarComponent implements OnInit {
   isMobile: boolean = false;
+  isBigMobile: boolean = false;
+  isMedium: boolean = false;
 
   faShieldDog = faShieldDog;
   faUser = faUser;
@@ -87,14 +89,28 @@ export class NavbarComponent implements OnInit {
       );
     }
 
-    this.breakPointService.observe(Breakpoints.XSmall).subscribe((result) => {
+    this.breakPointService.observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium]).subscribe((result) => {
       this.isMobile = false;
 
-      if (result.matches) {
+      if (result.breakpoints[Breakpoints.XSmall]) {
         this.isMobile = true;
       }else{
         this.isMobile = false;
       }
+
+      if (result.breakpoints[Breakpoints.Small]) {
+        this.isBigMobile = true;
+      }else{
+        this.isBigMobile = false;
+      }
+
+      if (result.breakpoints[Breakpoints.Medium]) {
+        this.isMedium = true;
+      }else{
+        this.isMedium = false;
+      }
+
+
     });
 
   }

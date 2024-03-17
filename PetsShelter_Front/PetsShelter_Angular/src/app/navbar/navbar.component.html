@@ -1,5 +1,5 @@
 
-<div *ngIf="!isMobile; then desktop; else mobile">
+<div *ngIf="isMobile || isBigMobile || isMedium; then mobile; else desktop">
 
 </div>
 

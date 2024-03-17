@@ -1,7 +1,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 
 
-<div *ngIf="!isMobile; then desktop; else mobile">
+<div *ngIf="isMobile || isBigMobile; then mobile; else desktop">
 
 </div>
 

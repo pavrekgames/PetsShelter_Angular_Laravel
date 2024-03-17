@@ -13,6 +13,7 @@ declare let alertify: any;
 })
 export class MessagesBarComponent {
   isMobile: boolean = false;
+  isBigMobile: boolean = false;
   isCollapsed: boolean = false;
 
   faAnglesRight = faAnglesRight;
@@ -37,13 +38,25 @@ export class MessagesBarComponent {
       },
     });
 
-    this.breakPointService.observe(Breakpoints.XSmall).subscribe((result) => {
+    this.breakPointService.observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium]).subscribe((result) => {
       this.isMobile = false;
 
-      if (result.matches) {
+      if (result.breakpoints[Breakpoints.XSmall]) {
         this.isMobile = true;
       }else{
         this.isMobile = false;
+      }
+
+      if (result.breakpoints[Breakpoints.Small]) {
+        this.isBigMobile = true;
+      }else{
+        this.isBigMobile = false;
+      }
+
+      if (result.breakpoints[Breakpoints.Medium]) {
+        //this.isMedium = true;
+      }else{
+        //this.isMedium = false;
       }
     });
 

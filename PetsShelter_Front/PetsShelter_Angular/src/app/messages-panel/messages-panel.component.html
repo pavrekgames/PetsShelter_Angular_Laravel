@@ -17,7 +17,7 @@
 </div>
 
 
-<div *ngIf="!isMobile; then desktop; else mobile">
+<div *ngIf="isMobile || isBigMobile; then mobile; else desktop">
 
 </div>
 

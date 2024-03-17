@@ -5,6 +5,7 @@ import { faEnvelope, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../services/auth.service';
 import { SpinnerService } from '../services/spinner.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { ApiPetsService } from '../services/api-pets.service';
 
 declare let alertify: any;
 
@@ -36,7 +37,8 @@ export class PetAdoptPageComponent {
     private router: Router,
     private authService: AuthService,
     private spinnerService: SpinnerService,
-    private breakPointService: BreakpointObserver
+    private breakPointService: BreakpointObserver,
+    private apiPetsService: ApiPetsService
   ) {}
 
   ngOnInit(): void {
@@ -53,14 +55,14 @@ export class PetAdoptPageComponent {
       }
     });
 
-    this.apiService.getPetToAdopt(this.petId).subscribe({
+    this.apiPetsService.getPetToAdopt(this.petId).subscribe({
       next: (data: any) => {
         this.handlePetToAdopt(data);
         console.log(data);
       },
     });
 
-    this.apiService.checkSavedPet(this.petId).subscribe({
+    this.apiPetsService.checkSavedPet(this.petId).subscribe({
       next: (data: any) => {
         this.spinnerService.hide();
         this.handleSavedPet(data);
@@ -90,7 +92,7 @@ export class PetAdoptPageComponent {
   savePet() {
     this.spinnerService.show();
 
-    this.apiService.savePet(this.petId).subscribe({
+    this.apiPetsService.savePet(this.petId).subscribe({
       next: (data: any) => {
         this.spinnerService.hide();
         this.handleSavePetSuccess(data);

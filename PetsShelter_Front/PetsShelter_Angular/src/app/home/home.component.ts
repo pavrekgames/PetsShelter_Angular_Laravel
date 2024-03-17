@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { Pet } from '../models/pet';
-import { ApiService } from '../services/api-service';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { SpinnerService } from '../services/spinner.service';
+import { ApiPetsService } from '../services/api-pets.service';
 
 @Component({
   selector: 'app-home',
@@ -12,13 +10,15 @@ import { SpinnerService } from '../services/spinner.service';
 export class HomeComponent {
   pets: any;
 
-  constructor(private apiService: ApiService, private spinnerService: SpinnerService) {}
+  constructor(
+    private spinnerService: SpinnerService,
+    private apiPetsService: ApiPetsService
+  ) {}
 
   ngOnInit(): void {
     this.spinnerService.show();
 
-    this.apiService.getNewestPets().subscribe({
-
+    this.apiPetsService.getNewestPets().subscribe({
       next: (data) => {
         this.spinnerService.hide();
 

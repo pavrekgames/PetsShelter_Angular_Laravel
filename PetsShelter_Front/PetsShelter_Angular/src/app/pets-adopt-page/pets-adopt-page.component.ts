@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ApiService } from '../services/api-service';
 import { SpinnerService } from '../services/spinner.service';
+import { ApiPetsService } from '../services/api-pets.service';
 
 @Component({
   selector: 'app-pets-adopt-page',
@@ -16,14 +16,14 @@ export class PetsAdoptPageComponent {
   petsPerPage: number = 4;
 
   constructor(
-    private apiService: ApiService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private apiPetsService: ApiPetsService
   ) {}
 
   ngOnInit(): void {
     this.spinnerService.show();
 
-    this.apiService.getPetsToAdopt().subscribe({
+    this.apiPetsService.getPetsToAdopt().subscribe({
       next: (data) => {
         this.spinnerService.hide();
         this.handleAllPets(data);

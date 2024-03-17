@@ -10,6 +10,8 @@ export class ApiService {
 
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
+ // user
+
   register(data: any) {
     return this.http.post('http://127.0.0.1:8000/api/register', data);
   }
@@ -25,110 +27,6 @@ export class ApiService {
 
     return this.http.post('http://127.0.0.1:8000/api/me', null, {'headers': headers});
   }
-
-  addPet(data: FormData){
-
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.post('http://127.0.0.1:8000/api/add-pet', data, {'headers': headers});
-  }
-
-  getNewestPets(){
-    return this.http.get('http://127.0.0.1:8000/api/newest-pets');
-  }
-
-  getPetsToAdopt(){
-    return this.http.get('http://127.0.0.1:8000/api/pets-to-adopt');
-  }
-
-  getMyPets(){
-
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.get('http://127.0.0.1:8000/api/my-pets', {'headers': headers});
-
-  }
-
-  getPetToAdopt(id: any){
-
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.get('http://127.0.0.1:8000/api/pets-to-adopt/' + id, {'headers': headers});
-
-  }
-
-  getPetToEdit(id: any){
-
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.get('http://127.0.0.1:8000/api/my-pets/edit/' + id, {'headers': headers});
-
-  }
-
-  editPet(id: any, data: any){
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.put<any>('http://127.0.0.1:8000/api/my-pets/edit/' + id, data, {'headers': headers});
-
-  }
-
-  editPetPhoto(id: any, data: FormData){
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.post('http://127.0.0.1:8000/api/my-pets/edit-photo/' + id, data, {'headers': headers});
-
-  }
-
-  deletePet(id: any){
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.delete('http://127.0.0.1:8000/api/my-pets/delete/' + id, {'headers': headers});
-
-  }
-
-  getSavedPets(){
-
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.get('http://127.0.0.1:8000/api/saved-pets', {'headers': headers});
-
-  }
-
-  checkSavedPet(id: any){
-
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.get('http://127.0.0.1:8000/api/check-saved-pet/' + id, {'headers': headers});
-
-  }
-
-  savePet(id: any){
-
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.post('http://127.0.0.1:8000/api/add-saved-pet/' + id, null, {'headers': headers});
-
-  }
-
-  deleteSavedPet(id: any){
-
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.delete('http://127.0.0.1:8000/api/saved-pets/delete/' + id, {'headers': headers});
-
-  }
-
 
   editProfile(data: any){
     const token = this.tokenService.getTokenValue();
@@ -150,6 +48,29 @@ export class ApiService {
     return this.http.post('http://127.0.0.1:8000/api/reset-password', data);
   }
 
+  getUsers(){
+
+    const token = this.tokenService.getTokenValue();
+    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
+
+    return this.http.get('http://127.0.0.1:8000/api/users', {'headers': headers});
+
+  }
+
+  deleteUser(id: any){
+
+    const token = this.tokenService.getTokenValue();
+    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
+
+    return this.http.delete('http://127.0.0.1:8000/api/users/delete/' + id, {'headers': headers});
+
+  }
+
+
+
+
+  // tokens
+
   topUpTokens(data: any){
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
@@ -165,6 +86,45 @@ export class ApiService {
     return this.http.post('http://127.0.0.1:8000/api/transfer-tokens/' + petId, data, {'headers': headers});
 
   }
+
+  getbundles(){
+
+    const token = this.tokenService.getTokenValue();
+    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
+
+    return this.http.get('http://127.0.0.1:8000/api/bundles', {'headers': headers});
+
+  }
+
+  getbundle(id: any){
+
+    const token = this.tokenService.getTokenValue();
+    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
+
+    return this.http.get('http://127.0.0.1:8000/api/bundles/' + id, {'headers': headers});
+
+  }
+
+  createPayIntent(data: any){
+
+    const token = this.tokenService.getTokenValue();
+    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
+
+    return this.http.post('http://127.0.0.1:8000/api/payment-intent', data, {'headers': headers});
+
+  }
+
+  storePayment(data: any){
+
+    const token = this.tokenService.getTokenValue();
+    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
+
+    return this.http.post('http://127.0.0.1:8000/api/store-payment', data, {'headers': headers});
+
+  }
+
+
+  // sick pets
 
 
   addSickPet(data: FormData){
@@ -218,23 +178,8 @@ export class ApiService {
 
   }
 
-  getUsers(){
+  // messages
 
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.get('http://127.0.0.1:8000/api/users', {'headers': headers});
-
-  }
-
-  deleteUser(id: any){
-
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.delete('http://127.0.0.1:8000/api/users/delete/' + id, {'headers': headers});
-
-  }
 
   createConversation(data: any) {
 
@@ -297,41 +242,6 @@ export class ApiService {
 
   }
 
-  getbundles(){
-
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.get('http://127.0.0.1:8000/api/bundles', {'headers': headers});
-
-  }
-
-  getbundle(id: any){
-
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.get('http://127.0.0.1:8000/api/bundles/' + id, {'headers': headers});
-
-  }
-
-  createPayIntent(data: any){
-
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.post('http://127.0.0.1:8000/api/payment-intent', data, {'headers': headers});
-
-  }
-
-  storePayment(data: any){
-
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.post('http://127.0.0.1:8000/api/store-payment', data, {'headers': headers});
-
-  }
 
 
 }

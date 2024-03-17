@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ApiService } from '../services/api-service';
 import {
   ConfirmBoxInitializer,
   DialogLayoutDisplay,
@@ -9,6 +8,7 @@ import {
 import { SpinnerService } from '../services/spinner.service';
 import { RoutingService } from '../services/routing.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { ApiPetsService } from '../services/api-pets.service';
 
 declare let alertify: any;
 
@@ -23,16 +23,16 @@ export class MyPetsComponent {
   pets: Array<any> = [];
 
   constructor(
-    private apiService: ApiService,
     private routingService: RoutingService,
     private spinnerService: SpinnerService,
-    private breakPointService: BreakpointObserver
+    private breakPointService: BreakpointObserver,
+    private apiPetsService: ApiPetsService
   ) {}
 
   ngOnInit(): void {
     this.spinnerService.show();
 
-    this.apiService.getMyPets().subscribe({
+    this.apiPetsService.getMyPets().subscribe({
       next: (data: any) => {
         this.spinnerService.hide();
         this.handleNewestPets(data);
@@ -85,7 +85,7 @@ export class MyPetsComponent {
   deletePet(petId: any) {
     this.spinnerService.show();
 
-    this.apiService.deletePet(petId).subscribe({
+    this.apiPetsService.deletePet(petId).subscribe({
       next: (data) => {
         this.spinnerService.hide();
         this.handleResponse();

@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-use Cookie;
+use App\Mail\ResetPasswordMail;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\SickPet;
@@ -52,7 +51,7 @@ class AuthController extends Controller
             'tokens_count' => 0
         ]);
 
-        return response()->json(['message' => 'Zostałeś zarejestrowany', 'userData'=> $user], Response::HTTP_OK);
+        return response()->json(['message' => 'Zostałeś zarejestrowany', 'userData' => $user], Response::HTTP_OK);
 
     }
 
@@ -84,7 +83,8 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
-    public function showUsers(){
+    public function showUsers()
+    {
 
         $users = User::where('role', 'user')->get();
 
@@ -102,7 +102,7 @@ class AuthController extends Controller
         return response()->json(auth()->user());
     }
 
-      /**
+    /**
      * Edit profile of the authenticated User.
      *
      * @return \Illuminate\Http\JsonResponse
@@ -129,7 +129,7 @@ class AuthController extends Controller
 
     }
 
-     /**
+    /**
      * Change password of the authenticated User.
      *
      * @return \Illuminate\Http\JsonResponse
@@ -169,12 +169,13 @@ class AuthController extends Controller
 
     }
 
-     /**
+    /**
      * Reset password based on name and e-mail.
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function resetPassword(Request $request){
+    public function resetPassword(Request $request)
+    {
 
         $data = $request->only('name', 'email');
 
@@ -188,10 +189,11 @@ class AuthController extends Controller
         }
 
         $user = User::where('name', $request->name)
-        ->where('email', $request->email)
-        ->first();
+            ->where('email', $request->email)
+            ->first();
 
-        if(!$user) return response()->json(['error' => 'Nie ma takiego użytkownika'], Response::HTTP_BAD_REQUEST);
+        if (!$user)
+            return response()->json(['error' => 'Nie ma takiego użytkownika'], Response::HTTP_BAD_REQUEST);
 
         $newPassword = '696969';
         $resetPassword = Hash::make($newPassword);
@@ -204,11 +206,19 @@ class AuthController extends Controller
             'name' => $user->name
         ];
 
-        Mail::send('emails.ResetPasswordMail', $mailData, function ($message) use ($user){
-            $message->to($user->email, $user->name)
-            ->subject("Resetowanie hasła - Pet Shelter");
-            $message->from('petshelter@support.gamil.com', 'Paweł Śruta');
-        });
+        /* Mail::send('emails.ResetPasswordMail', $mailData, function ($message) use ($user){
+             $message->to($user->email, $user->name)
+             ->subject("Resetowanie hasła - Pet Shelter");
+             $message->from('petshelter@support.gamil.com', 'Paweł Śruta');
+         }); */
+
+       /* $email = \App::makeWith(ResetPasswordMail::class, [
+            'mailData' => $mailData,
+        ]); */
+
+        $email = new ResetPasswordMail($mailData);
+
+        Mail::to($user->email)->send($email->build());
 
         return response()->json(['message' => 'Wysłano e-mail'], Response::HTTP_OK);
 
@@ -223,7 +233,7 @@ class AuthController extends Controller
     }
 
 
-  /**
+    /**
      * Top up tokens of the authenticated User.
      *
      * @return \Illuminate\Http\JsonResponse
@@ -247,23 +257,23 @@ class AuthController extends Controller
     public function transferTokens(Request $request)
     {
 
-        $tokens = (int)$request->tokens_count;
+        $tokens = (int) $request->tokens_count;
         $pet = SickPet::findOrFail($request->petId);
         $user = auth()->user();
 
         //dd($request);
 
-        if($pet->status == 'Zakończone') {
+        if ($pet->status == 'Zakończone') {
             return response()->json(['error' => 'Status akcji zakończony'], Response::HTTP_BAD_REQUEST);
         }
 
-        DB::transaction(function() use ($tokens, $user, $pet){
-                $user->decrement('tokens_count', $tokens);
-                $pet->increment('current_tokens', $tokens);
+        DB::transaction(function () use ($tokens, $user, $pet) {
+            $user->decrement('tokens_count', $tokens);
+            $pet->increment('current_tokens', $tokens);
 
-                if($pet->current_tokens >= $pet->required_tokens){
-                    $pet->update(['status' => 'Zakończone']);
-                }
+            if ($pet->current_tokens >= $pet->required_tokens) {
+                $pet->update(['status' => 'Zakończone']);
+            }
 
         });
 

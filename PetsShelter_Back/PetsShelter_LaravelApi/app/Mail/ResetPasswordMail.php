@@ -13,14 +13,28 @@ class ResetPasswordMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    private $mailData;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+
+    public function __construct($mailData)
     {
-        //
+        $this->mailData = $mailData;
+    }
+
+    public function build()
+    {
+
+        return $this
+            ->from('petshelter@support.gamil.com', 'Paweł Śruta')
+            ->subject("Resetowanie hasła - Pet Shelter")
+            ->markdown('emails.ResetPasswordMail')
+            ->with([
+                'mailData' => $this->mailData,
+            ]);
     }
 
     /**

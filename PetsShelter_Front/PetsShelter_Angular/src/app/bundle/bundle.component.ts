@@ -48,6 +48,10 @@ export class BundleComponent {
   ) {}
 
   ngOnInit(): void {
+    this.getUserTokensFromApi();
+  }
+
+  getUserTokensFromApi() {
     this.apiService.authorizedUser().subscribe({
       next: (data) => {
         this.handleTokens(data);
@@ -76,16 +80,19 @@ export class BundleComponent {
 
     newConfirmBox.setButtonLabels('Tak', 'Nie');
 
-    // Simply open the popup and observe button click
     newConfirmBox.openConfirmBox$().subscribe((resp) => {
       if (resp.success) {
-        this.apiTokensService.createPayIntent(this.bundle).subscribe({
-          next: (data) => {
-            console.log(data);
-            this.bundlePayment(this.bundle.id, data);
-          },
-        });
+        this.createPayIntent();
       }
+    });
+  }
+
+  createPayIntent() {
+    this.apiTokensService.createPayIntent(this.bundle).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.bundlePayment(this.bundle.id, data);
+      },
     });
   }
 
@@ -94,5 +101,4 @@ export class BundleComponent {
 
     this.router.navigate(['tokens-bundles/payment/' + id]);
   }
-
 }

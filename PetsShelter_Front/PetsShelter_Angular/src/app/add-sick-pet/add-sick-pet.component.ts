@@ -9,10 +9,9 @@ declare let alertify: any;
 @Component({
   selector: 'app-add-sick-pet',
   templateUrl: './add-sick-pet.component.html',
-  styleUrl: './add-sick-pet.component.css'
+  styleUrl: './add-sick-pet.component.css',
 })
 export class AddSickPetComponent {
-
   hasSubmitted: boolean = false;
 
   error: any = [];
@@ -33,35 +32,34 @@ export class AddSickPetComponent {
     private apiSickPetsService: ApiSickPetsService
   ) {}
 
-  ngOnInit(): void {
-
-  }
-
   onSubmit() {
     this.hasSubmitted = true;
     this.error = [];
 
+    this.validSickPetForm();
+  }
+
+  validSickPetForm() {
     if (this.addSickPetForm.valid) {
       this.spinnerService.show();
-      const formData = this.addSickPetForm.getRawValue();
-      console.log("Raw Values: " + JSON.stringify(formData));
 
-      this.apiSickPetsService.addSickPet(this.getFormData()).subscribe({
-        next: (data) => {
-          this.spinnerService.hide();
-          this.handleResponse();
-          console.log(data);
-        },
-        error: (error) => {
-          this.spinnerService.hide();
-          this.handleError(error);
-          console.log(this.error);
-        },
-      });
-
+      this.addSickPet();
     } else {
       console.log('Form is invalid');
     }
+  }
+
+  addSickPet() {
+    this.apiSickPetsService.addSickPet(this.getFormData()).subscribe({
+      next: (data) => {
+        this.spinnerService.hide();
+        this.handleResponse();
+      },
+      error: (error) => {
+        this.spinnerService.hide();
+        this.handleError(error);
+      },
+    });
   }
 
   handleResponse() {
@@ -74,24 +72,24 @@ export class AddSickPetComponent {
     alertify.error('Wystąpił problem!');
   }
 
-  onFileChange(event: any){
-    console.log(event.target.files[0]);
+  onFileChange(event: any) {
     const photoToUpload = event.target.files[0];
-    this.addSickPetForm.patchValue({photo: photoToUpload});
+    this.addSickPetForm.patchValue({ photo: photoToUpload });
     this.addSickPetForm.get('photo')?.updateValueAndValidity();
   }
 
-  getFormData(){
+  getFormData() {
     const formData: any = new FormData();
     formData.append('name', this.addSickPetForm.get('name')?.value);
     formData.append('species', this.addSickPetForm.get('species')?.value);
     formData.append('disease', this.addSickPetForm.get('disease')?.value);
-    formData.append('required_tokens', this.addSickPetForm.get('required_tokens')?.value);
+    formData.append(
+      'required_tokens',
+      this.addSickPetForm.get('required_tokens')?.value
+    );
     formData.append('status', this.addSickPetForm.get('status')?.value);
     formData.append('photo', this.addSickPetForm.get('photo')?.value);
 
     return formData;
   }
-
-
 }

@@ -20,11 +20,11 @@
               <div class="">  <!--collapse navbar-collapse-->
                   <div class="navbar-nav ms-auto">
 
-                    <div class="fa-xl pe-3 pt-2 text-dark" *ngIf="isLoggenIn">
+                    <div class="fa-xl pe-3 pt-2 text-dark" *ngIf="isLoggedIn">
                       <fa-icon class="pe-1" [icon]="faSackDollar"></fa-icon> <b>{{loggedUser.tokens_count}}</b>
                     </div>
 
-                    <div class="fa-1x pe-3" *ngIf="isLoggenIn">
+                    <div class="fa-1x pe-3" *ngIf="isLoggedIn">
                       <button type="button" class="btn btn-primary position-relative" routerLink="/messages">
                          <fa-icon [icon]="faEnvelope"></fa-icon>
 
@@ -34,13 +34,13 @@
                       </button>
                     </div>
 
-                    <div class="fa-1x pe-1" *ngIf="isLoggenIn">
+                    <div class="fa-1x pe-1" *ngIf="isLoggedIn">
                       <button type="button" class="btn btn-primary" routerLink="/add-pet">
                         Dodaj <fa-icon [icon]="faPlus"></fa-icon>
                       </button>
                     </div>
 
-                    <div class="btn-group" *ngIf="isLoggenIn">
+                    <div class="btn-group" *ngIf="isLoggedIn">
                       <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         {{loggedUser.name}}  <fa-icon [icon]="faUser"></fa-icon>
                       </button>
@@ -62,8 +62,8 @@
                     </div>
 
 
-                      <a class="nav-link text-light" aria-current="page" href="#" routerLink="/register" *ngIf="!isLoggenIn">Rejestracja</a>
-                      <a class="nav-link text-light" href="#" routerLink="/login" *ngIf="!isLoggenIn">Zaloguj</a>
+                      <a class="nav-link text-light" aria-current="page" href="#" routerLink="/register" *ngIf="!isLoggedIn">Rejestracja</a>
+                      <a class="nav-link text-light" href="#" routerLink="/login" *ngIf="!isLoggedIn">Zaloguj</a>
                   </div>
               </div>
 
@@ -97,7 +97,7 @@
                 <a class="navbar-brand text-light" href="#" routerLink=""> <h6> Pets Shelter</h6> </a>
               </div>
 
-              <div class="ms-auto" *ngIf="!isLoggenIn">
+              <div class="ms-auto" *ngIf="!isLoggedIn">
                 <div class="col-auto">
                   <div class="pt-2">
                     <a class="nav-link text-light" aria-current="page" href="#" routerLink="/register">Rejestracja</a>
@@ -110,11 +110,11 @@
               </div>
 
 
-                <div class="fa-lg pt-4 text-dark ms-auto" *ngIf="isLoggenIn">
+                <div class="fa-lg pt-4 text-dark ms-auto" *ngIf="isLoggedIn">
                   <fa-icon class="pe-1" [icon]="faSackDollar"></fa-icon> <b>{{loggedUser.tokens_count}}</b>
                 </div>
 
-                <div class="fa-1x pt-3 ps-2" *ngIf="isLoggenIn">
+                <div class="fa-1x pt-3 ps-2" *ngIf="isLoggedIn">
                   <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                      <fa-icon [icon]="faUser"></fa-icon>
                   </button>
@@ -143,7 +143,7 @@
 
                 </div>
 
-                <div class="fa-1x pt-3 ps-2" *ngIf="isLoggenIn">
+                <div class="fa-1x pt-3 ps-2" *ngIf="isLoggedIn">
                   <button type="button" class="btn btn-primary position-relative btn-sm" routerLink="/messages">
                      <fa-icon [icon]="faEnvelope"></fa-icon>
 
@@ -160,11 +160,11 @@
               <div class="" [hidden]="true">
                   <div class="navbar-nav ms-auto">
 
-                    <div class="fa-1x pe-1" *ngIf="isLoggenIn">
+                    <div class="fa-1x pe-1" *ngIf="isLoggedIn">
 
                     </div>
 
-                    <div class="btn-group" *ngIf="isLoggenIn">
+                    <div class="btn-group" *ngIf="isLoggedIn">
                       <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         {{loggedUser.name}}  <fa-icon [icon]="faUser"></fa-icon>
                       </button>

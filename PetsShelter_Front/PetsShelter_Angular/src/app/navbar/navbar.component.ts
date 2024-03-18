@@ -1,8 +1,4 @@
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { faShieldDog } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -35,7 +31,7 @@ export class NavbarComponent implements OnInit {
   faSackDollar = faSackDollar;
   faEnvelope = faEnvelope;
 
-  isLoggenIn: boolean = false;
+  isLoggedIn: boolean = false;
   isTokenExpired: boolean = false;
 
   @Input()
@@ -66,53 +62,65 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.authStatus.subscribe((value) => {
-      this.isLoggenIn = value;
+      this.isLoggedIn = value;
     });
 
-    if (this.isLoggenIn) {
-      this.apiService.authorizedUser().subscribe({
-        next: (data) => {
-          this.handleUser(data);
-        },
-      });
+    this.checkUserLogged();
+    this.checkDeviceSize();
+  }
 
-      this.apiMessagessService.getUnreadMessagesCount().subscribe({
-        next: (data) => {
-          this.getUnreadMessagesCount(data);
-        },
-      });
-
+  checkUserLogged() {
+    if (this.isLoggedIn) {
+      this.getAuthorizedUser();
+      this.getMessagesCount();
       this.checkToken();
 
       this.messagesService.messagesCountObs.subscribe(
         (messagesCount) => (this.messagesCount = messagesCount)
       );
     }
+  }
 
-    this.breakPointService.observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium]).subscribe((result) => {
-      this.isMobile = false;
-
-      if (result.breakpoints[Breakpoints.XSmall]) {
-        this.isMobile = true;
-      }else{
-        this.isMobile = false;
-      }
-
-      if (result.breakpoints[Breakpoints.Small]) {
-        this.isBigMobile = true;
-      }else{
-        this.isBigMobile = false;
-      }
-
-      if (result.breakpoints[Breakpoints.Medium]) {
-        this.isMedium = true;
-      }else{
-        this.isMedium = false;
-      }
-
-
+  getAuthorizedUser() {
+    this.apiService.authorizedUser().subscribe({
+      next: (data) => {
+        this.handleUser(data);
+      },
     });
+  }
 
+  getMessagesCount() {
+    this.apiMessagessService.getUnreadMessagesCount().subscribe({
+      next: (data) => {
+        this.getUnreadMessagesCount(data);
+      },
+    });
+  }
+
+  checkDeviceSize() {
+    this.breakPointService
+      .observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium])
+      .subscribe((result) => {
+        this.isMobile = false;
+
+        if (result.breakpoints[Breakpoints.XSmall]) {
+          this.isMobile = true;
+        } else {
+          this.isMobile = false;
+        }
+
+        if (result.breakpoints[Breakpoints.Small]) {
+          this.isBigMobile = true;
+        } else {
+          this.isBigMobile = false;
+        }
+
+        if (result.breakpoints[Breakpoints.Medium]) {
+          this.isMedium = true;
+        } else {
+          this.isMedium = false;
+        }
+      });
   }
 
   logout() {
@@ -135,7 +143,6 @@ export class NavbarComponent implements OnInit {
 
   checkToken() {
     this.isTokenExpired = this.tokenService.isTokenExpired();
-    console.log('Token expired: ' + this.isTokenExpired);
 
     if (this.isTokenExpired) {
       this.logout();

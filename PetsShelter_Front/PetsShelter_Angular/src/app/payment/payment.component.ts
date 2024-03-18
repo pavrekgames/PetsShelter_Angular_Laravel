@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   ViewChild,
-  inject,
 } from '@angular/core';
 import { Bundle } from '../models/bundle';
 import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
@@ -66,25 +65,31 @@ export class PaymentComponent {
     this.bundleId = this.route.snapshot.params.id;
     this.spinnerService.show();
 
+    this.getBundle();
+    this.checkDeviceSize();
+
+    this.intent = this.stripeService.getIntent();
+  }
+
+  getBundle() {
     this.apiTokensService.getbundle(this.bundleId).subscribe({
       next: (data: any) => {
         this.spinnerService.hide();
         this.handleBundle(data);
-        console.log(data);
       },
     });
+  }
 
+  checkDeviceSize() {
     this.breakPointService.observe(Breakpoints.XSmall).subscribe((result) => {
       this.isMobile = false;
 
       if (result.matches) {
         this.isMobile = true;
-      }else{
+      } else {
         this.isMobile = false;
       }
     });
-
-    this.intent = this.stripeService.getIntent();
   }
 
   ngAfterViewInit() {
@@ -119,27 +124,27 @@ export class PaymentComponent {
     const { token, error } = await this.stripe.createToken(this.card);
     this.clSecret = this.intent.intent.client_secret;
     this.bundle.intent_id = this.intent.intent.id;
-    console.log('IntentID: ' + this.bundle.intent_id);
 
     if (error) {
       console.log('Error:', error);
     } else {
-      console.log('Success!', token);
-
       this.spinnerService.show();
-      this.apiTokensService.storePayment(this.bundle).subscribe({
-        next: (data: any) => {
-          this.spinnerService.hide();
-          this.handlePaymentResponse(data);
-          console.log(data);
-        },
-        error: (error) => {
-          this.spinnerService.hide();
-          this.handlePaymentError();
-          console.log(error);
-        },
-      });
+
+      this.storePayment();
     }
+  }
+
+  storePayment() {
+    this.apiTokensService.storePayment(this.bundle).subscribe({
+      next: (data: any) => {
+        this.spinnerService.hide();
+        this.handlePaymentResponse(data);
+      },
+      error: (error) => {
+        this.spinnerService.hide();
+        this.handlePaymentError();
+      },
+    });
   }
 
   handlePaymentResponse(data: any) {
@@ -154,16 +159,15 @@ export class PaymentComponent {
           },
         },
       })
-      .then(
-         (res) => {
-          if (res.paymentIntent && res.paymentIntent.status === 'succeeded') {
-            alertify.success('Doładowano żetony');
-            this.router.navigate(['/tokens-bundles']);
-          } else {
-            const errorCode = res.error.message;
-            alertify.error(errorCode);
-          }
-        });
+      .then((res) => {
+        if (res.paymentIntent && res.paymentIntent.status === 'succeeded') {
+          alertify.success('Doładowano żetony');
+          this.router.navigate(['/tokens-bundles']);
+        } else {
+          const errorCode = res.error.message;
+          alertify.error(errorCode);
+        }
+      });
   }
 
   handlePaymentError() {

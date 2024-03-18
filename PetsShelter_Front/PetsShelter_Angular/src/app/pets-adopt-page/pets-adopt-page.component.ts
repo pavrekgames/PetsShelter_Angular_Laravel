@@ -23,11 +23,14 @@ export class PetsAdoptPageComponent {
   ngOnInit(): void {
     this.spinnerService.show();
 
+    this.getPetToAdopt();
+  }
+
+  getPetToAdopt() {
     this.apiPetsService.getPetsToAdopt().subscribe({
       next: (data) => {
         this.spinnerService.hide();
         this.handleAllPets(data);
-        console.log(data);
       },
     });
   }

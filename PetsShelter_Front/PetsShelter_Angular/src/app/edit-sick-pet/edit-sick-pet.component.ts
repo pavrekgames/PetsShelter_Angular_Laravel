@@ -9,10 +9,9 @@ declare let alertify: any;
 @Component({
   selector: 'app-edit-sick-pet',
   templateUrl: './edit-sick-pet.component.html',
-  styleUrl: './edit-sick-pet.component.css'
+  styleUrl: './edit-sick-pet.component.css',
 })
 export class EditSickPetComponent {
-
   hasSubmitted: boolean = false;
 
   userId: number = 1;
@@ -42,40 +41,46 @@ export class EditSickPetComponent {
     this.petId = this.route.snapshot.params.id;
     this.spinnerService.show();
 
+    this.getSickPetToEdit();
+  }
+
+  getSickPetToEdit() {
     this.apiSickPetsService.getSickPetToEdit(this.petId).subscribe({
       next: (data: any) => {
         this.spinnerService.hide();
         this.handleSickPet(data);
-        console.log(data);
       },
     });
-
   }
 
   onSubmit() {
     this.hasSubmitted = true;
     this.error = [];
 
+    this.validateSickPetForm();
+  }
+
+  validateSickPetForm() {
     if (this.editSickPetForm.valid) {
       this.spinnerService.show();
-      const formData = this.editSickPetForm.getRawValue();
-      console.log('Raw Values: ' + JSON.stringify(formData));
+    } else {
+      console.log('Form is invalid');
+    }
+  }
 
-      this.apiSickPetsService.editSickPet(this.petId, this.getFormData()).subscribe({
+  editSickPet() {
+    this.apiSickPetsService
+      .editSickPet(this.petId, this.getFormData())
+      .subscribe({
         next: (data) => {
           this.spinnerService.hide();
           this.handleResponse();
-          console.log(data);
         },
         error: (error) => {
           this.spinnerService.hide();
           this.handleError(error);
-          console.log(this.error);
         },
       });
-    } else {
-      console.log('Form is invalid');
-    }
   }
 
   handleSickPet(data: any) {
@@ -87,7 +92,7 @@ export class EditSickPetComponent {
       species: this.pet.species,
       disease: this.pet.disease,
       required_tokens: this.pet.required_tokens,
-      status: this.pet.status
+      status: this.pet.status,
     });
   }
 
@@ -107,9 +112,8 @@ export class EditSickPetComponent {
     return formData;
   }
 
-  cancelEditing(){
+  cancelEditing() {
     this.router.navigate(['/sick-pets-manager']);
     alertify.warning('Anulowano edycję');
   }
-
 }

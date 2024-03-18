@@ -12,18 +12,23 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Services\AuthService;
 
 class AuthController extends Controller
 {
+
+    public $authService;
 
     /**
      * Create a new AuthController instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(AuthService $authService)
     {
         //$this->middleware('auth:api', ['except' => ['login']]);
+        $this->authService = $authService;
+
     }
 
     public function register(Request $request)

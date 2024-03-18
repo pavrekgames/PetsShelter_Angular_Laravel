@@ -35,6 +35,11 @@ export class UsersComponent {
   ngOnInit(): void {
     this.spinnerService.show();
 
+    this.getUsers();
+    this.checkDeviceSize();
+  }
+
+  getUsers() {
     this.apiService.getUsers().subscribe({
       next: (data) => {
         this.spinnerService.hide();
@@ -42,17 +47,18 @@ export class UsersComponent {
         console.log(data);
       },
     });
+  }
 
+  checkDeviceSize() {
     this.breakPointService.observe(Breakpoints.XSmall).subscribe((result) => {
       this.isMobile = false;
 
       if (result.matches) {
         this.isMobile = true;
-      }else{
+      } else {
         this.isMobile = false;
       }
     });
-
   }
 
   handleAllUsers(data: any) {
@@ -71,7 +77,6 @@ export class UsersComponent {
         ' ?'
     );
 
-    // Choose layout color type
     newConfirmBox.setConfig({
       layoutType: DialogLayoutDisplay.DANGER,
       animationIn: AppearanceAnimation.BOUNCE_IN,
@@ -81,7 +86,6 @@ export class UsersComponent {
 
     newConfirmBox.setButtonLabels('Tak', 'Nie');
 
-    // Simply open the popup and observe button click
     newConfirmBox.openConfirmBox$().subscribe((resp) => {
       if (resp.success) {
         this.deleteUser(userId);
@@ -96,12 +100,10 @@ export class UsersComponent {
       next: (data) => {
         this.spinnerService.hide();
         this.handleResponse();
-        console.log(data);
       },
       error: (error) => {
         this.spinnerService.hide();
         this.handleError();
-        console.log(error);
       },
     });
   }

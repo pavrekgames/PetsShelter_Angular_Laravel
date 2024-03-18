@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ApiService } from '../services/api-service';
 import { SpinnerService } from '../services/spinner.service';
+import { ApiSickPetsService } from '../services/api-sick-pets.service';
 
 declare let alertify: any;
 
@@ -29,8 +29,8 @@ export class AddSickPetComponent {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private apiService: ApiService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private apiSickPetsService: ApiSickPetsService
   ) {}
 
   ngOnInit(): void {
@@ -46,7 +46,7 @@ export class AddSickPetComponent {
       const formData = this.addSickPetForm.getRawValue();
       console.log("Raw Values: " + JSON.stringify(formData));
 
-      this.apiService.addSickPet(this.getFormData()).subscribe({
+      this.apiSickPetsService.addSickPet(this.getFormData()).subscribe({
         next: (data) => {
           this.spinnerService.hide();
           this.handleResponse();

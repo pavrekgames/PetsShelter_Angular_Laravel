@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { ApiService } from '../services/api-service';
 import {
   ConfirmBoxInitializer,
   DialogLayoutDisplay,
@@ -10,6 +9,7 @@ import {
 import { SpinnerService } from '../services/spinner.service';
 import { RoutingService } from '../services/routing.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { ApiSickPetsService } from '../services/api-sick-pets.service';
 
 declare let alertify: any;
 
@@ -29,16 +29,16 @@ export class SickPetsManagerComponent {
   petsPerPage: number = 4;
 
   constructor(
-    private apiService: ApiService,
     private routingService: RoutingService,
     private spinnerService: SpinnerService,
-    private breakPointService: BreakpointObserver
+    private breakPointService: BreakpointObserver,
+    private apiSickPetsService: ApiSickPetsService
   ) {}
 
   ngOnInit(): void {
     this.spinnerService.show();
 
-    this.apiService.getSickPets().subscribe({
+    this.apiSickPetsService.getSickPets().subscribe({
       next: (data) => {
         this.spinnerService.hide();
         this.handleAllPets(data);
@@ -91,7 +91,7 @@ export class SickPetsManagerComponent {
   deleteSickPet(petId: any) {
     this.spinnerService.show();
 
-    this.apiService.deleteSickPet(petId).subscribe({
+    this.apiSickPetsService.deleteSickPet(petId).subscribe({
       next: (data) => {
         this.spinnerService.hide();
         this.handleResponse();

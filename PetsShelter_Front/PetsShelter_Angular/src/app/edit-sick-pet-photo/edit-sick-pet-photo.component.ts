@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from '../services/api-service';
 import { SpinnerService } from '../services/spinner.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { ApiSickPetsService } from '../services/api-sick-pets.service';
 
 declare let alertify: any;
 
@@ -29,17 +29,17 @@ export class EditSickPetPhotoComponent {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private apiService: ApiService,
     private route: ActivatedRoute,
     private spinnerService: SpinnerService,
-    private breakPointService: BreakpointObserver
+    private breakPointService: BreakpointObserver,
+    private apiSickPetsService: ApiSickPetsService
   ) {}
 
   ngOnInit(): void {
     this.petId = this.route.snapshot.params.id;
     this.spinnerService.show();
 
-    this.apiService.getSickPetToEdit(this.petId).subscribe({
+    this.apiSickPetsService.getSickPetToEdit(this.petId).subscribe({
       next: (data: any) => {
         this.spinnerService.hide();
         this.handleSickPetToEdit(data);
@@ -68,7 +68,7 @@ export class EditSickPetPhotoComponent {
       const formData = this.editSickPetPhotoForm.getRawValue();
       console.log("Raw Values: " + JSON.stringify(formData));
 
-      this.apiService.editSickPetPhoto(this.petId, this.getFormData()).subscribe({
+      this.apiSickPetsService.editSickPetPhoto(this.petId, this.getFormData()).subscribe({
         next: (data) => {
           this.spinnerService.hide();
           this.handleResponse();

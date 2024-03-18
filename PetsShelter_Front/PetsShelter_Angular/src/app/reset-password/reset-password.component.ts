@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ApiService } from '../services/api-service';
 import { SpinnerService } from '../services/spinner.service';
 
@@ -9,10 +8,9 @@ declare let alertify: any;
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
-  styleUrl: './reset-password.component.css'
+  styleUrl: './reset-password.component.css',
 })
 export class ResetPasswordComponent {
-
   hasSubmitted: boolean = false;
   hasResetSend: boolean = false;
   error = null;
@@ -24,7 +22,6 @@ export class ResetPasswordComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
     private apiService: ApiService,
     private spinnerService: SpinnerService
   ) {}
@@ -38,24 +35,31 @@ export class ResetPasswordComponent {
     this.hasSubmitted = true;
     this.error = null;
 
+    this.validateResetPasswordForm();
+  }
+
+  validateResetPasswordForm() {
     if (this.resetPasswordForm.valid) {
       this.spinnerService.show();
       const formData = this.resetPasswordForm.getRawValue();
 
-      this.apiService.resetPassword(formData).subscribe({
-        next: (data) => {
-          this.spinnerService.hide();
-          this.handleResponse(data);
-        },
-        error: (error) => {
-          this.spinnerService.hide();
-          this.handleError(error);
-          console.log(this.error);
-        },
-      });
+      this.resetPassword(formData);
     } else {
       console.log('Form is invalid');
     }
+  }
+
+  resetPassword(formData: any) {
+    this.apiService.resetPassword(formData).subscribe({
+      next: (data) => {
+        this.spinnerService.hide();
+        this.handleResponse(data);
+      },
+      error: (error) => {
+        this.spinnerService.hide();
+        this.handleError(error);
+      },
+    });
   }
 
   handleResponse(data: any) {
@@ -67,5 +71,4 @@ export class ResetPasswordComponent {
     this.error = error.error.error;
     alertify.error('Błędne dane');
   }
-
 }

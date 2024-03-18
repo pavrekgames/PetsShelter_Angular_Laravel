@@ -15,7 +15,6 @@ declare let alertify: any;
   styleUrl: './pet-adopt-page.component.css',
 })
 export class PetAdoptPageComponent {
-
   isMobile: boolean = false;
 
   pet: any;
@@ -45,38 +44,45 @@ export class PetAdoptPageComponent {
     this.petId = this.route.snapshot.params.id;
     this.spinnerService.show();
 
-    this.breakPointService.observe(Breakpoints.XSmall).subscribe((result) => {
-      this.isMobile = false;
+    this.getPetToAdopt();
+    this.checkSavedPet();
+    this.checkDeviceSize();
+  }
 
-      if (result.matches) {
-        this.isMobile = true;
-      }else{
-        this.isMobile = false;
-      }
-    });
-
+  getPetToAdopt() {
     this.apiPetsService.getPetToAdopt(this.petId).subscribe({
       next: (data: any) => {
         this.handlePetToAdopt(data);
         console.log(data);
       },
     });
+  }
 
+  checkSavedPet() {
     this.apiPetsService.checkSavedPet(this.petId).subscribe({
       next: (data: any) => {
         this.spinnerService.hide();
         this.handleSavedPet(data);
-        console.log(data);
       },
     });
+  }
 
+  checkDeviceSize() {
+    this.breakPointService.observe(Breakpoints.XSmall).subscribe((result) => {
+      this.isMobile = false;
+
+      if (result.matches) {
+        this.isMobile = true;
+      } else {
+        this.isMobile = false;
+      }
+    });
   }
 
   handlePetToAdopt(data: any) {
     this.pet = data;
 
     this.checkLoggedUserPet();
-
   }
 
   handleSavedPet(data: any) {
@@ -96,7 +102,6 @@ export class PetAdoptPageComponent {
       next: (data: any) => {
         this.spinnerService.hide();
         this.handleSavePetSuccess(data);
-        console.log(data);
       },
       error: (error) => {
         this.spinnerService.hide();
@@ -119,7 +124,6 @@ export class PetAdoptPageComponent {
     this.apiMessagessService.createConversation(this.pet).subscribe({
       next: (data: any) => {
         this.handleConversationSuccess(data);
-        console.log(data);
       },
       error: (error) => {
         this.handleConversationError();
@@ -140,9 +144,9 @@ export class PetAdoptPageComponent {
   checkLoggedUserPet() {
     this.loggedUser = this.authService.getUser();
 
-    if(this.loggedUser.id == this.pet.user_id){
+    if (this.loggedUser.id == this.pet.user_id) {
       this.isLoggedUserPet = true;
-    }else{
+    } else {
       this.isLoggedUserPet = false;
     }
   }

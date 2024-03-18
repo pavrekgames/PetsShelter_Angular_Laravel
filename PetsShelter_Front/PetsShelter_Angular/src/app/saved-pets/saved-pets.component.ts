@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ApiService } from '../services/api-service';
 import {
   ConfirmBoxInitializer,
   DialogLayoutDisplay,
@@ -23,7 +22,6 @@ export class SavedPetsComponent {
   pets: Array<any> = [];
 
   constructor(
-    private apiService: ApiService,
     private spinnerService: SpinnerService,
     private breakPointService: BreakpointObserver,
     private apiPetsService: ApiPetsService
@@ -32,24 +30,29 @@ export class SavedPetsComponent {
   ngOnInit(): void {
     this.spinnerService.show();
 
+    this.getSavedPets();
+    this.checkDeviceSize();
+  }
+
+  getSavedPets() {
     this.apiPetsService.getSavedPets().subscribe({
       next: (data: any) => {
         this.spinnerService.hide();
         this.handleNewestPets(data);
-        console.log(data);
       },
     });
+  }
 
+  checkDeviceSize() {
     this.breakPointService.observe(Breakpoints.XSmall).subscribe((result) => {
       this.isMobile = false;
 
       if (result.matches) {
         this.isMobile = true;
-      }else{
+      } else {
         this.isMobile = false;
       }
     });
-
   }
 
   handleNewestPets(data: any) {
@@ -64,17 +67,15 @@ export class SavedPetsComponent {
       'Czyn a pewno chcesz usunąć zapisane zwierzę o imieniu ' + petName + ' ?'
     );
 
-    // Choose layout color type
     newConfirmBox.setConfig({
       layoutType: DialogLayoutDisplay.DANGER,
       animationIn: AppearanceAnimation.BOUNCE_IN,
       animationOut: DisappearanceAnimation.BOUNCE_OUT,
-      buttonPosition: 'center', // optional
+      buttonPosition: 'center',
     });
 
     newConfirmBox.setButtonLabels('Tak', 'Nie');
 
-    // Simply open the popup and observe button click
     newConfirmBox.openConfirmBox$().subscribe((resp) => {
       if (resp.success) {
         this.deleteSavedPet(petId);
@@ -89,12 +90,10 @@ export class SavedPetsComponent {
       next: (data) => {
         this.spinnerService.hide();
         this.handleResponse();
-        console.log(data);
       },
       error: (error) => {
         this.spinnerService.hide();
         this.handleError();
-        console.log(error);
       },
     });
   }

@@ -18,6 +18,10 @@ export class HomeComponent {
   ngOnInit(): void {
     this.spinnerService.show();
 
+    this.getNewestPets();
+  }
+
+  getNewestPets() {
     this.apiPetsService.getNewestPets().subscribe({
       next: (data) => {
         this.spinnerService.hide();

@@ -41,9 +41,12 @@ export class EditProfileComponent {
   ) {}
 
   ngOnInit(): void {
-
     this.spinnerService.show();
 
+    this.getAuthorizedUser();
+  }
+
+  getAuthorizedUser() {
     this.apiService.authorizedUser().subscribe({
       next: (data) => {
         this.spinnerService.hide();
@@ -56,27 +59,31 @@ export class EditProfileComponent {
     this.hasSubmitted = true;
     this.error = [];
 
-    //this.checkPassword();
+    this.validateEditProfileForm();
+  }
 
+  validateEditProfileForm() {
     if (this.editProfileForm.valid) {
       this.spinnerService.show();
       const formData = this.editProfileForm.getRawValue();
 
-      this.apiService.editProfile(formData).subscribe({
-        next: (data) => {
-          this.spinnerService.hide();
-          this.handleResponse();
-          console.log(data);
-        },
-        error: (error) => {
-          this.spinnerService.hide();
-          this.handleError(error);
-          console.log(this.error);
-        },
-      });
+      this.editProfile(formData);
     } else {
       console.log('Form is invalid');
     }
+  }
+
+  editProfile(formData: any) {
+    this.apiService.editProfile(formData).subscribe({
+      next: (data) => {
+        this.spinnerService.hide();
+        this.handleResponse();
+      },
+      error: (error) => {
+        this.spinnerService.hide();
+        this.handleError(error);
+      },
+    });
   }
 
   showChangingPassword() {
@@ -88,23 +95,28 @@ export class EditProfileComponent {
     this.passwordError = [];
 
     this.checkPassword();
+    this.validateChangingPassword();
+  }
 
+  validateChangingPassword() {
     if (this.changePasswordForm.valid && this.isPasswordsSame) {
       const formData = this.changePasswordForm.getRawValue();
 
-      this.apiService.changePassword(formData).subscribe({
-        next: (data) => {
-          this.handlePasswordResponse();
-          console.log(data);
-        },
-        error: (error) => {
-          this.handlePasswordError(error);
-          console.log('Password Error ' + this.error);
-        },
-      });
+      this.changePassword(formData);
     } else {
       console.log('Form is invalid');
     }
+  }
+
+  changePassword(formData: any) {
+    this.apiService.changePassword(formData).subscribe({
+      next: (data) => {
+        this.handlePasswordResponse();
+      },
+      error: (error) => {
+        this.handlePasswordError(error);
+      },
+    });
   }
 
   checkPassword() {
@@ -135,9 +147,7 @@ export class EditProfileComponent {
   }
 
   handleError(error: any) {
-    this.error = error.error.error; // before was error.error.erros
-    console.log('Mam błąd: ' + JSON.stringify(error));
-    console.log('Mam do przesłania błąd: ' + JSON.stringify(this.error));
+    this.error = error.error.error;
 
     alertify.error('Błąd edycji');
   }
@@ -148,9 +158,7 @@ export class EditProfileComponent {
   }
 
   handlePasswordError(error: any) {
-    this.error = error.error.error; // before was error.error.erros
-    console.log('Mam błąd: ' + JSON.stringify(error));
-    console.log('Mam do przesłania błąd: ' + JSON.stringify(this.error));
+    this.error = error.error.error;
 
     alertify.error('Wystąpił problem');
   }

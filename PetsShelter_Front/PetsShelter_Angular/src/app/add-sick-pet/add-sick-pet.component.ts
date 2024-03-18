@@ -36,10 +36,10 @@ export class AddSickPetComponent {
     this.hasSubmitted = true;
     this.error = [];
 
-    this.validSickPetForm();
+    this.validateSickPetForm();
   }
 
-  validSickPetForm() {
+  validateSickPetForm() {
     if (this.addSickPetForm.valid) {
       this.spinnerService.show();
 

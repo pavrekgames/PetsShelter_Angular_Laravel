@@ -1,10 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { Conversation } from '../models/conversation';
-import { Router } from '@angular/router';
 import { RoutingService } from '../services/routing.service';
 import { MessagesService } from '../services/messages.service';
-import { ApiService } from '../services/api-service';
+import { ApiMessagesService } from '../services/api-messages.service';
 
 @Component({
   selector: 'app-message-list-element',
@@ -27,8 +26,8 @@ export class MessageListElementComponent {
 
   constructor(
     private routingService: RoutingService,
-    private apiService: ApiService,
-    private messagesService: MessagesService
+    private messagesService: MessagesService,
+    private apiMessagessService: ApiMessagesService
   ) {
     this.messagesService.conversationMessagesCountObs.subscribe(
       ([messagesCount, conversationId]) => this.updateConversationMessagesCount(messagesCount, conversationId)
@@ -36,7 +35,7 @@ export class MessageListElementComponent {
   }
 
   ngOnInit(): void {
-    this.apiService
+    this.apiMessagessService
       .getUnreadConversationMessagesCount(this.conversation.id)
       .subscribe({
         next: (data) => {

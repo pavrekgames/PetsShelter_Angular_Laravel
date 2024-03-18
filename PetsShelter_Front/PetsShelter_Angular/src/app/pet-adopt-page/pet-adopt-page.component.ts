@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ApiService } from '../services/api-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faEnvelope, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../services/auth.service';
 import { SpinnerService } from '../services/spinner.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ApiPetsService } from '../services/api-pets.service';
+import { ApiMessagesService } from '../services/api-messages.service';
 
 declare let alertify: any;
 
@@ -32,13 +32,13 @@ export class PetAdoptPageComponent {
   faEnvelope = faEnvelope;
 
   constructor(
-    private apiService: ApiService,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
     private spinnerService: SpinnerService,
     private breakPointService: BreakpointObserver,
-    private apiPetsService: ApiPetsService
+    private apiPetsService: ApiPetsService,
+    private apiMessagessService: ApiMessagesService
   ) {}
 
   ngOnInit(): void {
@@ -116,7 +116,7 @@ export class PetAdoptPageComponent {
   }
 
   createConversation() {
-    this.apiService.createConversation(this.pet).subscribe({
+    this.apiMessagessService.createConversation(this.pet).subscribe({
       next: (data: any) => {
         this.handleConversationSuccess(data);
         console.log(data);

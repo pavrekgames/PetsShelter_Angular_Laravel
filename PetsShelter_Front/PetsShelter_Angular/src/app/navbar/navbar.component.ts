@@ -1,9 +1,7 @@
 import {
   Component,
   Input,
-  OnChanges,
   OnInit,
-  SimpleChanges,
 } from '@angular/core';
 import { faShieldDog } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
@@ -17,6 +15,7 @@ import { ApiService } from '../services/api-service';
 import { User } from '../models/user';
 import { MessagesService } from '../services/messages.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { ApiMessagesService } from '../services/api-messages.service';
 
 declare let alertify: any;
 
@@ -57,7 +56,8 @@ export class NavbarComponent implements OnInit {
     private tokenService: TokenService,
     private apiService: ApiService,
     private messagesService: MessagesService,
-    private breakPointService: BreakpointObserver
+    private breakPointService: BreakpointObserver,
+    private apiMessagessService: ApiMessagesService
   ) {
     this.messagesService.messagesCountObs.subscribe(
       (messagesCount) => (this.messagesCount = messagesCount)
@@ -76,7 +76,7 @@ export class NavbarComponent implements OnInit {
         },
       });
 
-      this.apiService.getUnreadMessagesCount().subscribe({
+      this.apiMessagessService.getUnreadMessagesCount().subscribe({
         next: (data) => {
           this.getUnreadMessagesCount(data);
         },

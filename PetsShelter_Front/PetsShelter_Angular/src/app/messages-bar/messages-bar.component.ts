@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { ApiService } from '../services/api-service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 import { faAnglesLeft } from '@fortawesome/free-solid-svg-icons';
+import { ApiMessagesService } from '../services/api-messages.service';
 
 declare let alertify: any;
 
@@ -24,12 +24,12 @@ export class MessagesBarComponent {
   convsersations: any;
 
   constructor(
-    private apiService: ApiService,
-    private breakPointService: BreakpointObserver
+    private breakPointService: BreakpointObserver,
+    private apiMessagessService: ApiMessagesService
   ) {}
 
   ngOnInit(): void {
-    this.apiService.getConversations().subscribe({
+    this.apiMessagessService.getConversations().subscribe({
       next: (data) => {
         this.handleConversations(data);
       },

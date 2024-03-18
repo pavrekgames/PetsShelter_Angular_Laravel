@@ -9,8 +9,6 @@ export class ApiPetsService {
 
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
-  //pets
-
   addPet(data: FormData){
 
     const token = this.tokenService.getTokenValue();

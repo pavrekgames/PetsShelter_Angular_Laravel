@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import { ApiService } from '../services/api-service';
 import { ActivatedRoute } from '@angular/router';
 import { SpinnerService } from '../services/spinner.service';
 import { Conversation } from '../models/conversation';
@@ -8,6 +7,7 @@ import { Message } from '../models/message';
 import { RoutingService } from '../services/routing.service';
 import { MessagesService } from '../services/messages.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { ApiMessagesService } from '../services/api-messages.service';
 
 declare let alertify: any;
 
@@ -44,12 +44,12 @@ export class ConversationComponent {
   petsPerPage: number = 10;
 
   constructor(
-    private apiService: ApiService,
     private route: ActivatedRoute,
     private spinnerService: SpinnerService,
     private routingService: RoutingService,
     private messagesService: MessagesService,
-    private breakPointService: BreakpointObserver
+    private breakPointService: BreakpointObserver,
+    private apiMessagessService: ApiMessagesService
   ) {}
 
   ngOnInit(): void {
@@ -59,14 +59,14 @@ export class ConversationComponent {
     if (this.conversationId != undefined) {
       this.spinnerService.show();
 
-      this.apiService.getConversation(this.conversationId).subscribe({
+      this.apiMessagessService.getConversation(this.conversationId).subscribe({
         next: (data: any) => {
           this.spinnerService.hide();
           this.handleConversation(data);
         },
       });
 
-      this.apiService.getMessages(this.conversationId).subscribe({
+      this.apiMessagessService.getMessages(this.conversationId).subscribe({
         next: (data: any) => {
           this.spinnerService.hide();
           this.handleConversationMessages(data);
@@ -93,13 +93,13 @@ export class ConversationComponent {
   handleConversationMessages(data: any) {
     this.conversationMessages = data;
 
-    this.apiService.getUnreadMessagesCount().subscribe({
+    this.apiMessagessService.getUnreadMessagesCount().subscribe({
       next: (data) => {
         this.updateUnreadMessagesCount(data);
       }
     });
 
-    this.apiService.getUnreadConversationMessagesCount(this.conversationId).subscribe({
+    this.apiMessagessService.getUnreadConversationMessagesCount(this.conversationId).subscribe({
       next: (data) => {
         this.updateUnreadConversationMessagesCount(data);
       }
@@ -113,7 +113,7 @@ export class ConversationComponent {
       this.spinnerService.show();
       this.message.conversation_id = this.conversationId;
 
-      this.apiService.createMessage(this.message).subscribe({
+      this.apiMessagessService.createMessage(this.message).subscribe({
         next: (data: any) => {
           this.spinnerService.hide();
           this.handleMessageResponse();

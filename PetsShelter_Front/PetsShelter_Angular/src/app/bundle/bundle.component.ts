@@ -48,10 +48,10 @@ export class BundleComponent {
   ) {}
 
   ngOnInit(): void {
-    this.getUserTokensFromApi();
+    this.getUserTokens();
   }
 
-  getUserTokensFromApi() {
+  getUserTokens() {
     this.apiService.authorizedUser().subscribe({
       next: (data) => {
         this.handleTokens(data);

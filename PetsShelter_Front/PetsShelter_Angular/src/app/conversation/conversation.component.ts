@@ -54,36 +54,45 @@ export class ConversationComponent {
 
   ngOnInit(): void {
     this.conversationId = this.route.snapshot.params.id;
-    console.log('Id konwersacji: ' + this.conversationId);
 
     if (this.conversationId != undefined) {
       this.spinnerService.show();
 
-      this.apiMessagessService.getConversation(this.conversationId).subscribe({
-        next: (data: any) => {
-          this.spinnerService.hide();
-          this.handleConversation(data);
-        },
-      });
-
-      this.apiMessagessService.getMessages(this.conversationId).subscribe({
-        next: (data: any) => {
-          this.spinnerService.hide();
-          this.handleConversationMessages(data);
-        },
-      });
+      this.getConversations();
+      this.getMessages();
     }
 
+    this.checkDeviceSize();
+  }
+
+  getConversations() {
+    this.apiMessagessService.getConversation(this.conversationId).subscribe({
+      next: (data: any) => {
+        this.spinnerService.hide();
+        this.handleConversation(data);
+      },
+    });
+  }
+
+  getMessages() {
+    this.apiMessagessService.getMessages(this.conversationId).subscribe({
+      next: (data: any) => {
+        this.spinnerService.hide();
+        this.handleConversationMessages(data);
+      },
+    });
+  }
+
+  checkDeviceSize() {
     this.breakPointService.observe(Breakpoints.XSmall).subscribe((result) => {
       this.isMobile = false;
 
       if (result.matches) {
         this.isMobile = true;
-      }else{
+      } else {
         this.isMobile = false;
       }
     });
-
   }
 
   handleConversation(data: any) {
@@ -93,19 +102,26 @@ export class ConversationComponent {
   handleConversationMessages(data: any) {
     this.conversationMessages = data;
 
+    this.updateMessageCount();
+    this.updateConversationMessagesCount();
+  }
+
+  updateMessageCount() {
     this.apiMessagessService.getUnreadMessagesCount().subscribe({
       next: (data) => {
         this.updateUnreadMessagesCount(data);
-      }
+      },
     });
+  }
 
-    this.apiMessagessService.getUnreadConversationMessagesCount(this.conversationId).subscribe({
-      next: (data) => {
-        this.updateUnreadConversationMessagesCount(data);
-      }
-    });
-
-
+  updateConversationMessagesCount() {
+    this.apiMessagessService
+      .getUnreadConversationMessagesCount(this.conversationId)
+      .subscribe({
+        next: (data) => {
+          this.updateUnreadConversationMessagesCount(data);
+        },
+      });
   }
 
   sendMessage() {
@@ -113,17 +129,21 @@ export class ConversationComponent {
       this.spinnerService.show();
       this.message.conversation_id = this.conversationId;
 
-      this.apiMessagessService.createMessage(this.message).subscribe({
-        next: (data: any) => {
-          this.spinnerService.hide();
-          this.handleMessageResponse();
-        },
-        error: (error) => {
-          this.spinnerService.hide();
-          this.handleMessageError(error);
-        },
-      });
+      this.createMessage();
     }
+  }
+
+  createMessage() {
+    this.apiMessagessService.createMessage(this.message).subscribe({
+      next: (data: any) => {
+        this.spinnerService.hide();
+        this.handleMessageResponse();
+      },
+      error: (error) => {
+        this.spinnerService.hide();
+        this.handleMessageError(error);
+      },
+    });
   }
 
   handleMessageResponse() {
@@ -145,7 +165,9 @@ export class ConversationComponent {
 
   updateUnreadConversationMessagesCount(data: any) {
     this.unreadConversationMessagesCount = data.messagesCount;
-    this.messagesService.updateConversationMessagesCount(this.unreadConversationMessagesCount, this.conversationId);
+    this.messagesService.updateConversationMessagesCount(
+      this.unreadConversationMessagesCount,
+      this.conversationId
+    );
   }
-
 }

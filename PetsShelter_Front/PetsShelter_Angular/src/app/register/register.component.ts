@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { ApiService } from '../services/api-service';
 import { SpinnerService } from '../services/spinner.service';
 
-
 declare let alertify: any;
 
 @Component({
@@ -32,37 +31,38 @@ export class RegisterComponent implements OnInit {
     private spinnerService: SpinnerService
   ) {}
 
-  ngOnInit(): void {
-    //this.hasSubmitted = false;
-    //this.isPasswordsSame = false;
-  }
+  ngOnInit(): void {}
 
   onSubmit() {
     this.hasSubmitted = true;
     this.error = [];
 
     this.checkPassword();
+    this.validateRegisterForm();
+  }
 
+  validateRegisterForm() {
     if (this.registerForm.valid && this.isPasswordsSame) {
       this.spinnerService.show();
       const formData = this.registerForm.getRawValue();
 
-      this.apiService.register(formData).subscribe({
-        next: (data) => {
-          this.spinnerService.hide();
-          this.handleResponse();
-          console.log(data);
-        },
-        error: (error) => {
-          this.spinnerService.hide();
-          this.handleError(error);
-          console.log(this.error);
-        },
-      });
-
+      this.register(formData);
     } else {
       console.log('Form is invalid');
     }
+  }
+
+  register(formData: any) {
+    this.apiService.register(formData).subscribe({
+      next: (data) => {
+        this.spinnerService.hide();
+        this.handleResponse();
+      },
+      error: (error) => {
+        this.spinnerService.hide();
+        this.handleError(error);
+      },
+    });
   }
 
   checkPassword() {
@@ -83,9 +83,7 @@ export class RegisterComponent implements OnInit {
   }
 
   handleError(error: any) {
-    this.error = error.error.error; // before was error.error.erros
-    console.log('Mam błąd: ' + JSON.stringify(error));
-    console.log('Mam do przesłania błąd: ' + JSON.stringify(this.error));
+    this.error = error.error.error;
 
     alertify.error('Błąd rejestracji');
   }

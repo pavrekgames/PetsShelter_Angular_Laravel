@@ -9,7 +9,7 @@ declare let alertify: any;
 @Component({
   selector: 'app-add-pet',
   templateUrl: './add-pet.component.html',
-  styleUrl: './add-pet.component.css'
+  styleUrl: './add-pet.component.css',
 })
 export class AddPetComponent implements OnInit {
   hasSubmitted: boolean = false;
@@ -25,7 +25,7 @@ export class AddPetComponent implements OnInit {
     size: ['Mały', [Validators.required]],
     description: [''],
     photo: [null, [Validators.required]],
-    userId: [this.userId, [Validators.required]]
+    userId: [this.userId, [Validators.required]],
   });
 
   constructor(
@@ -35,35 +35,36 @@ export class AddPetComponent implements OnInit {
     private apiPetsService: ApiPetsService
   ) {}
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   onSubmit() {
     this.hasSubmitted = true;
     this.error = [];
 
+    this.validatePetForm();
+  }
+
+  validatePetForm() {
     if (this.addPetForm.valid) {
       this.spinnerService.show();
-      const formData = this.addPetForm.getRawValue();
-      console.log("Raw Values: " + JSON.stringify(formData));
 
-      this.apiPetsService.addPet(this.getFormData()).subscribe({
-        next: (data) => {
-          this.spinnerService.hide();
-          this.handleResponse();
-          console.log(data);
-        },
-        error: (error) => {
-          this.spinnerService.hide();
-          this.handleError(error);
-          console.log(this.error);
-        },
-      });
-
+      this.addPet();
     } else {
       console.log('Form is invalid');
     }
+  }
+
+  addPet() {
+    this.apiPetsService.addPet(this.getFormData()).subscribe({
+      next: (data) => {
+        this.spinnerService.hide();
+        this.handleResponse();
+      },
+      error: (error) => {
+        this.spinnerService.hide();
+        this.handleError(error);
+      },
+    });
   }
 
   handleResponse() {
@@ -76,15 +77,13 @@ export class AddPetComponent implements OnInit {
     alertify.error('Wystąpił problem!');
   }
 
-  onFileChange(event: any){
-    console.log(event.target.files[0]);
+  onFileChange(event: any) {
     const photoToUpload = event.target.files[0];
-    //this.fileToUpload = event.target.files[0];
-    this.addPetForm.patchValue({photo: photoToUpload});
+    this.addPetForm.patchValue({ photo: photoToUpload });
     this.addPetForm.get('photo')?.updateValueAndValidity();
   }
 
-  getFormData(){
+  getFormData() {
     const formData: any = new FormData();
     formData.append('name', this.addPetForm.get('name')?.value);
     formData.append('species', this.addPetForm.get('species')?.value);
@@ -95,5 +94,4 @@ export class AddPetComponent implements OnInit {
 
     return formData;
   }
-
 }

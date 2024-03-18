@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient,
     private router: Router,
     private apiService: ApiService,
     private tokenService: TokenService,
@@ -41,24 +40,31 @@ export class LoginComponent implements OnInit {
     this.hasSubmitted = true;
     this.error = null;
 
+    this.validateLoginForm();
+  }
+
+  validateLoginForm() {
     if (this.loginForm.valid) {
       this.spinnerService.show();
       const formData = this.loginForm.getRawValue();
 
-      this.apiService.login(formData).subscribe({
-        next: (data) => {
-          this.spinnerService.hide();
-          this.handleResponse(data);
-        },
-        error: (error) => {
-          this.spinnerService.hide();
-          this.handleError(error);
-          console.log(this.error);
-        },
-      });
+      this.login(formData);
     } else {
       console.log('Form is invalid');
     }
+  }
+
+  login(formData: any) {
+    this.apiService.login(formData).subscribe({
+      next: (data) => {
+        this.spinnerService.hide();
+        this.handleResponse(data);
+      },
+      error: (error) => {
+        this.spinnerService.hide();
+        this.handleError(error);
+      },
+    });
   }
 
   handleResponse(data: any) {

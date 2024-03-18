@@ -23,11 +23,14 @@ export class SickPetsPageComponent {
   ngOnInit(): void {
     this.spinnerService.show();
 
+    this.getSickPets();
+  }
+
+  getSickPets() {
     this.apiSickPetsService.getSickPets().subscribe({
       next: (data) => {
         this.spinnerService.hide();
         this.handleAllPets(data);
-        console.log(data);
       },
     });
   }

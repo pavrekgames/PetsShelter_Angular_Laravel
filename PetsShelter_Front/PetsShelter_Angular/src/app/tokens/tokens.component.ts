@@ -33,12 +33,19 @@ export class TokensComponent {
   ngOnInit(): void {
     this.spinnerService.show();
 
+    this.getUserTokens();
+    this.getBundles();
+  }
+
+  getUserTokens() {
     this.apiService.authorizedUser().subscribe({
       next: (data) => {
         this.handleTokens(data);
       },
     });
+  }
 
+  getBundles() {
     this.apiTokensService.getbundles().subscribe({
       next: (data) => {
         this.spinnerService.hide();
@@ -53,7 +60,5 @@ export class TokensComponent {
 
   handleAllBundles(data: any) {
     this.bundles = data;
-
-    console.log(this.bundles);
   }
 }

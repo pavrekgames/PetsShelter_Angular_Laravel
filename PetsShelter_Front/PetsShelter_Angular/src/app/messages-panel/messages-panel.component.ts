@@ -23,27 +23,26 @@ export class MessagesPanelComponent {
       (messagesCount) => (this.messagesCount = messagesCount)
     );
 
-    this.breakPointService.observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium]).subscribe((result) => {
-      this.isMobile = false;
+    this.checkDeviceSize();
+  }
 
-      if (result.breakpoints[Breakpoints.XSmall]) {
-        this.isMobile = true;
-      }else{
+  checkDeviceSize() {
+    this.breakPointService
+      .observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium])
+      .subscribe((result) => {
         this.isMobile = false;
-      }
 
-      if (result.breakpoints[Breakpoints.Small]) {
-        this.isBigMobile = true;
-      }else{
-        this.isBigMobile = false;
-      }
+        if (result.breakpoints[Breakpoints.XSmall]) {
+          this.isMobile = true;
+        } else {
+          this.isMobile = false;
+        }
 
-      if (result.breakpoints[Breakpoints.Medium]) {
-        //this.isMedium = true;
-      }else{
-        //this.isMedium = false;
-      }
-    });
-
+        if (result.breakpoints[Breakpoints.Small]) {
+          this.isBigMobile = true;
+        } else {
+          this.isBigMobile = false;
+        }
+      });
   }
 }

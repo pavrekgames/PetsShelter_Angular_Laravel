@@ -29,6 +29,12 @@ export class MessagesBarComponent {
   ) {}
 
   ngOnInit(): void {
+    this.getConversations();
+
+    this.checkDeviceSize();
+  }
+
+  getConversations() {
     this.apiMessagessService.getConversations().subscribe({
       next: (data) => {
         this.handleConversations(data);
@@ -37,29 +43,26 @@ export class MessagesBarComponent {
         this.handleError();
       },
     });
+  }
 
-    this.breakPointService.observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium]).subscribe((result) => {
-      this.isMobile = false;
-
-      if (result.breakpoints[Breakpoints.XSmall]) {
-        this.isMobile = true;
-      }else{
+  checkDeviceSize() {
+    this.breakPointService
+      .observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium])
+      .subscribe((result) => {
         this.isMobile = false;
-      }
 
-      if (result.breakpoints[Breakpoints.Small]) {
-        this.isBigMobile = true;
-      }else{
-        this.isBigMobile = false;
-      }
+        if (result.breakpoints[Breakpoints.XSmall]) {
+          this.isMobile = true;
+        } else {
+          this.isMobile = false;
+        }
 
-      if (result.breakpoints[Breakpoints.Medium]) {
-        //this.isMedium = true;
-      }else{
-        //this.isMedium = false;
-      }
-    });
-
+        if (result.breakpoints[Breakpoints.Small]) {
+          this.isBigMobile = true;
+        } else {
+          this.isBigMobile = false;
+        }
+      });
   }
 
   handleConversations(data: any) {
@@ -70,14 +73,11 @@ export class MessagesBarComponent {
     alertify.error('Wystąpił problem z wyświetleniem konwersjacji');
   }
 
-  toggleSidebar(){
-
-    if(this.isCollapsed){
+  toggleSidebar() {
+    if (this.isCollapsed) {
       this.isCollapsed = false;
-    }else{
+    } else {
       this.isCollapsed = true;
     }
-
   }
-
 }

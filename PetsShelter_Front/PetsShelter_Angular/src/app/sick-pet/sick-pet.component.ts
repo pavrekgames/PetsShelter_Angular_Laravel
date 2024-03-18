@@ -50,24 +50,28 @@ export class SickPetComponent {
   ) {}
 
   ngOnInit(): void {
+    this.getUsersToken();
+    this.checkDeviceSize();
+  }
+
+  getUsersToken() {
     this.apiService.authorizedUser().subscribe({
       next: (data) => {
         this.handleUserTokens(data);
       },
     });
+  }
 
+  checkDeviceSize() {
     this.breakPointService.observe(Breakpoints.XSmall).subscribe((result) => {
       this.isMobile = false;
 
       if (result.matches) {
         this.isMobile = true;
-        console.log('Is Mobile!!!');
-      }else{
+      } else {
         this.isMobile = false;
-        console.log('Not Mobile!!!');
       }
     });
-
   }
 
   transferTokensWindow() {
@@ -92,7 +96,6 @@ export class SickPetComponent {
 
       newConfirmBox.setButtonLabels('Tak', 'Nie');
 
-      // Simply open the popup and observe button click
       newConfirmBox.openConfirmBox$().subscribe((resp) => {
         if (resp.success) {
           this.transferTokens(this.tokensCount, this.pet.id);
@@ -105,11 +108,9 @@ export class SickPetComponent {
     this.apiTokensService.transferTokens(petId, tokens).subscribe({
       next: (data) => {
         this.handleResponse();
-        console.log(data);
       },
       error: (error) => {
         this.handleError();
-        console.log(error);
       },
     });
   }
@@ -139,17 +140,15 @@ export class SickPetComponent {
     newConfirmBox.setTitle('Transfer żetonów');
     newConfirmBox.setMessage('Nie masz tyle żetonów!');
 
-    // Choose layout color type
     newConfirmBox.setConfig({
       layoutType: DialogLayoutDisplay.WARNING,
       animationIn: AppearanceAnimation.BOUNCE_IN,
       animationOut: DisappearanceAnimation.BOUNCE_OUT,
-      buttonPosition: 'center', // optional
+      buttonPosition: 'center',
     });
 
     newConfirmBox.setButtonLabels('Zamknij', '');
 
-    // Simply open the popup and observe button click
     newConfirmBox.openConfirmBox$().subscribe((resp) => {
       if (resp.clickedButtonID) {
         console.log('Button clicked: ', resp.clickedButtonID);

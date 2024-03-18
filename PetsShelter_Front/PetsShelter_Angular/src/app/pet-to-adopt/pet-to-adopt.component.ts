@@ -1,4 +1,3 @@
-import { PaymentComponent } from './../payment/payment.component';
 import { Component, Input, Output, OnInit } from '@angular/core';
 import { Pet } from '../models/pet';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -26,15 +25,17 @@ export class PetToAdoptComponent implements OnInit {
   constructor(private breakPointService: BreakpointObserver) {}
 
   ngOnInit() {
+    this.checkDeviceSize();
+  }
+
+  checkDeviceSize() {
     this.breakPointService.observe(Breakpoints.XSmall).subscribe((result) => {
       this.isMobile = false;
 
       if (result.matches) {
         this.isMobile = true;
-        console.log('Is Mobile!!!');
-      }else{
+      } else {
         this.isMobile = false;
-        console.log('Not Mobile!!!');
       }
     });
   }

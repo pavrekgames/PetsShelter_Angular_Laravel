@@ -46,7 +46,6 @@ export class EditPetComponent {
       next: (data: any) => {
         this.spinnerService.hide();
         this.handlePetToAdopt(data);
-        console.log(data);
       },
     });
   }
@@ -55,26 +54,30 @@ export class EditPetComponent {
     this.hasSubmitted = true;
     this.error = [];
 
+    this.validateEditPetForm();
+  }
+
+  validateEditPetForm() {
     if (this.editPetForm.valid) {
       this.spinnerService.show();
-      const formData = this.editPetForm.getRawValue();
-      console.log('Raw Values: ' + JSON.stringify(formData));
 
-      this.apiPetsService.editPet(this.petId, this.getFormData()).subscribe({
-        next: (data) => {
-          this.spinnerService.hide();
-          this.handleResponse();
-          console.log(data);
-        },
-        error: (error) => {
-          this.spinnerService.hide();
-          this.handleError(error);
-          console.log(this.error);
-        },
-      });
+      this.editPet();
     } else {
       console.log('Form is invalid');
     }
+  }
+
+  editPet() {
+    this.apiPetsService.editPet(this.petId, this.getFormData()).subscribe({
+      next: (data) => {
+        this.spinnerService.hide();
+        this.handleResponse();
+      },
+      error: (error) => {
+        this.spinnerService.hide();
+        this.handleError(error);
+      },
+    });
   }
 
   handlePetToAdopt(data: any) {
@@ -107,9 +110,8 @@ export class EditPetComponent {
     return formData;
   }
 
-  cancelEditing(){
+  cancelEditing() {
     this.router.navigate(['/my-pets']);
     alertify.warning('Anulowano edycję');
   }
-
 }

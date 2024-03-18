@@ -11,8 +11,7 @@ import { ApiService } from '../services/api-service';
 import { User } from '../models/user';
 import { Router } from '@angular/router';
 import { StripeService } from '../services/stripe.service';
-
-declare let alertify: any;
+import { ApiTokensService } from '../services/api-tokens.service';
 
 @Component({
   selector: 'app-bundle',
@@ -44,7 +43,8 @@ export class BundleComponent {
   constructor(
     private apiService: ApiService,
     private router: Router,
-    private stripeService: StripeService
+    private stripeService: StripeService,
+    private apiTokensService: ApiTokensService
   ) {}
 
   ngOnInit(): void {
@@ -79,7 +79,7 @@ export class BundleComponent {
     // Simply open the popup and observe button click
     newConfirmBox.openConfirmBox$().subscribe((resp) => {
       if (resp.success) {
-        this.apiService.createPayIntent(this.bundle).subscribe({
+        this.apiTokensService.createPayIntent(this.bundle).subscribe({
           next: (data) => {
             console.log(data);
             this.bundlePayment(this.bundle.id, data);

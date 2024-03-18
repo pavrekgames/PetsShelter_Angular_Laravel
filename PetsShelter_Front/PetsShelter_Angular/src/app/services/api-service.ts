@@ -10,8 +10,6 @@ export class ApiService {
 
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
- // user
-
   register(data: any) {
     return this.http.post('http://127.0.0.1:8000/api/register', data);
   }
@@ -65,64 +63,6 @@ export class ApiService {
     return this.http.delete('http://127.0.0.1:8000/api/users/delete/' + id, {'headers': headers});
 
   }
-
-
-
-
-  // tokens
-
-  topUpTokens(data: any){
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.put<any>('http://127.0.0.1:8000/api/top-up-tokens', data, {'headers': headers});
-
-  }
-
-  transferTokens(petId: any, data: any){
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.post('http://127.0.0.1:8000/api/transfer-tokens/' + petId, data, {'headers': headers});
-
-  }
-
-  getbundles(){
-
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.get('http://127.0.0.1:8000/api/bundles', {'headers': headers});
-
-  }
-
-  getbundle(id: any){
-
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.get('http://127.0.0.1:8000/api/bundles/' + id, {'headers': headers});
-
-  }
-
-  createPayIntent(data: any){
-
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.post('http://127.0.0.1:8000/api/payment-intent', data, {'headers': headers});
-
-  }
-
-  storePayment(data: any){
-
-    const token = this.tokenService.getTokenValue();
-    const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
-
-    return this.http.post('http://127.0.0.1:8000/api/store-payment', data, {'headers': headers});
-
-  }
-
 
   // sick pets
 

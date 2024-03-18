@@ -10,6 +10,7 @@ import {
 } from '@costlydeveloper/ngx-awesome-popup';
 import { ApiService } from '../services/api-service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { ApiTokensService } from '../services/api-tokens.service';
 
 declare let alertify: any;
 
@@ -44,7 +45,8 @@ export class SickPetComponent {
 
   constructor(
     private apiService: ApiService,
-    private breakPointService: BreakpointObserver
+    private breakPointService: BreakpointObserver,
+    private apiTokensService: ApiTokensService
   ) {}
 
   ngOnInit(): void {
@@ -100,7 +102,7 @@ export class SickPetComponent {
   }
 
   transferTokens(tokens: any, petId: any) {
-    this.apiService.transferTokens(petId, tokens).subscribe({
+    this.apiTokensService.transferTokens(petId, tokens).subscribe({
       next: (data) => {
         this.handleResponse();
         console.log(data);

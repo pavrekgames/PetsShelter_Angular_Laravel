@@ -3,8 +3,7 @@ import { Component } from '@angular/core';
 import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
 import { User } from '../models/user';
 import { SpinnerService } from '../services/spinner.service';
-
-declare let alertify: any;
+import { ApiTokensService } from '../services/api-tokens.service';
 
 @Component({
   selector: 'app-tokens',
@@ -27,7 +26,8 @@ export class TokensComponent {
 
   constructor(
     private apiService: ApiService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private apiTokensService: ApiTokensService
   ) {}
 
   ngOnInit(): void {
@@ -39,7 +39,7 @@ export class TokensComponent {
       },
     });
 
-    this.apiService.getbundles().subscribe({
+    this.apiTokensService.getbundles().subscribe({
       next: (data) => {
         this.spinnerService.hide();
         this.handleAllBundles(data);

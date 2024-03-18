@@ -7,13 +7,13 @@ import {
 } from '@angular/core';
 import { Bundle } from '../models/bundle';
 import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
-import { ApiService } from '../services/api-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SpinnerService } from '../services/spinner.service';
 import { AngularStripeService } from '@fireflysemantics/angular-stripe-service';
 import { NgForm } from '@angular/forms';
 import { StripeService } from '../services/stripe.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { ApiTokensService } from '../services/api-tokens.service';
 
 declare let alertify: any;
 
@@ -52,21 +52,21 @@ export class PaymentComponent {
   error: string = '';
 
   constructor(
-    private apiService: ApiService,
     private route: ActivatedRoute,
     private router: Router,
     private spinnerService: SpinnerService,
     private changeDetector: ChangeDetectorRef,
     private angularStripeService: AngularStripeService,
     private stripeService: StripeService,
-    private breakPointService: BreakpointObserver
+    private breakPointService: BreakpointObserver,
+    private apiTokensService: ApiTokensService
   ) {}
 
   ngOnInit(): void {
     this.bundleId = this.route.snapshot.params.id;
     this.spinnerService.show();
 
-    this.apiService.getbundle(this.bundleId).subscribe({
+    this.apiTokensService.getbundle(this.bundleId).subscribe({
       next: (data: any) => {
         this.spinnerService.hide();
         this.handleBundle(data);
@@ -127,7 +127,7 @@ export class PaymentComponent {
       console.log('Success!', token);
 
       this.spinnerService.show();
-      this.apiService.storePayment(this.bundle).subscribe({
+      this.apiTokensService.storePayment(this.bundle).subscribe({
         next: (data: any) => {
           this.spinnerService.hide();
           this.handlePaymentResponse(data);

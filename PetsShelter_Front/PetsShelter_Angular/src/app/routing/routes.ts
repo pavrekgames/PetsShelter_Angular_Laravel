@@ -4,7 +4,6 @@ import { HomeComponent } from "../home/home.component";
 import { RegisterComponent } from "../register/register.component";
 import { LoginComponent } from "../login/login.component";
 import { PetsAdoptPageComponent } from "../pets-adopt-page/pets-adopt-page.component";
-import { PetsSickPageComponent } from "../pets-sick-page/pets-sick-page.component";
 import { AddPetComponent } from "../add-pet/add-pet.component";
 import { loggedGuard } from '../guards/logged.guard';
 import { notLoggedGuard } from '../guards/not-logged.guard';

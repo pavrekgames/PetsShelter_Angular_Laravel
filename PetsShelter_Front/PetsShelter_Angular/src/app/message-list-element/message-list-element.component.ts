@@ -30,11 +30,21 @@ export class MessageListElementComponent {
     private apiMessagessService: ApiMessagesService
   ) {
     this.messagesService.conversationMessagesCountObs.subscribe(
-      ([messagesCount, conversationId]) => this.updateConversationMessagesCount(messagesCount, conversationId)
+      ([messagesCount, conversationId]) =>
+        this.updateConversationMessagesCount(messagesCount, conversationId)
     );
   }
 
   ngOnInit(): void {
+    this.getConversationMessagesCount();
+
+    this.messagesService.conversationMessagesCountObs.subscribe(
+      ([messagesCount, conversationId]) =>
+        this.updateConversationMessagesCount(messagesCount, conversationId)
+    );
+  }
+
+  getConversationMessagesCount() {
     this.apiMessagessService
       .getUnreadConversationMessagesCount(this.conversation.id)
       .subscribe({
@@ -42,10 +52,6 @@ export class MessageListElementComponent {
           this.getUnreadMessagesCount(data);
         },
       });
-
-    this.messagesService.conversationMessagesCountObs.subscribe(
-      ([messagesCount, conversationId]) => this.updateConversationMessagesCount(messagesCount, conversationId)
-    );
   }
 
   selectConversation() {

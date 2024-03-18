@@ -23,20 +23,16 @@ export class MessageComponent {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.authUser = this.authService.getUser();
 
-   this.authUser = this.authService.getUser();
-
-   this.checkSender();
-
+    this.checkSender();
   }
 
-  checkSender(){
-
-    if(this.conversationMessage.sender_id == this.authUser.id){
+  checkSender() {
+    if (this.conversationMessage.sender_id == this.authUser.id) {
       this.isSenderMessage = true;
-    }else{
+    } else {
       this.isSenderMessage = false;
     }
   }
-
 }

@@ -38,24 +38,29 @@ export class SickPetsManagerComponent {
   ngOnInit(): void {
     this.spinnerService.show();
 
+    this.getSickPets();
+    this.checkDeviceSize();
+  }
+
+  getSickPets() {
     this.apiSickPetsService.getSickPets().subscribe({
       next: (data) => {
         this.spinnerService.hide();
         this.handleAllPets(data);
-        console.log(data);
       },
     });
+  }
 
+  checkDeviceSize() {
     this.breakPointService.observe(Breakpoints.XSmall).subscribe((result) => {
       this.isMobile = false;
 
       if (result.matches) {
         this.isMobile = true;
-      }else{
+      } else {
         this.isMobile = false;
       }
     });
-
   }
 
   handleAllPets(data: any) {
@@ -70,7 +75,6 @@ export class SickPetsManagerComponent {
       'Czy na pewno chcesz usunąć chore zwierzę o imieniu ' + petName + ' ?'
     );
 
-    // Choose layout color type
     newConfirmBox.setConfig({
       layoutType: DialogLayoutDisplay.DANGER,
       animationIn: AppearanceAnimation.BOUNCE_IN,
@@ -80,7 +84,6 @@ export class SickPetsManagerComponent {
 
     newConfirmBox.setButtonLabels('Tak', 'Nie');
 
-    // Simply open the popup and observe button click
     newConfirmBox.openConfirmBox$().subscribe((resp) => {
       if (resp.success) {
         this.deleteSickPet(petId);
@@ -95,12 +98,10 @@ export class SickPetsManagerComponent {
       next: (data) => {
         this.spinnerService.hide();
         this.handleResponse();
-        console.log(data);
       },
       error: (error) => {
         this.spinnerService.hide();
         this.handleError();
-        console.log(error);
       },
     });
   }

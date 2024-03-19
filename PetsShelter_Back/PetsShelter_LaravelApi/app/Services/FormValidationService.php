@@ -82,6 +82,20 @@ class FormValidationService
         return $validationResponse;
     }
 
+    public function validateSendMessage(Request $request){
+
+        $data = $request->only('content', 'conversation_id');
+
+        $validator = Validator::make($data, [
+            'content' => 'required',
+            'conversation_id' => 'required|integer',
+        ]);
+
+        $validationResponse = $this->checkValidation($validator);
+
+        return $validationResponse;
+    }
+
     private function checkValidation($validator)
     {
         if ($validator->fails()) {

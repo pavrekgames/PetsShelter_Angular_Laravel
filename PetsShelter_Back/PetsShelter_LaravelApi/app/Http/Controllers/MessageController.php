@@ -6,13 +6,19 @@ use App\Models\Conversation;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use App\Services\FormValidationService;
 
 
 class MessageController extends Controller
 {
+    public $formValidationService;
+
+    public function __construct(FormValidationService $formValidationService)
+    {
+        $this->formValidationService = $formValidationService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,15 +36,10 @@ class MessageController extends Controller
      */
     public function create(Request $request)
     {
-        $data = $request->only('content', 'conversation_id');
+        $validation = $this->formValidationService->validateSendMessage($request);
 
-        $validator = Validator::make($data, [
-            'content' => 'required',
-            'conversation_id' => 'required|integer',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+        if ($validation) {
+            return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);
         }
 
         $user = auth()->user();
@@ -70,7 +71,6 @@ class MessageController extends Controller
         $conversation->save();
 
         return response()->json(['message' => 'Wysłałeś wiadomość', 'messageData' => $message], Response::HTTP_OK);
-
     }
 
     /**
@@ -99,10 +99,10 @@ class MessageController extends Controller
 
         $messages = $conversation->messages()->orderBy('created_at', 'desc')->get();
 
-        $messages = $messages->map(function ($message) use ( $authUserId) {
+        $messages = $messages->map(function ($message) use ($authUserId) {
             $data = [];
 
-            if($message->user_receiver_id == $authUserId && $message->has_read == '0'){
+            if ($message->user_receiver_id == $authUserId && $message->has_read == '0') {
                 $message->update(['has_read' => '1']);
             }
 
@@ -117,36 +117,32 @@ class MessageController extends Controller
             return $data;
         });
 
-
         return response()->json($messages, Response::HTTP_OK);
     }
 
-    public function getUnreadMessagesCount(){
-
+    public function getUnreadMessagesCount()
+    {
         $user = auth()->user();
         $authUserId = $user->id;
 
         $messagesCount = Message::where('user_receiver_id', $authUserId)
-        ->where('has_read', '0')->count();
+            ->where('has_read', '0')->count();
 
         return response()->json(['messagesCount' => $messagesCount], Response::HTTP_OK);
-
     }
 
-    public function getUnreadConversationMessagesCount(Request $request){
-
+    public function getUnreadConversationMessagesCount(Request $request)
+    {
         $conversationId = $request->id;
-        //$conversation = Conversation::where('id', $conversationId)->first();
 
         $user = auth()->user();
         $authUserId = $user->id;
 
         $messagesCount = Message::where('conversation_id', $conversationId)
-        ->where('user_receiver_id', $authUserId)
-        ->where('has_read', '0')->count();
+            ->where('user_receiver_id', $authUserId)
+            ->where('has_read', '0')->count();
 
         return response()->json(['messagesCount' => $messagesCount], Response::HTTP_OK);
-
     }
 
     /**

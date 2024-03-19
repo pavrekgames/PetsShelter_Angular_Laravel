@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ResetPasswordMail;
-use App\Services\FormValidationService;
+use App\Services\AuthValidationService;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\SickPet;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Services\AuthService;
@@ -26,7 +25,7 @@ class AuthController extends Controller
      *
      * @return void
      */
-    public function __construct(AuthService $authService, FormValidationService $formValidationService)
+    public function __construct(AuthService $authService, AuthValidationService $formValidationService)
     {
         //$this->middleware('auth:api', ['except' => ['login']]);
         $this->authService = $authService;

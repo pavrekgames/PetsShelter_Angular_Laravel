@@ -7,14 +7,14 @@ use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Symfony\Component\HttpFoundation\Response;
-use App\Services\FormValidationService;
+use App\Services\AuthValidationService;
 
 
 class MessageController extends Controller
 {
     public $formValidationService;
 
-    public function __construct(FormValidationService $formValidationService)
+    public function __construct(AuthValidationService $formValidationService)
     {
         $this->formValidationService = $formValidationService;
     }

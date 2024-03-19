@@ -6,9 +6,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Storage;
 use App\Models\SickPet;
 use Illuminate\Http\Request;
+use App\Services\PetValidationService;
 
 class SickPetController extends Controller
 {
+    public $petValidationService;
+
+    public function __construct(PetValidationService $petValidationService)
+    {
+        $this->petValidationService = $petValidationService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,18 +36,10 @@ class SickPetController extends Controller
      */
     public function create(Request $request)
     {
-        $data = $request->only('name', 'species', 'disease', 'required_tokens', 'photo');
+        $validation = $this->petValidationService->validateAddSickPetForm($request);
 
-        $validator = Validator::make($data, [
-            'name' => 'required',
-            'species' => 'required|min:3',
-            'disease' => 'required|min:3',
-            'required_tokens' => 'required|integer|min:1',
-            'photo' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+        if ($validation) {
+            return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);
         }
 
         $photo = $request->file('photo')->store('pets');

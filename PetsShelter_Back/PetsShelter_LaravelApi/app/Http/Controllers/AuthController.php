@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ResetPasswordMail;
+use App\Services\FormValidationService;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\SickPet;
@@ -18,33 +19,28 @@ class AuthController extends Controller
 {
 
     public $authService;
+    public $formValidationService;
 
     /**
      * Create a new AuthController instance.
      *
      * @return void
      */
-    public function __construct(AuthService $authService)
+    public function __construct(AuthService $authService, FormValidationService $formValidationService)
     {
         //$this->middleware('auth:api', ['except' => ['login']]);
         $this->authService = $authService;
+        $this->formValidationService = $formValidationService;
 
     }
 
     public function register(Request $request)
     {
 
-        $data = $request->only('name', 'surname', 'email', 'password');
+        $validation = $this->formValidationService->validateRegisterForm($request);
 
-        $validator = Validator::make($data, [
-            'name' => 'required|max:25',
-            'surname' => 'required|max:25',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+        if($validation){
+            return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);
         }
 
         $user = User::Create([

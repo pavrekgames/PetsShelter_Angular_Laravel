@@ -13,7 +13,6 @@ class PaymentController extends Controller
 
     public function createPayIntent(Request $request)
     {
-
         try {
             $itemName = $request->name;
             $itemPrice = $request->price;
@@ -41,12 +40,10 @@ class PaymentController extends Controller
                 'errors' => $e->getMessage()
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-
     }
 
     public function storeStripePayment(Request $request)
     {
-
         try {
             $user = auth()->user();
             $intentId = $request->intent_id;
@@ -72,8 +69,5 @@ class PaymentController extends Controller
                 'errors' => $e->getMessage()
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-
     }
-
-
 }

@@ -39,7 +39,7 @@ class PetController extends Controller
     {
         $validation = $this->petValidationService->validateAddPetForm($request);
 
-        if($validation){
+        if ($validation) {
             return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);
         }
 
@@ -52,11 +52,11 @@ class PetController extends Controller
             'race' => $request->input('race'),
             'size' => $request->input('size'),
             'description' => $request->input('description'),
-            'photo_path' => "http://127.0.0.1:8000/storage/".$photo,
+            'photo_path' => "http://127.0.0.1:8000/storage/" . $photo,
             'user_id' => $user->id,
         ]);
 
-        return response()->json(['message' => 'Dodałeś zwierzę do adopcji', 'userData'=> $pet], Response::HTTP_OK);
+        return response()->json(['message' => 'Dodałeś zwierzę do adopcji', 'userData' => $pet], Response::HTTP_OK);
     }
 
     /**
@@ -109,7 +109,7 @@ class PetController extends Controller
     {
         $validation = $this->petValidationService->validateEditPetForm($request);
 
-        if($validation){
+        if ($validation) {
             return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);
         }
 
@@ -123,21 +123,21 @@ class PetController extends Controller
     {
         $validation = $this->petValidationService->validatePetPhotoForm($request);
 
-        if($validation){
+        if ($validation) {
             return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);
         }
 
         $id = $request->id;
         $pet = Pet::findOrFail($id);
         $oldPhotoPath = $pet->photo_path;
-        $oldPhotoPath = trim(str_replace('http://127.0.0.1:8000/storage/','',$oldPhotoPath));
+        $oldPhotoPath = trim(str_replace('http://127.0.0.1:8000/storage/', '', $oldPhotoPath));
 
-        if(Storage::exists($oldPhotoPath)){
+        if (Storage::exists($oldPhotoPath)) {
             Storage::delete($oldPhotoPath);
         }
 
         $newPhoto = $request->file('photo')->store('pets');
-        $newPhotoPath = "http://127.0.0.1:8000/storage/".$newPhoto;
+        $newPhotoPath = "http://127.0.0.1:8000/storage/" . $newPhoto;
         $pet->photo_path = $newPhotoPath;
 
         $pet->save();
@@ -159,55 +159,52 @@ class PetController extends Controller
         return response()->json($pet, Response::HTTP_OK);
     }
 
-    public function newestPets(){
-
+    public function newestPets()
+    {
         $pets = Pet::latest()->take(3)->get();
 
         return response()->json($pets, Response::HTTP_OK);
     }
 
-    public function petsToAdopt(){
-
+    public function petsToAdopt()
+    {
         $pets = Pet::all();
 
         return response()->json($pets, Response::HTTP_OK);
     }
 
-    public function myPets(){
-
+    public function myPets()
+    {
         $user = auth()->user();
-        //$pets = Pet::where('id_user', $user->id)->get();
         $pets = $user->pets;
 
         return response()->json($pets, Response::HTTP_OK);
-
     }
 
-    public function showSavedPets(){
-
+    public function showSavedPets()
+    {
         $user = auth()->user();
-
         $savedPets = $user->savedPets;
 
         return response()->json($savedPets, Response::HTTP_OK);
     }
 
-    public function checkSavedPet(Request $request){
-
+    public function checkSavedPet(Request $request)
+    {
         $user = auth()->user();
         $userId = $user->id;
         $petId = $request->id;
 
         $pet = DB::table('saved_pets')->select('pet_id')
-        ->where('pet_id', $petId,)
-        ->where('user_id', $userId,)
-        ->first();
+            ->where('pet_id', $petId, )
+            ->where('user_id', $userId, )
+            ->first();
 
         return response()->json($pet, Response::HTTP_OK);
     }
 
-    public function addSavedPet(Request $request){
-
+    public function addSavedPet(Request $request)
+    {
         $user = auth()->user();
         $userId = $user->id;
         $petId = $request->id;
@@ -217,16 +214,16 @@ class PetController extends Controller
         return response()->json($pet, Response::HTTP_OK);
     }
 
-    public function deleteSavedPet(Request $request){
-
+    public function deleteSavedPet(Request $request)
+    {
         $user = auth()->user();
         $userId = $user->id;
         $petId = $request->id;
 
         $pet = DB::table('saved_pets')
-        ->where('user_id', $userId)
-        ->where('pet_id', $petId)
-        ->delete();
+            ->where('user_id', $userId)
+            ->where('pet_id', $petId)
+            ->delete();
 
         return response()->json($pet, Response::HTTP_OK);
     }

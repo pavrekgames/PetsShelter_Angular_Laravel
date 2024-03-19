@@ -153,16 +153,10 @@ class AuthController extends Controller
      */
     public function resetPassword(Request $request)
     {
+        $validation = $this->formValidationService->validateResetPasswordForm($request);
 
-        $data = $request->only('name', 'email');
-
-        $validator = Validator::make($data, [
-            'name' => 'required',
-            'email' => 'required|email',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+        if($validation){
+            return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);
         }
 
         $user = User::where('name', $request->name)
@@ -182,16 +176,6 @@ class AuthController extends Controller
             'reset_password' => $newPassword,
             'name' => $user->name
         ];
-
-        /* Mail::send('emails.ResetPasswordMail', $mailData, function ($message) use ($user){
-             $message->to($user->email, $user->name)
-             ->subject("Resetowanie hasła - Pet Shelter");
-             $message->from('petshelter@support.gamil.com', 'Paweł Śruta');
-         }); */
-
-       /* $email = \App::makeWith(ResetPasswordMail::class, [
-            'mailData' => $mailData,
-        ]); */
 
         $email = new ResetPasswordMail($mailData);
 

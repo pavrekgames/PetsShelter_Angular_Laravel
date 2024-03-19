@@ -68,6 +68,20 @@ class FormValidationService
         return $validationResponse;
     }
 
+    public function validateResetPasswordForm(Request $request){
+
+        $data = $request->only('name', 'email');
+
+        $validator = Validator::make($data, [
+            'name' => 'required',
+            'email' => 'required|email',
+        ]);
+
+        $validationResponse = $this->checkValidation($validator);
+
+        return $validationResponse;
+    }
+
     private function checkValidation($validator)
     {
         if ($validator->fails()) {

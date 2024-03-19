@@ -121,15 +121,10 @@ class PetController extends Controller
 
     public function updatePhoto(Request $request)
     {
+        $validation = $this->petValidationService->validatePetPhotoForm($request);
 
-        $data = $request->only('photo');
-
-        $validator = Validator::make($data, [
-            'photo' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+        if($validation){
+            return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);
         }
 
         $id = $request->id;

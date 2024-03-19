@@ -41,6 +41,19 @@ class PetValidationService
         return $validationResponse;
     }
 
+    public function validatePetPhotoForm(Request $request)
+    {
+        $data = $request->only('photo');
+
+        $validator = Validator::make($data, [
+            'photo' => 'required',
+        ]);
+
+        $validationResponse = $this->checkValidation($validator);
+
+        return $validationResponse;
+    }
+
     private function checkValidation($validator)
     {
         if ($validator->fails()) {

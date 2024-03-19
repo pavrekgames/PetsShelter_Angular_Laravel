@@ -102,37 +102,24 @@ class SickPetController extends Controller
      */
     public function update(Request $request)
     {
-        $data = $request->only('name', 'species', 'disease', 'required_tokens');
+        $validation = $this->petValidationService->validateEditSickPetForm($request);
 
-        $validator = Validator::make($data, [
-            'name' => 'required',
-            'species' => 'required|min:3',
-            'disease' => 'required|min:3',
-            'required_tokens' => 'required|integer|min:1',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+        if ($validation) {
+            return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);
         }
 
         $id = $request->id;
         $pet = SickPet::where('id', $id)->update($request->only('name', 'species', 'disease', 'required_tokens'));
 
         return response()->json($pet, Response::HTTP_OK);
-
     }
 
     public function updatePhoto(Request $request)
     {
+        $validation = $this->petValidationService->validatePetPhotoForm($request);
 
-        $data = $request->only('photo');
-
-        $validator = Validator::make($data, [
-            'photo' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+        if ($validation) {
+            return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);
         }
 
         $id = $request->id;

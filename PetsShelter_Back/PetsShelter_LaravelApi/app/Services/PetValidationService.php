@@ -71,6 +71,22 @@ class PetValidationService
         return $validationResponse;
     }
 
+    public function validateEditSickPetForm(Request $request)
+    {
+        $data = $request->only('name', 'species', 'disease', 'required_tokens');
+
+        $validator = Validator::make($data, [
+            'name' => 'required',
+            'species' => 'required|min:3',
+            'disease' => 'required|min:3',
+            'required_tokens' => 'required|integer|min:1',
+        ]);
+
+        $validationResponse = $this->checkValidation($validator);
+
+        return $validationResponse;
+    }
+
     private function checkValidation($validator)
     {
         if ($validator->fails()) {

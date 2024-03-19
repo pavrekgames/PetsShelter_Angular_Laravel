@@ -12,7 +12,6 @@ class ConversationController extends Controller
 
     public function create(Request $request)
     {
-
         $authUserId = auth()->user()->id;
         $petUserId = $request->user_id;
         $petId = $request->id;
@@ -38,7 +37,6 @@ class ConversationController extends Controller
         ]);
 
         return response()->json($conversation, Response::HTTP_OK);
-
     }
 
     public function getConversations(Request $request)
@@ -81,11 +79,10 @@ class ConversationController extends Controller
         });
 
         return response()->json($conversations, Response::HTTP_OK);
-
     }
 
-    public function getConversation(Request $request){
-
+    public function getConversation(Request $request)
+    {
         $authUserId = auth()->user()->id;
         $conversationId = $request->id;
 
@@ -119,7 +116,6 @@ class ConversationController extends Controller
         }
 
         return response()->json($conversation, Response::HTTP_OK);
-
     }
 
 }

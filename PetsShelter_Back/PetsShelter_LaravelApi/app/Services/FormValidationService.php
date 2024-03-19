@@ -54,6 +54,20 @@ class FormValidationService
         return $validationResponse;
     }
 
+    public function validateChangePasswordForm(Request $request){
+
+        $data = $request->only('password', 'newPassword');
+
+        $validator = Validator::make($data, [
+            'password' => 'required',
+            'newPassword' => 'required',
+        ]);
+
+        $validationResponse = $this->checkValidation($validator);
+
+        return $validationResponse;
+    }
+
     private function checkValidation($validator)
     {
         if ($validator->fails()) {

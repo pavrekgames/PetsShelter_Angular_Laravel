@@ -122,25 +122,17 @@ class AuthController extends Controller
      */
     public function changePassword(Request $request)
     {
+        $validation = $this->formValidationService->validateChangePasswordForm($request);
 
-        $data = $request->only('password', 'newPassword');
-
-        $validator = Validator::make($data, [
-            'password' => 'required',
-            'newPassword' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+        if($validation){
+            return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);
         }
 
         $user = auth()->user();
 
         $credentials = array();
-
         $credentials["email"] = $user->email;
         $credentials["password"] = $request->password;
-
 
         if (!$token = JWTAuth::attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
@@ -152,7 +144,6 @@ class AuthController extends Controller
         $editedUser = User::where('id', $id)->update($request->only('password'));
 
         return response()->json($editedUser, Response::HTTP_OK);
-
     }
 
     /**

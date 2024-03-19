@@ -193,7 +193,6 @@ class AuthController extends Controller
         return response()->json($user, Response::HTTP_OK);
     }
 
-
     /**
      * Top up tokens of the authenticated User.
      *
@@ -201,13 +200,11 @@ class AuthController extends Controller
      */
     public function topUpTokens(Request $request)
     {
-
         $user = auth()->user();
         $id = $user->id;
         $updatedUser = User::where('id', $id)->update($request->only('tokens_count'));
 
         return response()->json($updatedUser, Response::HTTP_OK);
-
     }
 
     /**
@@ -217,12 +214,9 @@ class AuthController extends Controller
      */
     public function transferTokens(Request $request)
     {
-
         $tokens = (int) $request->tokens_count;
         $pet = SickPet::findOrFail($request->petId);
         $user = auth()->user();
-
-        //dd($request);
 
         if ($pet->status == 'Zakończone') {
             return response()->json(['error' => 'Status akcji zakończony'], Response::HTTP_BAD_REQUEST);
@@ -235,13 +229,10 @@ class AuthController extends Controller
             if ($pet->current_tokens >= $pet->required_tokens) {
                 $pet->update(['status' => 'Zakończone']);
             }
-
         });
 
         return response()->json(['message' => 'Transakcja wykonana'], Response::HTTP_OK);
-
     }
-
 
     /**
      * Log the user out (Invalidate the token).

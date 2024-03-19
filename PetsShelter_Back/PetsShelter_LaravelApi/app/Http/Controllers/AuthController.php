@@ -18,25 +18,25 @@ class AuthController extends Controller
 {
 
     public $authService;
-    public $formValidationService;
+    public $authValidationService;
 
     /**
      * Create a new AuthController instance.
      *
      * @return void
      */
-    public function __construct(AuthService $authService, AuthValidationService $formValidationService)
+    public function __construct(AuthService $authService, AuthValidationService $authValidationService)
     {
         //$this->middleware('auth:api', ['except' => ['login']]);
         $this->authService = $authService;
-        $this->formValidationService = $formValidationService;
+        $this->authValidationService = $authValidationService;
 
     }
 
     public function register(Request $request)
     {
 
-        $validation = $this->formValidationService->validateRegisterForm($request);
+        $validation = $this->authValidationService->validateRegisterForm($request);
 
         if($validation){
             return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);
@@ -64,7 +64,7 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');;
 
-        $validation = $this->formValidationService->validateLoginForm($request);
+        $validation = $this->authValidationService->validateLoginForm($request);
 
         if($validation){
             return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);
@@ -101,7 +101,7 @@ class AuthController extends Controller
      */
     public function editProfile(Request $request)
     {
-        $validation = $this->formValidationService->validateEditProfileForm($request);
+        $validation = $this->authValidationService->validateEditProfileForm($request);
 
         if($validation){
             return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);
@@ -121,7 +121,7 @@ class AuthController extends Controller
      */
     public function changePassword(Request $request)
     {
-        $validation = $this->formValidationService->validateChangePasswordForm($request);
+        $validation = $this->authValidationService->validateChangePasswordForm($request);
 
         if($validation){
             return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);
@@ -152,7 +152,7 @@ class AuthController extends Controller
      */
     public function resetPassword(Request $request)
     {
-        $validation = $this->formValidationService->validateResetPasswordForm($request);
+        $validation = $this->authValidationService->validateResetPasswordForm($request);
 
         if($validation){
             return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pet;
-use App\Models\User;
+use App\Services\PetValidationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -12,6 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PetController extends Controller
 {
+
+    public $petValidationService;
+
+    public function __construct(PetValidationService $petValidationService)
+    {
+        $this->petValidationService = $petValidationService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -29,18 +37,10 @@ class PetController extends Controller
      */
     public function create(Request $request)
     {
-        $data = $request->only('name', 'species', 'race', 'size', 'photo');
+        $validation = $this->petValidationService->validateAddPetForm($request);
 
-        $validator = Validator::make($data, [
-            'name' => 'required',
-            'species' => 'required|min:3',
-            'race' => 'required|min:3',
-            'size' => 'required|min:4',
-            'photo' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+        if($validation){
+            return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);
         }
 
         $user = auth()->user();

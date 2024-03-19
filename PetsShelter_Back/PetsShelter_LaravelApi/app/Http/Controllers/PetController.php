@@ -92,7 +92,6 @@ class PetController extends Controller
      */
     public function edit(Request $request)
     {
-
         $id = $request->id;
         $pet = Pet::findOrFail($id);
 
@@ -108,18 +107,10 @@ class PetController extends Controller
      */
     public function update(Request $request)
     {
+        $validation = $this->petValidationService->validateEditPetForm($request);
 
-        $data = $request->only('name', 'species', 'race', 'size');
-
-        $validator = Validator::make($data, [
-            'name' => 'required',
-            'species' => 'required|min:3',
-            'race' => 'required|min:3',
-            'size' => 'required|min:4'
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+        if($validation){
+            return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);
         }
 
         $id = $request->id;

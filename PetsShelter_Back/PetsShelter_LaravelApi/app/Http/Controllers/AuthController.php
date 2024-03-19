@@ -35,7 +35,6 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-
         $validation = $this->authValidationService->validateRegisterForm($request);
 
         if($validation){
@@ -52,7 +51,6 @@ class AuthController extends Controller
         ]);
 
         return response()->json(['message' => 'Zostałeś zarejestrowany', 'userData' => $user], Response::HTTP_OK);
-
     }
 
     /**

@@ -80,12 +80,10 @@ class AuthController extends Controller
 
     public function showUsers()
     {
-
         $users = User::where('role', 'user')->get();
 
         return response()->json($users, Response::HTTP_OK);
     }
-
 
     /**
      * Get the authenticated User.
@@ -104,16 +102,10 @@ class AuthController extends Controller
      */
     public function editProfile(Request $request)
     {
+        $validation = $this->formValidationService->validateEditProfileForm($request);
 
-        $data = $request->only('name', 'surname');
-
-        $validator = Validator::make($data, [
-            'name' => 'required|max:25',
-            'surname' => 'required|max:25',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+        if($validation){
+            return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);
         }
 
         $user = auth()->user();
@@ -121,7 +113,6 @@ class AuthController extends Controller
         $editedUser = User::where('id', $id)->update($request->only('name', 'surname'));
 
         return response()->json($editedUser, Response::HTTP_OK);
-
     }
 
     /**

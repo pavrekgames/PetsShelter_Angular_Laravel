@@ -40,6 +40,20 @@ class FormValidationService
         return $validationResponse;
     }
 
+    public function validateEditProfileForm(Request $request){
+
+        $data = $request->only('name', 'surname');
+
+        $validator = Validator::make($data, [
+            'name' => 'required|max:25',
+            'surname' => 'required|max:25',
+        ]);
+
+        $validationResponse = $this->checkValidation($validator);
+
+        return $validationResponse;
+    }
+
     private function checkValidation($validator)
     {
         if ($validator->fails()) {

@@ -26,6 +26,20 @@ class FormValidationService
         return $validationResponse;
     }
 
+    public function validateLoginForm(Request $request){
+
+        $data = $request->only('email', 'password');
+
+        $validator = Validator::make($data, [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        $validationResponse = $this->checkValidation($validator);
+
+        return $validationResponse;
+    }
+
     private function checkValidation($validator)
     {
         if ($validator->fails()) {

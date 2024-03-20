@@ -9,9 +9,9 @@ gulp.task('dist', function(done) {
     rimraf.sync('./../PetsShelter_LaravelApi/public/pets-shelter-angular');
 
     //copy dist folder into laravel public folder
-    gulp.src(['./dist/pets-shelter-angular/**/*', '!./dist/pets-shelter-angular/index.html', '!./dist/stats.json']).pipe(gulp.dest('./../PetsShelter_LaravelApi/public/pets-shelter-angular'));
+    gulp.src(['./dist/pets-shelter-angular/**/*', '!./dist/pets-shelter-angular/browser/index.html', '!./dist/stats.json']).pipe(gulp.dest('E:/Web Projekty/PetsShelter/PetsShelter_Back/PetsShelter_LaravelApi/public/pets-shelter-angular'));
 
-    var $ = cheerio.load(fs.readFileSync('./dist/pets-shelter-angular/index.html', 'utf8'));
+    var $ = cheerio.load(fs.readFileSync('./dist/pets-shelter-angular/browser/index.html', 'utf8'));
 
     //get script tags that need to be injected into main laravel view
     var scripts = $('script').map(function(i, el) {
@@ -38,9 +38,9 @@ gulp.task('dist', function(done) {
     var cssReplaceStr = '{{--angular styles begin--}}' + "\n\t\t" + styles.join("\n\t\t") + "\n\t\t{{--angular styles end--}}";
 
     //replace app stylesheet links and js script tags with new ones
-    var content = fs.readFileSync('./../PetsShelter_LaravelApi/resources/views/welcome.blade.php', 'utf8');
+    var content = fs.readFileSync('E:/Web Projekty/PetsShelter/PetsShelter_Back/PetsShelter_LaravelApi/resources/views/welcome.blade.php', 'utf8');
     content = content.replace(jsSearch, jsReplaceStr).replace(cssSearch, cssReplaceStr);
 
-    fs.writeFileSync('./../PetsShelter_LaravelApi/resources/views/welcome.blade.php', content, 'utf8');
+    fs.writeFileSync('E:/Web Projekty/PetsShelter/PetsShelter_Back/PetsShelter_LaravelApi/resources/views/welcome.blade.php', content, 'utf8');
     done();
 });

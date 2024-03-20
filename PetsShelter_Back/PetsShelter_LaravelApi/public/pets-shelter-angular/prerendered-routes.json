@@ -1,0 +1,19 @@
+{
+  "routes": [
+    "/",
+    "/add-pet",
+    "/edit-profile",
+    "/login",
+    "/messages",
+    "/my-pets",
+    "/pets-to-adopt",
+    "/register",
+    "/reset-password",
+    "/saved-pets",
+    "/sick-pets",
+    "/sick-pets-manager",
+    "/sick-pets-manager/add",
+    "/tokens-bundles",
+    "/users"
+  ]
+}

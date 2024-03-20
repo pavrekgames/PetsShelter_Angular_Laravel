@@ -131,43 +131,6 @@ html { background-color: #0d1b2a; }
   padding-left: 40rem !important;
 }
 
-/* @media (max-width: 1009px) {
-  .pt-md-6,
-  .py-md-6 {
-    padding-top: 5rem !important;
-  }
-
-  .pr-md-6,
-  .px-md-6 {
-    padding-right: 5rem !important;
-  }
-
-  .pb-md-6,
-  .py-md-6 {
-    padding-bottom: 5rem !important;
-  }
-
-  .pl-md-6,
-  .px-md-6 {
-    padding-left: 5rem !important;
-  }
-
-  .px-6 {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-
-  .px-7 {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-
-  .px-8 {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-
-} */
 
 @media (max-width: 600px) {
 

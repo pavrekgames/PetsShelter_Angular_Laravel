@@ -37,14 +37,10 @@ export class AuthService {
 
   handleAuthUser(user: any){
     this.user = user;
-
-    console.log("Handle Auth User: " + JSON.stringify(this.user))
   }
 
   getUser(){
     return this.user;
   }
-
-
 
 }

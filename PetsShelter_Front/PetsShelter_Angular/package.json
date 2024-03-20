@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:PetsShelter_Angular": "node dist/pets-shelter-angular/server/server.mjs"
+    "serve:ssr:PetsShelter_Angular": "node dist/pets-shelter-angular/server/server.mjs",
+    "build-dev":"nodemon -e ts,html -w ./src -x 'ng build && gulp dist'"
   },
   "private": true,
   "dependencies": {

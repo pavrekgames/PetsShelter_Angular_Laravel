@@ -99,7 +99,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
-    provideClientHydration(),
+    //provideClientHydration(),
     provideRouter(routeConfig),
     provideHttpClient(withFetch())
   ],

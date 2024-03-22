@@ -22,10 +22,11 @@ gulp.task('dist', function(done) {
 
     //get css tags that need to be injected into main laravel view
     var styles = $('link').filter(function(i, el) {
-        return $(el).attr('href').indexOf('bundle.css') > -1;
+        return $(el).attr('href').indexOf('styles-OCY2JWHF.css') > -1;
     }).map(function(i, el) {
         var oldSrc =  $(el).attr('href');
         $(el).attr('src', 'pets-shelter-angular/browser/' + oldSrc)
+        $(el).attr('href', 'pets-shelter-angular/browser/' + oldSrc)
         return $('<div>').append($(el)).html();
     }).toArray();
 

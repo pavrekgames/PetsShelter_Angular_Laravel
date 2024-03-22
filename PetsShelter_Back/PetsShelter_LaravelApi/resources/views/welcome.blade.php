@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/x-icon" href="favicon.ico" />
         {{--angular styles begin--}}
-		<link rel="stylesheet" href="pets-shelter-angular/browser/styles-OCY2JWHF.css">
+		<link rel="stylesheet" href="pets-shelter-angular/browser/styles-OCY2JWHF.css" media="print" onload="this.media='all'" src="pets-shelter-angular/browser/styles-OCY2JWHF.css">
 		{{--angular styles end--}}
     </head>
     <body>

@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { TokenService } from './token.service';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiSickPetsService {
+
+  private API_URL = environment.API_URL;
 
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
@@ -14,7 +17,7 @@ export class ApiSickPetsService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.post('http://127.0.0.1:8000/api/add-sick-pet', data, {'headers': headers});
+    return this.http.post(this.API_URL + 'add-sick-pet', data, {'headers': headers});
   }
 
   getSickPets(){
@@ -22,7 +25,7 @@ export class ApiSickPetsService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.get('http://127.0.0.1:8000/api/sick-pets', {'headers': headers});
+    return this.http.get(this.API_URL + 'sick-pets', {'headers': headers});
 
   }
 
@@ -31,7 +34,7 @@ export class ApiSickPetsService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.get('http://127.0.0.1:8000/api/sick-pets/edit/' + id, {'headers': headers});
+    return this.http.get(this.API_URL + 'sick-pets/edit/' + id, {'headers': headers});
 
   }
 
@@ -39,7 +42,7 @@ export class ApiSickPetsService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.put<any>('http://127.0.0.1:8000/api/sick-pets/edit/' + id, data, {'headers': headers});
+    return this.http.put<any>(this.API_URL + 'sick-pets/edit/' + id, data, {'headers': headers});
 
   }
 
@@ -47,7 +50,7 @@ export class ApiSickPetsService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.post('http://127.0.0.1:8000/api/sick-pets/edit-photo/' + id, data, {'headers': headers});
+    return this.http.post(this.API_URL + 'sick-pets/edit-photo/' + id, data, {'headers': headers});
 
   }
 
@@ -56,7 +59,7 @@ export class ApiSickPetsService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.delete('http://127.0.0.1:8000/api/sick-pets/delete/' + id, {'headers': headers});
+    return this.http.delete(this.API_URL + 'sick-pets/delete/' + id, {'headers': headers});
 
   }
 

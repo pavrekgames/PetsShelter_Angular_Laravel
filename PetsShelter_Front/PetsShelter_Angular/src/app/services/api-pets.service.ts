@@ -1,11 +1,14 @@
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TokenService } from './token.service';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiPetsService {
+
+  private API_URL = environment.API_URL;
 
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
@@ -18,7 +21,7 @@ export class ApiPetsService {
   }
 
   getNewestPets(){
-    return this.http.get('http://127.0.0.1:8000/api/newest-pets');
+    return this.http.get(this.API_URL + 'api/newest-pets');
   }
 
   getPetsToAdopt(){

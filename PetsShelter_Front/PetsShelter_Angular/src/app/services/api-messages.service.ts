@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { TokenService } from './token.service';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiMessagesService {
+
+  private API_URL = environment.API_URL;
 
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
@@ -14,7 +17,7 @@ export class ApiMessagesService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.post('http://127.0.0.1:8000/api/create-conversation', data, {'headers': headers});
+    return this.http.post(this.API_URL + 'api/create-conversation', data, {'headers': headers});
   }
 
   getConversations(){
@@ -22,7 +25,7 @@ export class ApiMessagesService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.get('http://127.0.0.1:8000/api/conversations', {'headers': headers});
+    return this.http.get(this.API_URL + 'api/conversations', {'headers': headers});
 
   }
 
@@ -31,7 +34,7 @@ export class ApiMessagesService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.get('http://127.0.0.1:8000/api/conversations/' + id, {'headers': headers});
+    return this.http.get(this.API_URL + 'api/conversations/' + id, {'headers': headers});
 
   }
 
@@ -40,7 +43,7 @@ export class ApiMessagesService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.post('http://127.0.0.1:8000/api/create-message', data, {'headers': headers});
+    return this.http.post(this.API_URL + 'api/create-message', data, {'headers': headers});
   }
 
   getMessages(id: any){
@@ -48,7 +51,7 @@ export class ApiMessagesService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.get('http://127.0.0.1:8000/api/messages/' + id, {'headers': headers});
+    return this.http.get(this.API_URL + 'api/messages/' + id, {'headers': headers});
 
   }
 
@@ -57,7 +60,7 @@ export class ApiMessagesService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.get('http://127.0.0.1:8000/api/messages-count', {'headers': headers});
+    return this.http.get(this.API_URL + 'api/messages-count', {'headers': headers});
 
   }
 
@@ -66,7 +69,7 @@ export class ApiMessagesService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.get('http://127.0.0.1:8000/api/messages-count/' + id, {'headers': headers});
+    return this.http.get(this.API_URL + 'api/messages-count/' + id, {'headers': headers});
 
   }
 

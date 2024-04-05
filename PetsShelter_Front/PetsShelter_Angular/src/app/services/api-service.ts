@@ -1,21 +1,23 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TokenService } from './token.service';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
 
+  private API_URL = environment.API_URL;
 
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   register(data: any) {
-    return this.http.post('http://127.0.0.1:8000/api/register', data);
+    return this.http.post(this.API_URL + 'register', data);
   }
 
   login(data: any) {
-    return this.http.post('http://127.0.0.1:8000/api/login', data);
+    return this.http.post(this.API_URL + 'login', data);
   }
 
   authorizedUser() {
@@ -23,14 +25,14 @@ export class ApiService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.post('http://127.0.0.1:8000/api/me', null, {'headers': headers});
+    return this.http.post(this.API_URL + 'me', null, {'headers': headers});
   }
 
   editProfile(data: any){
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.put<any>('http://127.0.0.1:8000/api/edit-profile', data, {'headers': headers});
+    return this.http.put<any>(this.API_URL + 'edit-profile', data, {'headers': headers});
 
   }
 
@@ -38,12 +40,12 @@ export class ApiService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.put<any>('http://127.0.0.1:8000/api/change-password', data, {'headers': headers});
+    return this.http.put<any>(this.API_URL + 'change-password', data, {'headers': headers});
 
   }
 
   resetPassword(data: any){
-    return this.http.post('http://127.0.0.1:8000/api/reset-password', data);
+    return this.http.post(this.API_URL + 'reset-password', data);
   }
 
   getUsers(){
@@ -51,7 +53,7 @@ export class ApiService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.get('http://127.0.0.1:8000/api/users', {'headers': headers});
+    return this.http.get(this.API_URL + 'users', {'headers': headers});
 
   }
 
@@ -60,7 +62,7 @@ export class ApiService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.delete('http://127.0.0.1:8000/api/users/delete/' + id, {'headers': headers});
+    return this.http.delete(this.API_URL + 'users/delete/' + id, {'headers': headers});
 
   }
 

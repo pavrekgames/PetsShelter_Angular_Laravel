@@ -25,7 +25,7 @@ export class ApiMessagesService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.get(this.API_URL + 'api/conversations', {'headers': headers});
+    return this.http.get(this.API_URL + 'conversations', {'headers': headers});
 
   }
 
@@ -34,7 +34,7 @@ export class ApiMessagesService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.get(this.API_URL + 'api/conversations/' + id, {'headers': headers});
+    return this.http.get(this.API_URL + 'conversations/' + id, {'headers': headers});
 
   }
 
@@ -43,7 +43,7 @@ export class ApiMessagesService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.post(this.API_URL + 'api/create-message', data, {'headers': headers});
+    return this.http.post(this.API_URL + 'create-message', data, {'headers': headers});
   }
 
   getMessages(id: any){
@@ -51,7 +51,7 @@ export class ApiMessagesService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.get(this.API_URL + 'api/messages/' + id, {'headers': headers});
+    return this.http.get(this.API_URL + 'messages/' + id, {'headers': headers});
 
   }
 
@@ -60,7 +60,7 @@ export class ApiMessagesService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.get(this.API_URL + 'api/messages-count', {'headers': headers});
+    return this.http.get(this.API_URL + 'messages-count', {'headers': headers});
 
   }
 
@@ -69,7 +69,7 @@ export class ApiMessagesService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.get(this.API_URL + 'api/messages-count/' + id, {'headers': headers});
+    return this.http.get(this.API_URL + 'messages-count/' + id, {'headers': headers});
 
   }
 

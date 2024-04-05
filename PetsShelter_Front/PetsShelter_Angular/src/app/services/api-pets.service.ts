@@ -17,15 +17,15 @@ export class ApiPetsService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.post(this.API_URL + 'api/add-pet', data, {'headers': headers});
+    return this.http.post(this.API_URL + 'add-pet', data, {'headers': headers});
   }
 
   getNewestPets(){
-    return this.http.get(this.API_URL + 'api/newest-pets');
+    return this.http.get(this.API_URL + 'newest-pets');
   }
 
   getPetsToAdopt(){
-    return this.http.get(this.API_URL + 'api/pets-to-adopt');
+    return this.http.get(this.API_URL + 'pets-to-adopt');
   }
 
   getMyPets(){
@@ -33,7 +33,7 @@ export class ApiPetsService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.get(this.API_URL + 'api/my-pets', {'headers': headers});
+    return this.http.get(this.API_URL + 'my-pets', {'headers': headers});
 
   }
 
@@ -42,7 +42,7 @@ export class ApiPetsService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.get(this.API_URL + 'api/pets-to-adopt/' + id, {'headers': headers});
+    return this.http.get(this.API_URL + 'pets-to-adopt/' + id, {'headers': headers});
 
   }
 
@@ -51,7 +51,7 @@ export class ApiPetsService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.get(this.API_URL + 'api/my-pets/edit/' + id, {'headers': headers});
+    return this.http.get(this.API_URL + 'my-pets/edit/' + id, {'headers': headers});
 
   }
 
@@ -59,7 +59,7 @@ export class ApiPetsService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.put<any>(this.API_URL + 'api/my-pets/edit/' + id, data, {'headers': headers});
+    return this.http.put<any>(this.API_URL + 'my-pets/edit/' + id, data, {'headers': headers});
 
   }
 
@@ -67,7 +67,7 @@ export class ApiPetsService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.post(this.API_URL + 'api/my-pets/edit-photo/' + id, data, {'headers': headers});
+    return this.http.post(this.API_URL + 'my-pets/edit-photo/' + id, data, {'headers': headers});
 
   }
 
@@ -75,7 +75,7 @@ export class ApiPetsService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.delete(this.API_URL + 'api/my-pets/delete/' + id, {'headers': headers});
+    return this.http.delete(this.API_URL + 'my-pets/delete/' + id, {'headers': headers});
 
   }
 
@@ -84,7 +84,7 @@ export class ApiPetsService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.get(this.API_URL + 'api/saved-pets', {'headers': headers});
+    return this.http.get(this.API_URL + 'saved-pets', {'headers': headers});
 
   }
 
@@ -93,7 +93,7 @@ export class ApiPetsService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.get(this.API_URL + 'api/check-saved-pet/' + id, {'headers': headers});
+    return this.http.get(this.API_URL + 'check-saved-pet/' + id, {'headers': headers});
 
   }
 
@@ -102,7 +102,7 @@ export class ApiPetsService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.post(this.API_URL + 'api/add-saved-pet/' + id, null, {'headers': headers});
+    return this.http.post(this.API_URL + 'add-saved-pet/' + id, null, {'headers': headers});
 
   }
 
@@ -111,7 +111,7 @@ export class ApiPetsService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.delete(this.API_URL + 'api/saved-pets/delete/' + id, {'headers': headers});
+    return this.http.delete(this.API_URL + 'saved-pets/delete/' + id, {'headers': headers});
 
   }
 

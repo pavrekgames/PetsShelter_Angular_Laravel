@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/message-list-element/message-list-element.component.css"],
+  "sourcesContent": [".img-message-list-size{\r\n  width: 50px;\r\n  height: 50px;\r\n  object-fit: cover;\r\n}\r\n\r\n#message-element:hover{\r\nbackground-color: #E4A11B !important;\r\ncursor: pointer !important;\r\n}\r\n\r\n#message-element:not(:hover){\r\n  background-color: #14A44D !important;\r\n  cursor: default !important;\r\n}\r\n"],
+  "mappings": ";AAAA,CAAC;AACC,SAAO;AACP,UAAQ;AACR,cAAY;AACd;AAEA,CAAC,eAAe;AAChB,oBAAkB;AAClB,UAAQ;AACR;AAEA,CALC,eAKe,KAAK;AACnB,oBAAkB;AAClB,UAAQ;AACV;",
+  "names": []
+}

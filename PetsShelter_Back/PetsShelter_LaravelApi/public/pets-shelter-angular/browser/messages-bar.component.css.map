@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/messages-bar/messages-bar.component.css"],
+  "sourcesContent": [".vh-100 {\r\n  min-height: 150vh;\r\n}\r\n\r\n.vw-30 {\r\n  min-width: 30vw;\r\n}\r\n\r\n.sidebar-collapsed{\r\n  width: 100%;\r\n}\r\n\r\n.sidebar{\r\n  width: 23px;\r\n}\r\n\r\n.sidebar-color{\r\n  background-color: #bde0fe;\r\n}\r\n"],
+  "mappings": ";AAAA,CAAC;AACC,cAAY;AACd;AAEA,CAAC;AACC,aAAW;AACb;AAEA,CAAC;AACC,SAAO;AACT;AAEA,CAAC;AACC,SAAO;AACT;AAEA,CAAC;AACC,oBAAkB;AACpB;",
+  "names": []
+}

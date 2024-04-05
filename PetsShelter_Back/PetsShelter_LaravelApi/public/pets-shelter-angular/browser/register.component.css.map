@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/register/register.component.css"],
+  "sourcesContent": ["\r\n.register-form-bgr{\r\n  background-color: #386641;\r\n  opacity: 0.9;\r\n}\r\n\r\n.register-bgr-image{\r\n  background-image: \"/assets/PetsBgr.jpg\";\r\n}\r\n"],
+  "mappings": ";AACA,CAAC;AACC,oBAAkB;AAClB,WAAS;AACX;AAEA,CAAC;AACC,oBAAkB;AACpB;",
+  "names": []
+}

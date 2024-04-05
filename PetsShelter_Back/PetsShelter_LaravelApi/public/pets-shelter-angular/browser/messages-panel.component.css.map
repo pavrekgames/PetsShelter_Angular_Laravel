@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/messages-panel/messages-panel.component.css"],
+  "sourcesContent": [".vh-100 {\r\n  min-height: 100vh;\r\n}\r\n\r\n.vw-30 {\r\n  min-width: 30vw;\r\n}\r\n"],
+  "mappings": ";AAAA,CAAC;AACC,cAAY;AACd;AAEA,CAAC;AACC,aAAW;AACb;",
+  "names": []
+}

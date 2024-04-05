@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
-    API_URL: 'http://petsshelter.free.nf/api/',
+  production: true,
+  API_URL: 'http://petsshelter.free.nf/api/',
 };

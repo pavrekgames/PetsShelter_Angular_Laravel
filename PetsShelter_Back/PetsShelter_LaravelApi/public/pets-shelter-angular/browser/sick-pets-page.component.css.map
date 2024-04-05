@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/sick-pets-page/sick-pets-page.component.css"],
+  "sourcesContent": [".paginator{\r\n  font-family: 'Lato', sans-serif;\r\n  font-size: 15px;\r\n  color: white !important;\r\n  padding: 5px;\r\n}\r\n\r\n.paginator ::ng-deep .ngx-pagination {\r\n  display: flex;\r\n  gap: 4px;\r\n}\r\n\r\n.paginator ::ng-deep .ngx-pagination .current {\r\n  background: #6a994e;\r\n  border-radius: 4px;\r\n  padding-left: 9px;\r\n  padding-right: 9px;\r\n}\r\n\r\n.paginator::ng-deep .ngx-pagination a {\r\n  color: white !important;\r\n}\r\n\r\n.paginator::ng-deep .ngx-pagination .disabled {\r\n  color: white !important;\r\n  }\r\n\r\n.paginator ::ng-deep .ngx-pagination a:hover, .ngx-pagination button:hover {\r\n  background: #E4A11B;\r\n  border-radius: 3px;\r\n  padding-left: 9px;\r\n  padding-right: 9px;\r\n  text-decoration: none;\r\n}\r\n\r\n.paginator ::ng-deep .ngx-pagination a:focus, .ngx-pagination button:focus {\r\n  outline: none;\r\n  background: #d4d4d4;\r\n}\r\n"],
+  "mappings": ";AAAA,CAAC;AACC,eAAa,MAAM,EAAE;AACrB,aAAW;AACX,SAAO;AACP,WAAS;AACX;AAEA,CAPC,UAOU,UAAU,CAAC;AACpB,WAAS;AACT,OAAK;AACP;AAEA,CAZC,UAYU,UAAU,CALC,eAKe,CAAC;AACpC,cAAY;AACZ,iBAAe;AACf,gBAAc;AACd,iBAAe;AACjB;AAEA,CAnBC,SAmBS,UAAU,CAZE,eAYc;AAClC,SAAO;AACT;AAEA,CAvBC,SAuBS,UAAU,CAhBE,eAgBc,CAAC;AACnC,SAAO;AACP;AAEF,CA3BC,UA2BU,UAAU,CApBC,eAoBe,CAAC;AAAQ,CApBxB,eAoBwC,MAAM;AAClE,cAAY;AACZ,iBAAe;AACf,gBAAc;AACd,iBAAe;AACf,mBAAiB;AACnB;AAEA,CAnCC,UAmCU,UAAU,CA5BC,eA4Be,CAAC;AAAQ,CA5BxB,eA4BwC,MAAM;AAClE,WAAS;AACT,cAAY;AACd;",
+  "names": []
+}

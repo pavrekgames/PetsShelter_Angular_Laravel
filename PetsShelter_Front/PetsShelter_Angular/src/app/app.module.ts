@@ -45,6 +45,8 @@ import { PaymentComponent } from './payment/payment.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { HashLocationStrategy, LocationStrategy, PathLocationStrategy, } from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -84,7 +86,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
-    RouterModule,
+    RouterModule.forRoot(routeConfig, {useHash: true}),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -95,7 +97,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
     NgxPaginationModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
-    LayoutModule
+    LayoutModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

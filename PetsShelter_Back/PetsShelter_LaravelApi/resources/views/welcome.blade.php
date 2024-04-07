@@ -15,7 +15,7 @@
         {{--angular scripts begin--}}
 		<script src="pets-shelter-angular/browser/polyfills-RX4V3J3S.js" type="module"></script>
 		<script src="pets-shelter-angular/browser/scripts-L7QTWMHC.js" defer=""></script>
-		<script src="pets-shelter-angular/browser/main-K2TO3GCN.js" type="module"></script>
+		<script src="pets-shelter-angular/browser/main-SYYU7R5N.js" type="module"></script>
 		{{--angular scripts end--}}
     </body>
 </html>

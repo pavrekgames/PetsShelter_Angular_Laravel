@@ -44,6 +44,7 @@ class PetController extends Controller
 
         $user = auth()->user();
         $photo = $request->file('photo')->store('pets');
+        $baseUrl = url('/');
 
         $pet = Pet::Create([
             'name' => $request->input('name'),
@@ -51,7 +52,7 @@ class PetController extends Controller
             'race' => $request->input('race'),
             'size' => $request->input('size'),
             'description' => $request->input('description'),
-            'photo_path' => "http://127.0.0.1:8000/storage/" . $photo,
+            'photo_path' => $baseUrl."/storage/". $photo,
             'user_id' => $user->id,
         ]);
 
@@ -126,17 +127,18 @@ class PetController extends Controller
             return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);
         }
 
+        $baseUrl = url('/');
         $id = $request->id;
         $pet = Pet::findOrFail($id);
         $oldPhotoPath = $pet->photo_path;
-        $oldPhotoPath = trim(str_replace('http://127.0.0.1:8000/storage/', '', $oldPhotoPath));
+        $oldPhotoPath = trim(str_replace($baseUrl.'/storage/', '', $oldPhotoPath));
 
         if (Storage::exists($oldPhotoPath)) {
             Storage::delete($oldPhotoPath);
         }
 
         $newPhoto = $request->file('photo')->store('pets');
-        $newPhotoPath = "http://127.0.0.1:8000/storage/" . $newPhoto;
+        $newPhotoPath = $baseUrl."storage/".$newPhoto;
         $pet->photo_path = $newPhotoPath;
 
         $pet->save();

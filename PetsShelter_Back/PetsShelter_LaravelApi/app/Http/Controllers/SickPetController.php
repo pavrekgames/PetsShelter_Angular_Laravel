@@ -42,6 +42,7 @@ class SickPetController extends Controller
             return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);
         }
 
+        $baseUrl = url('/');
         $photo = $request->file('photo')->store('pets');
 
         $pet = SickPet::Create([
@@ -51,7 +52,7 @@ class SickPetController extends Controller
             'current_tokens' => 0,
             'required_tokens' => $request->input('required_tokens'),
             'status' => 'Aktywne',
-            'photo_path' => "http://127.0.0.1:8000/storage/".$photo,
+            'photo_path' => $baseUrl."/storage/".$photo,
         ]);
 
         return response()->json(['message' => 'Dodałeś chore zwierzę', 'userData'=> $pet], Response::HTTP_OK);
@@ -130,8 +131,9 @@ class SickPetController extends Controller
             Storage::delete($oldPhotoPath);
         }
 
+        $baseUrl = url('/');
         $newPhoto = $request->file('photo')->store('pets');
-        $newPhotoPath = "http://127.0.0.1:8000/storage/".$newPhoto;
+        $newPhotoPath = $baseUrl."/storage/".$newPhoto;
         $pet->photo_path = $newPhotoPath;
 
         $pet->save();

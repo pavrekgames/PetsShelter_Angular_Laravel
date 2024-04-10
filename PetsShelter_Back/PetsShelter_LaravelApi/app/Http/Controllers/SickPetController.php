@@ -49,7 +49,7 @@ class SickPetController extends Controller
         $path = '';
 
         if($baseName == 'laravel'){
-            $path = $baseName.'/storage/app/public/';
+            $path = '/'.$baseName.'/storage/app/public/';
         }else{
             $path = '/storage/';
         }
@@ -137,7 +137,7 @@ class SickPetController extends Controller
         $path = '';
 
         if($baseName == 'laravel'){
-            $path = $baseName.'/storage/app/public/';
+            $path = '/'.$baseName.'/storage/app/public/';
         }else{
             $path = '/storage/';
         }

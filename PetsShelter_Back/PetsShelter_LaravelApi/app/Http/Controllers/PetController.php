@@ -44,7 +44,16 @@ class PetController extends Controller
 
         $user = auth()->user();
         $photo = $request->file('photo')->store('pets');
+
         $baseUrl = url('/');
+        $baseName = basename(base_path());
+        $path = '';
+
+        if($baseName == 'laravel'){
+            $path = $baseName.'/storage/app/public/';
+        }else{
+            $path = '/storage/';
+        }
 
         $pet = Pet::Create([
             'name' => $request->input('name'),
@@ -52,7 +61,7 @@ class PetController extends Controller
             'race' => $request->input('race'),
             'size' => $request->input('size'),
             'description' => $request->input('description'),
-            'photo_path' => $baseUrl."/storage/". $photo,
+            'photo_path' => $baseUrl.$path.$photo,
             'user_id' => $user->id,
         ]);
 
@@ -128,17 +137,26 @@ class PetController extends Controller
         }
 
         $baseUrl = url('/');
+        $baseName = basename(base_path());
+        $path = '';
+
+        if($baseName == 'laravel'){
+            $path = $baseName.'/storage/app/public/';
+        }else{
+            $path = '/storage/';
+        }
+
         $id = $request->id;
         $pet = Pet::findOrFail($id);
         $oldPhotoPath = $pet->photo_path;
-        $oldPhotoPath = trim(str_replace($baseUrl.'/storage/', '', $oldPhotoPath));
+        $oldPhotoPath = trim(str_replace($baseUrl.$path, '', $oldPhotoPath));
 
         if (Storage::exists($oldPhotoPath)) {
             Storage::delete($oldPhotoPath);
         }
 
         $newPhoto = $request->file('photo')->store('pets');
-        $newPhotoPath = $baseUrl."storage/".$newPhoto;
+        $newPhotoPath = $baseUrl.$path.$newPhoto;
         $pet->photo_path = $newPhotoPath;
 
         $pet->save();

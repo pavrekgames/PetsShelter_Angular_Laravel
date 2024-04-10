@@ -67,6 +67,8 @@ export class EditPetPhotoComponent {
   onSubmit() {
     this.hasSubmitted = true;
     this.error = [];
+
+    this.validatePetPhotoForm();
   }
 
   validatePetPhotoForm() {

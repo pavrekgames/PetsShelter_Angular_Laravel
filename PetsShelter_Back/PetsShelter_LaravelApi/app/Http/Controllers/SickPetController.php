@@ -42,8 +42,17 @@ class SickPetController extends Controller
             return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);
         }
 
-        $baseUrl = url('/');
         $photo = $request->file('photo')->store('pets');
+
+        $baseUrl = url('/');
+        $baseName = basename(base_path());
+        $path = '';
+
+        if($baseName == 'laravel'){
+            $path = $baseName.'/storage/app/public/';
+        }else{
+            $path = '/storage/';
+        }
 
         $pet = SickPet::Create([
             'name' => $request->input('name'),
@@ -52,7 +61,7 @@ class SickPetController extends Controller
             'current_tokens' => 0,
             'required_tokens' => $request->input('required_tokens'),
             'status' => 'Aktywne',
-            'photo_path' => $baseUrl."/storage/".$photo,
+            'photo_path' => $baseUrl.$path.$photo,
         ]);
 
         return response()->json(['message' => 'Dodałeś chore zwierzę', 'userData'=> $pet], Response::HTTP_OK);
@@ -123,9 +132,20 @@ class SickPetController extends Controller
             return response()->json(['error' => $validation], Response::HTTP_BAD_REQUEST);
         }
 
+        $baseUrl = url('/');
+        $baseName = basename(base_path());
+        $path = '';
+
+        if($baseName == 'laravel'){
+            $path = $baseName.'/storage/app/public/';
+        }else{
+            $path = '/storage/';
+        }
+
         $id = $request->id;
         $pet = SickPet::findOrFail($id);
         $oldPhotoPath = $pet->photo_path;
+        $oldPhotoPath = trim(str_replace($baseUrl.$path, '', $oldPhotoPath));
 
         if(Storage::exists($oldPhotoPath)){
             Storage::delete($oldPhotoPath);
@@ -133,7 +153,7 @@ class SickPetController extends Controller
 
         $baseUrl = url('/');
         $newPhoto = $request->file('photo')->store('pets');
-        $newPhotoPath = $baseUrl."/storage/".$newPhoto;
+        $newPhotoPath = $baseUrl.$path.$newPhoto;
         $pet->photo_path = $newPhotoPath;
 
         $pet->save();

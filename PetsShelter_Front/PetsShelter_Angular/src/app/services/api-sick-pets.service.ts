@@ -42,7 +42,7 @@ export class ApiSickPetsService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.put<any>(this.API_URL + 'sick-pets/edit/' + id, data, {'headers': headers});
+    return this.http.post<any>(this.API_URL + 'sick-pets/edit/' + id, data, {'headers': headers});
 
   }
 
@@ -59,7 +59,7 @@ export class ApiSickPetsService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.delete(this.API_URL + 'sick-pets/delete/' + id, {'headers': headers});
+    return this.http.post(this.API_URL + 'sick-pets/delete/' + id, {'headers': headers});
 
   }
 

@@ -32,7 +32,7 @@ export class ApiService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.put<any>(this.API_URL + 'edit-profile', data, {'headers': headers});
+    return this.http.post<any>(this.API_URL + 'edit-profile', data, {'headers': headers});
 
   }
 
@@ -40,7 +40,7 @@ export class ApiService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.put<any>(this.API_URL + 'change-password', data, {'headers': headers});
+    return this.http.post<any>(this.API_URL + 'change-password', data, {'headers': headers});
 
   }
 
@@ -62,7 +62,7 @@ export class ApiService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.delete(this.API_URL + 'users/delete/' + id, {'headers': headers});
+    return this.http.post(this.API_URL + 'users/delete/' + id, {'headers': headers});
 
   }
 

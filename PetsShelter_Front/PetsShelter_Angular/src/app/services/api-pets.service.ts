@@ -75,7 +75,7 @@ export class ApiPetsService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.delete(this.API_URL + 'my-pets/delete/' + id, {'headers': headers});
+    return this.http.post(this.API_URL + 'my-pets/delete/' + id, {'headers': headers});
 
   }
 
@@ -111,7 +111,7 @@ export class ApiPetsService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.delete(this.API_URL + 'saved-pets/delete/' + id, {'headers': headers});
+    return this.http.post(this.API_URL + 'saved-pets/delete/' + id, {'headers': headers});
 
   }
 

@@ -59,7 +59,7 @@ export class ApiPetsService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.put<any>(this.API_URL + 'my-pets/edit/' + id, data, {'headers': headers});
+    return this.http.post<any>(this.API_URL + 'my-pets/edit/' + id, data, {'headers': headers});
 
   }
 

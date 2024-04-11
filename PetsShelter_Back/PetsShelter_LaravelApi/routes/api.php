@@ -46,21 +46,21 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     //Route::post('refresh', 'AuthController@refresh');
     Route::post('me', [AuthController::class,'me']);
-    Route::put('edit-profile', [AuthController::class, 'editProfile']);
-    Route::put('change-password', [AuthController::class, 'changePassword']);
+    Route::post('edit-profile', [AuthController::class, 'editProfile']);
+    Route::post('change-password', [AuthController::class, 'changePassword']);
     Route::post('reset-password', [AuthController::class,'resetPassword']);
 
     Route::post('add-pet', [PetController::class,'create']);
     Route::get('my-pets', [PetController::class, 'myPets']);
     Route::get('pets-to-adopt/{id}', [PetController::class, 'show']);
     Route::get('my-pets/edit/{id}', [PetController::class, 'edit']);
-    Route::put('my-pets/edit/{id}', [PetController::class, 'update']);
+    Route::post('my-pets/edit/{id}', [PetController::class, 'update']);
     Route::post('my-pets/edit-photo/{id}', [PetController::class, 'updatePhoto']);
-    Route::delete('my-pets/delete/{id}', [PetController::class, 'destroy']);
+    Route::post('my-pets/delete/{id}', [PetController::class, 'destroy']);
     Route::get('saved-pets', [PetController::class, 'showSavedPets']);
     Route::get('check-saved-pet/{id}', [PetController::class, 'checkSavedPet']);
     Route::post('add-saved-pet/{id}', [PetController::class, 'addSavedPet']);
-    Route::delete('saved-pets/delete/{id}', [PetController::class, 'deleteSavedPet']);
+    Route::post('saved-pets/delete/{id}', [PetController::class, 'deleteSavedPet']);
 
     Route::get('sick-pets', [SickPetController::class, 'showSickPets']);
 
@@ -73,7 +73,7 @@ Route::group([
     Route::get('messages-count', [MessageController::class, 'getUnreadMessagesCount']);
     Route::get('messages-count/{id}', [MessageController::class, 'getUnreadConversationMessagesCount']);
 
-    Route::put('top-up-tokens', [AuthController::class, 'topUpTokens']);
+    Route::post('top-up-tokens', [AuthController::class, 'topUpTokens']);
     Route::post('transfer-tokens/{petId}', [AuthController::class, 'transferTokens']);
     Route::get('bundles', [BundleController::class, 'showBundles']);
     Route::get('bundles/{id}', [BundleController::class, 'show']);
@@ -84,12 +84,12 @@ Route::group([
     Route::middleware(['can:isAdmin'])->group(function () {
         Route::post('add-sick-pet', [SickPetController::class,'create']);
         Route::get('sick-pets/edit/{id}', [SickPetController::class, 'edit']);
-        Route::put('sick-pets/edit/{id}', [SickPetController::class, 'update']);
+        Route::post('sick-pets/edit/{id}', [SickPetController::class, 'update']);
         Route::post('sick-pets/edit-photo/{id}', [SickPetController::class, 'updatePhoto']);
-        Route::delete('sick-pets/delete/{id}', [SickPetController::class, 'destroy']);
+        Route::post('sick-pets/delete/{id}', [SickPetController::class, 'destroy']);
 
         Route::get('users', [AuthController::class, 'showUsers']);
-        Route::delete('users/delete/{id}', [AuthController::class, 'deleteUser']);
+        Route::post('users/delete/{id}', [AuthController::class, 'deleteUser']);
     });
 
 

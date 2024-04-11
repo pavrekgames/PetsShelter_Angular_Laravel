@@ -81,7 +81,7 @@ Route::group([
     Route::post('payment-intent', [PaymentController::class, 'createPayIntent']);
     Route::post('store-payment', [PaymentController::class, 'storeStripePayment']);
 
-    Route::middleware(['can:isAdmin'])->group(function () {
+    //Route::middleware(['can:isAdmin'])->group(function () {
         Route::post('add-sick-pet', [SickPetController::class,'create']);
         Route::get('sick-pets/edit/{id}', [SickPetController::class, 'edit']);
         Route::post('sick-pets/edit/{id}', [SickPetController::class, 'update']);
@@ -90,7 +90,7 @@ Route::group([
 
         Route::get('users', [AuthController::class, 'showUsers']);
         Route::post('users/delete/{id}', [AuthController::class, 'deleteUser']);
-    });
+    //});
 
 
 });

@@ -63,6 +63,8 @@ export class EditSickPetComponent {
   validateSickPetForm() {
     if (this.editSickPetForm.valid) {
       this.spinnerService.show();
+
+      this.editSickPet();
     } else {
       console.log('Form is invalid');
     }

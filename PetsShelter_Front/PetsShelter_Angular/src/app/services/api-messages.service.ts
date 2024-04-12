@@ -17,7 +17,7 @@ export class ApiMessagesService {
     const token = this.tokenService.getTokenValue();
     const headers = new HttpHeaders().set('Authorization', "Bearer " + token);
 
-    return this.http.post(this.API_URL + 'api/create-conversation', data, {'headers': headers});
+    return this.http.post(this.API_URL + 'create-conversation', data, {'headers': headers});
   }
 
   getConversations(){

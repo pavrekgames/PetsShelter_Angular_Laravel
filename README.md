@@ -2,6 +2,8 @@ Pet Shelter is a SPA (Single page application) web application where users can h
 Users can add pets, save potential pets, and create conversations with other users to make arrangements to adopt a given pet.
 The application was created using the following technologies: Angular with TypeScript (Frontend) and Laravel with PHP (Backend).
 
+![General](https://github.com/pavrekgames/PetsShelter_Angular_Laravel/assets/105421661/0ba16878-261a-4012-ab49-91034d6ab10f)
+
 Most important implementations:
 
 - User registration

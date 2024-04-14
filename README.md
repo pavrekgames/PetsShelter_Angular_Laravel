@@ -52,6 +52,7 @@ Angular:
 - Stripe
 - Angular-fontawesome
 - Ngx-pagination
+- 
 Laravel:
 - Jwt Token
 - Stripe

@@ -7,6 +7,8 @@ Most important implementations:
 - User registration
 - Login using JWT Token
 - CRUD (Create, Read, Update, and Delete pets)
+  ![Crud](https://github.com/pavrekgames/PetsShelter_Angular_Laravel/assets/105421661/278ea5d4-a68f-40f7-ab79-123a700e8410)
+
 - Form validation and server-side validation
 - Pet filtering
 - Buying tokens using Stripe

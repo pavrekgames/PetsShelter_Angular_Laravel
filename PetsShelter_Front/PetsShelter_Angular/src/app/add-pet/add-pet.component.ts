@@ -55,6 +55,8 @@ export class AddPetComponent implements OnInit {
   }
 
   addPet() {
+    console.log(this.getFormData());
+
     this.apiPetsService.addPet(this.getFormData()).subscribe({
       next: (data) => {
         this.spinnerService.hide();

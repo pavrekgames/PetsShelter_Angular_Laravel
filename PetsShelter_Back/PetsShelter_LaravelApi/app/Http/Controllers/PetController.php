@@ -47,6 +47,7 @@ class PetController extends Controller
 
         $baseUrl = url('/');
         $baseName = basename(base_path());
+        //dd($baseName);
         $path = '';
 
         if($baseName == 'laravel'){

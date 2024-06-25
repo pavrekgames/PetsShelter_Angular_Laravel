@@ -24,6 +24,7 @@ import { adminGuard } from "../guards/admin.guard";
 import { MessagesPanelComponent } from "../messages-panel/messages-panel.component";
 import { PaymentComponent } from '../payment/payment.component';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
+import { LearningComponent } from '../learning/learning.component';
 
 const routeConfig: Routes = [
   {
@@ -155,6 +156,12 @@ const routeConfig: Routes = [
     component: MessagesPanelComponent,
     canActivate: [loggedGuard],
     title: 'Wiadomości'
+  },
+  {
+    path: 'learn',
+    component: LearningComponent,
+    canActivate: [notLoggedGuard],
+    title: 'Trenowanie'
   },
 
 ];

@@ -1,5 +1,5 @@
 import { PetsAdoptPageComponent } from './pets-adopt-page/pets-adopt-page.component';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, ViewContainerRef } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
@@ -46,6 +46,11 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { LayoutModule } from '@angular/cdk/layout';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { HashLocationStrategy, LocationStrategy, PathLocationStrategy, } from '@angular/common';
+import { LearningComponent } from './learning/learning.component';
+import { TestPipe } from './test.pipe';
+import { ModalTestComponent } from './modal-test/modal-test.component';
+import { ModalsService } from './services/modals.service';
+import { DynamicDirective } from './directives/dynamic.directive';
 
 
 @NgModule({
@@ -81,6 +86,10 @@ import { HashLocationStrategy, LocationStrategy, PathLocationStrategy, } from '@
     BundleComponent,
     PaymentComponent,
     ResetPasswordComponent,
+    LearningComponent,
+    TestPipe,
+    ModalTestComponent,
+    DynamicDirective,
   ],
   imports: [
     BrowserModule,
@@ -103,7 +112,8 @@ import { HashLocationStrategy, LocationStrategy, PathLocationStrategy, } from '@
   providers: [
     //provideClientHydration(),
     provideRouter(routeConfig),
-    provideHttpClient(withFetch())
+    provideHttpClient(withFetch()),
+    ModalsService,
   ],
   bootstrap: [AppComponent]
 })

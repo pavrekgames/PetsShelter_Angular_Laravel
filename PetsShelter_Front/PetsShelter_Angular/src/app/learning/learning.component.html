@@ -4,10 +4,6 @@
 
 <button class="btn btn-primary" (click)="openModal(modal)">Open Modal</button>
 
-<ng-container *ngIf="isModal">
-  <app-modal-test></app-modal-test>
-</ng-container>
-
 <ng-template appDynamic #modal>
-  <div>Modal Content</div>
+
 </ng-template>

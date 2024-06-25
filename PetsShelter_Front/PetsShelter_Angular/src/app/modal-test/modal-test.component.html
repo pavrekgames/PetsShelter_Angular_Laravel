@@ -1,16 +1,16 @@
-<div class="modal {{size}}">
+<div class="row modal {{size}}">
   <div class="modal-header">
     {{title}}
-    <span class="modal-close" (click)="close()">x</span>
+    <span class="modal-close float-end" (click)="close()">x</span>
   </div>
 
   <div class="modal-content">
-    <ng-content></ng-content>
+    {{content}}
   </div>
 
   <div class="modal-footer">
-    <button class="btn btn-primary" (click)="submit()">Yes</button>
-    <button class="btn btn-danger" (click)="close()">No</button>
+    <button class="btn btn-primary" (click)="submit()">Tak</button>
+    <button class="btn btn-danger" (click)="close()">Nie</button>
   </div>
 
 </div>

@@ -57,8 +57,13 @@ export class LearningComponent {
 
     const containerRef = this.dynamicDirective.viewContainerRef;
 
-    this.modalsService.open(containerRef, modalTemplate, {size: 'lg', title: 'foo'}).subscribe(action => {
-      console.log('sss')
+    this.modalsService.open(containerRef, modalTemplate, {content: 'Czy na pewno chcesz usunąć zwierzę o imieniu Mruczek?', title: 'Usuwanie zwierzęcia', size: 'lg'}).subscribe(action => {
+      if(action === 'confirm'){
+        console.log('Action Open Modal');
+      }else{
+        console.log('Action Close Modal');
+      }
+
     });
   }
 

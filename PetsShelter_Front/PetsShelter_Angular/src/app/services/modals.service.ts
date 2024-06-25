@@ -22,15 +22,16 @@ export class ModalsService {
     @Inject(DOCUMENT) private document: Document
   ) {}
 
-  open(viewContainerRef: ViewContainerRef, content: TemplateRef<any>, options?: { size?: string; title?: string }) {
+  open(viewContainerRef: ViewContainerRef, content: TemplateRef<any>, options?: {content: string, title?: string, size?: string; }) {
     const contentViewRef = content.createEmbeddedView(null);
     const modal = viewContainerRef.createComponent(ModalTestComponent, {
       environmentInjector: this.injector,
       projectableNodes: contentViewRef.rootNodes,
     });
 
-    modal.instance.size = options?.size;
+    modal.instance.content = options.content;
     modal.instance.title = options?.title;
+    modal.instance.size = options?.size;
 
     modal.instance.closeEvent.subscribe(() => this.closeModal());
     modal.instance.submitEvent.subscribe(() => this.submitModal());

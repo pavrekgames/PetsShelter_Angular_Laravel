@@ -16,6 +16,7 @@ import {
 export class ModalTestComponent {
   @Input() size? = 'md';
   @Input() title? = 'Modal title';
+  @Input() content = 'Czy aby na pewno?';
 
   @Output() closeEvent = new EventEmitter();
   @Output() submitEvent = new EventEmitter();
@@ -33,6 +34,6 @@ export class ModalTestComponent {
 
   submit() {
     this.elementRef.nativeElement.remove();
-    this.closeEvent.emit();
+    this.submitEvent.emit();
   }
 }

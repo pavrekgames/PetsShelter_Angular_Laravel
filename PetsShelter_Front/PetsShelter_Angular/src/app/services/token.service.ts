@@ -10,26 +10,26 @@ export class TokenService {
 
   private API_URL = environment.API_URL;
 
-  //constructor(private localStorage: LocalstorageService) {}
+  constructor(private localStorage: LocalstorageService) {}
 
   handleToken(token: any) {
     this.setToken(token);
   }
 
   setToken(token: any) {
-    return localStorage.setItem('token', token);
-    //return this.localStorage.setItem('token', token);
+    //return localStorage.setItem('token', token);
+    return this.localStorage.setItem('token', token);
   }
 
   getToken() {
-    return localStorage.getItem('token');
+    //return localStorage.getItem('token');
 
-    //return this.localStorage.getItem('token');
+    return this.localStorage.getItem('token');
   }
 
   removeToken() {
-    return localStorage.removeItem('token');
-    //this.localStorage.removeItem('token');
+    //return localStorage.removeItem('token');
+    this.localStorage.removeItem('token');
   }
 
   isTokenValid() {

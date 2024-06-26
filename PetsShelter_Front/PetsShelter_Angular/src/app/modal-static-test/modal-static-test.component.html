@@ -5,12 +5,30 @@
   </div>
 
   <div class="modal-content">
-    {{content}}
+    <form class="form">
+      <label for="task-title" class="form-label m-2">Imię:</label>
+      <input type="text" class="form-control" id="task-title" placeholder="" name="task-title" formControlName = "name">
+
+      <label for="task-title" class="form-label m-2">Nazwisko:</label>
+      <input type="text" class="form-control" id="task-title" placeholder="" name="task-title" formControlName = "surname" >
+
+      <label for="task-title" class="form-label m-2">E-mail:</label>
+      <input type="email" class="form-control" id="task-title" placeholder="" name="task-title" formControlName = "email">
+
+      <label for="task-title" class="form-label m-2">Hasło:</label>
+      <input type="password" class="form-control" id="task-title" placeholder="" name="task-title" formControlName = "password">
+
+      <label for="task-title" class="form-label m-2">Powtórz hasło:</label>
+      <input type="password" class="form-control" id="task-title" placeholder="" name="task-title" formControlName = "confirmPassword">
+
+      <div class="text-center m-4">
+        <button type="submit" class="btn btn-warning">Załóż konto</button>
+      </div>
+    </form>
   </div>
 
   <div class="modal-footer">
-    <button class="btn btn-primary" (click)="submit()">Tak</button>
-    <button class="btn btn-danger" (click)="close()">Nie</button>
+    <button class="btn btn-warning" (click)="submit()">Wyslij</button>
   </div>
 
 </div>

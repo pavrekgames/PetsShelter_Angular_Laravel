@@ -51,6 +51,7 @@ import { TestPipe } from './test.pipe';
 import { ModalTestComponent } from './modal-test/modal-test.component';
 import { ModalsService } from './services/modals.service';
 import { DynamicDirective } from './directives/dynamic.directive';
+import { ModalStaticTestComponent } from './modal-static-test/modal-static-test.component';
 
 
 @NgModule({
@@ -90,6 +91,7 @@ import { DynamicDirective } from './directives/dynamic.directive';
     TestPipe,
     ModalTestComponent,
     DynamicDirective,
+    ModalStaticTestComponent,
   ],
   imports: [
     BrowserModule,

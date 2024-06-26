@@ -7,3 +7,7 @@
 <ng-template appDynamic #modal>
 
 </ng-template>
+
+<ng-container *ngIf="isModal">
+  <app-modal-static-test content="Czy na pewno chcesz usunąć zwierzę o imieniu Mruczek" title="Usuwanie zwierzęcia" (closeEvent)="closeModal()" (submitEvent)="submitModal()"></app-modal-static-test>
+</ng-container>

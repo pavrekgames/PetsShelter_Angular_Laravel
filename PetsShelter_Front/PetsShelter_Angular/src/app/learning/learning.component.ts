@@ -67,4 +67,19 @@ export class LearningComponent {
     });
   }
 
+  openStaticModal(){
+    console.log("Open Modal!!!");
+    this.isModal = true;
+
+  }
+
+  closeModal(){
+    this.isModal = false;
+  }
+
+  submitModal(){
+    this.closeModal();
+    console.log("Usunięto zwierzę");
+  }
+
 }

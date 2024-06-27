@@ -25,6 +25,7 @@ import { MessagesPanelComponent } from "../messages-panel/messages-panel.compone
 import { PaymentComponent } from '../payment/payment.component';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 import { LearningComponent } from '../learning/learning.component';
+import { BootstrapTestComponent } from '../bootstrap-test/bootstrap-test.component';
 
 const routeConfig: Routes = [
   {
@@ -162,6 +163,12 @@ const routeConfig: Routes = [
     component: LearningComponent,
     canActivate: [notLoggedGuard],
     title: 'Trenowanie'
+  },
+  {
+    path: 'bootstrap',
+    component: BootstrapTestComponent,
+    canActivate: [notLoggedGuard],
+    title: 'Trenowanie Bootstrap'
   },
 
 ];

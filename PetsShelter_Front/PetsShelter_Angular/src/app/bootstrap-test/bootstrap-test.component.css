@@ -1,0 +1,62 @@
+
+.own-table{
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.own-table th{
+  border: 1px solid black;
+}
+
+.own-table tr{
+  background-color: aquamarine;
+}
+
+.own-table tr:nth-child(even){
+  background-color: skyblue;
+}
+
+.own-table tr:hover{
+background-color: blueviolet;
+}
+
+tr:hover{
+  background-color: red;
+}
+
+.own-table td{
+  border: 1px solid black;
+}
+
+.img-product-size{
+  width: 250px;
+  height: 150px;
+
+}
+
+.product-footer{
+  background-color: #1A9FFF;
+  width: 250px;
+}
+
+.discount-prc{
+  font-family: "Motiva Sans", Sans-serif;
+  font-weight: 500;
+  color: #BEEE11;
+  background: #4c6b22;
+}
+
+.discount-bgr{
+  font-family: "Motiva Sans", Sans-serif;
+  font-weight: 400;
+  background-color: rgba(20,31,44,0.4);
+}
+
+.org-price{
+color: darkgrey;
+}
+
+.discount-price{
+color: #BEEE11;
+}
+

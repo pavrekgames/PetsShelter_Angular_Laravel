@@ -1,0 +1,40 @@
+
+.product:hover .col-auto{
+background-color: azure !important;
+color: black !important;
+transition: 0.4s;
+cursor: pointer;
+}
+
+.product:hover .product-title{
+  color: black !important;
+  }
+
+
+.product-img{
+  width: 175px;
+  height: 75px;
+}
+
+.discount-prc{
+  font-family: "Motiva Sans", Sans-serif;
+  font-weight: 500;
+  color: #BEEE11;
+  background: #4c6b22;
+}
+
+.product-title{
+  color: aliceblue;
+}
+
+.original-price{
+  font-weight: 500;
+  font-size: small;
+  color: gray;
+  text-decoration: line-through;
+}
+
+.discount-price{
+  font-weight: 500;
+  color: #BEEE11;
+}

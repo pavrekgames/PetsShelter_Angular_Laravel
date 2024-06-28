@@ -1,0 +1,18 @@
+
+<div class="slider">
+  <div>
+    <div class="leftArrow" (click)="previousSlide()">&lt;</div>
+    <div class="rightArrow"(click)="nextSlide()">&gt;</div>
+  </div>
+
+  <div class="slider" [style.background-image]="getCurrentSlideImage()"></div>
+
+</div>
+
+<div class="dotsContainer">
+  <div *ngFor="let slide of slides; let slideIndex = index">
+    <div class="dot" (click)="goToSlide(slideIndex)">
+      .
+    </div>
+  </div>
+</div>

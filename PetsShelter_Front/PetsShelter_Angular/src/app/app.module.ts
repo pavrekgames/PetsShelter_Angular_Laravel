@@ -54,6 +54,7 @@ import { DynamicDirective } from './directives/dynamic.directive';
 import { ModalStaticTestComponent } from './modal-static-test/modal-static-test.component';
 import { BootstrapTestComponent } from './bootstrap-test/bootstrap-test.component';
 import { ProductTestComponent } from './product-test/product-test.component';
+import { SliderTestComponent } from './slider-test/slider-test.component';
 
 
 @NgModule({
@@ -96,6 +97,7 @@ import { ProductTestComponent } from './product-test/product-test.component';
     ModalStaticTestComponent,
     BootstrapTestComponent,
     ProductTestComponent,
+    SliderTestComponent,
   ],
   imports: [
     BrowserModule,

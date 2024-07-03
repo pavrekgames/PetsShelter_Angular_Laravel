@@ -4,10 +4,32 @@
 
 <button class="btn btn-primary" (click)="openModal(modal)">Open Modal</button>
 
-<ng-template appDynamic #modal>
+<div class="mx-auto">
+  <form>
+    <div class="p-1">
+      <label class="pe-2">Imię:</label>
+      <input />
+    </div>
+    <div class="p-1">
+      <label class="pe-2">Nazwisko:</label>
+      <input />
+      <div class="p-1">
+        <label class="pe-2"> Wybierz zwierzę</label>
+        <select>
+          <option *ngFor="let item of pets">{{item?.name}}</option>
+        </select>
+      </div>
+    </div>
+  </form>
+</div>
 
-</ng-template>
+<ng-template appDynamic #modal> </ng-template>
 
 <ng-container *ngIf="isModal">
-  <app-modal-static-test content="Czy na pewno chcesz usunąć zwierzę o imieniu Mruczek" title="Usuwanie zwierzęcia" (closeEvent)="closeModal()" (submitEvent)="submitModal()"></app-modal-static-test>
+  <app-modal-static-test
+    content="Czy na pewno chcesz usunąć zwierzę o imieniu Mruczek"
+    title="Usuwanie zwierzęcia"
+    (closeEvent)="closeModal()"
+    (submitEvent)="submitModal()"
+  ></app-modal-static-test>
 </ng-container>

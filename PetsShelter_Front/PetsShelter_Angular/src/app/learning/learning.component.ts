@@ -15,6 +15,8 @@ export class LearningComponent {
 
   isModal: boolean = false;
 
+  pets: any;
+
   @ViewChild(DynamicDirective, { static: true }) dynamicDirective!: DynamicDirective;
 
   constructor(
@@ -31,6 +33,7 @@ export class LearningComponent {
         this.spinnerService.hide();
 
         console.log(data);
+        this.pets = data;
 
         const dataArray: any = data;
         dataArray.map((pet) => {

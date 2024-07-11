@@ -1,40 +1,78 @@
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  rel="stylesheet"
+/>
 
 <app-navbar></app-navbar>
 
 <div class="app-background text-center text-light p-5">
-  <h2> Przeglądaj zwierzęta do adopcji</h2>
+  <h2>Przeglądaj zwierzęta do adopcji</h2>
 </div>
-
 
 <div class="app-background px-6 d-flex justify-content-center pb-3">
   <div class="p-2">
-    <button type="button" class="btn text-light btn-rounded" style="background-color:#6a994e" [disabled]="true"> Zwierzęta do adopcji </button>
+    <button
+      type="button"
+      class="btn text-light btn-rounded"
+      style="background-color: #6a994e"
+      [disabled]="true"
+    >
+      Zwierzęta do adopcji
+    </button>
   </div>
 
   <div class="p-2">
-    <button type="button" class="btn text-light btn-rounded" style="background-color:#6a994e" routerLink="/sick-pets"> Chore zwierzęta </button>
+    <button
+      type="button"
+      class="btn text-light btn-rounded"
+      style="background-color: #6a994e"
+      routerLink="/sick-pets"
+    >
+      Chore zwierzęta
+    </button>
   </div>
+</div>
 
+<div class="app-background px-6 d-flex justify-content-center pb-3">
+  <select [(ngModel)]="selectedSize" (change)="filterBySize()">
+    <option value="">Wszystkie</option>
+    <option value="Mały">Mały</option>
+    <option value="Średni">Średni</option>
+    <option value="Duży">Duży</option>
+  </select>
 </div>
 
 <div class="mx-auto row app-background justify-content-center px-6 p-5">
   <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
-    <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#xF002; Szukaj po gatunku, rasie czy rozmiarze" style="font-family:Arial, FontAwesome">
+    <input
+      class="form-control"
+      type="text"
+      name="search"
+      [(ngModel)]="searchText"
+      autocomplete="off"
+      placeholder="&#xF002; Szukaj po gatunku, rasie czy rozmiarze"
+      style="font-family: Arial, FontAwesome"
+    />
   </div>
 </div>
 
-
 <div *ngIf="pets != null">
-  <div *ngFor="let pet of pets | search:searchText | paginate: { itemsPerPage: petsPerPage, currentPage: page }">
+  <div
+    *ngFor="
+      let pet of filteredPets
+        | search : searchText
+        | paginate : { itemsPerPage: petsPerPage, currentPage: page }
+    "
+  >
     <app-pet-to-adopt [pet]="pet"></app-pet-to-adopt>
-    </div>
+  </div>
 
-    <div class="app-background d-flex justify-content-center p-3">
-      <pagination-controls class="paginator" previousLabel="" nextLabel="" (pageChange)="page = $event"></pagination-controls>
-    </div>
-
-
+  <div class="app-background d-flex justify-content-center p-3">
+    <pagination-controls
+      class="paginator"
+      previousLabel=""
+      nextLabel=""
+      (pageChange)="page = $event"
+    ></pagination-controls>
+  </div>
 </div>
-
-
